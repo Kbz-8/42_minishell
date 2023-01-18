@@ -6,13 +6,15 @@
 #    By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/18 10:57:27 by maldavid          #+#    #+#              #
-#    Updated: 2023/01/18 11:32:32 by vvaas            ###   ########.fr        #
+#    Updated: 2023/01/18 11:34:35 by maldavid         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME	= ./minishell
 
 SRCS	=	src/core/main.c \
+			src/core/errors.c \
+			src/core/memory.c \
 
 OBJS	= $(SRCS:.c=.o)
 
