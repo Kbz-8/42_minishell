@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 11:15:00 by vvaas             #+#    #+#             */
-/*   Updated: 2023/01/18 11:49:17 by vvaas            ###   ########.fr       */
+/*   Updated: 2023/01/18 11:51:02 by vvaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,11 @@ char	*user_input()
 	char *tmp;
 
 	input = NULL;
-	tmp = ft_calloc(BUFFER_SIZE, 1);
+	tmp = kalloc(BUFFER_SIZE, 1);
 	len_input = read(0, tmp, BUFFER_SIZE);
 	if (len_input <= 0)
 	{
-		free(tmp);
+		dealloc(tmp);
 		return (NULL);
 	}
 	while (len_input == 2048)

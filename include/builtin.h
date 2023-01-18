@@ -1,25 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_joinfree.c                                      :+:      :+:    :+:   */
+/*   builtin.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/18 11:26:53 by vvaas             #+#    #+#             */
-/*   Updated: 2023/01/18 11:51:33 by vvaas            ###   ########.fr       */
+/*   Created: 2023/01/18 12:13:35 by vvaas             #+#    #+#             */
+/*   Updated: 2023/01/18 12:14:39 by vvaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <libft.h>
-#include <memory.h>
+#ifndef BUILTIN_H
+# define BUILTIN_H
 
-char	*ft_joinfree(char *dest, char *src)
-{
-	char	*tmp;
+void	ft_exit(void);
 
-	if (dest == NULL)
-		dest = (char *)kalloc(1, 1);
-	tmp = ft_strjoin(dest, src);
-	dealloc(dest);
-	return (tmp);
-}
+#endif
