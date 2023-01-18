@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 11:15:00 by vvaas             #+#    #+#             */
-/*   Updated: 2023/01/18 12:35:09 by vvaas            ###   ########.fr       */
+/*   Updated: 2023/01/18 12:36:12 by vvaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 
 #define BUFFER_SIZE 2048
 
-char	*user_input()
+char	*user_input(void)
 {
 	char *input;
 
