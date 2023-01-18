@@ -1,24 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_joinfree.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/18 11:10:27 by maldavid          #+#    #+#             */
-/*   Updated: 2023/01/18 11:34:51 by vvaas            ###   ########.fr       */
+/*   Created: 2023/01/18 11:26:53 by vvaas             #+#    #+#             */
+/*   Updated: 2023/01/18 11:27:20 by vvaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <user_input.h>
 #include <libft.h>
 
-int	main(int ac, char **av)
+char	*ft_joinfree(char *dest, char *src)
 {
-	char *pouic = user_input();
-	(void)ac;
-	(void)av;
-	ft_printf("%s", pouic);
-	free(pouic);
-	return (0);
+	char	*tmp;
+
+	if (dest == NULL)
+		dest = (char *)ft_calloc(1, 1);
+	tmp = ft_strjoin(dest, src);
+	free(dest);
+	return (tmp);
 }

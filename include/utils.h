@@ -1,24 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   utils.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/18 11:10:27 by maldavid          #+#    #+#             */
-/*   Updated: 2023/01/18 11:34:51 by vvaas            ###   ########.fr       */
+/*   Created: 2023/01/18 11:27:36 by vvaas             #+#    #+#             */
+/*   Updated: 2023/01/18 11:33:24 by vvaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <user_input.h>
-#include <libft.h>
+#ifndef UTILS_H
+# define UTILS_H
 
-int	main(int ac, char **av)
-{
-	char *pouic = user_input();
-	(void)ac;
-	(void)av;
-	ft_printf("%s", pouic);
-	free(pouic);
-	return (0);
-}
+char	*ft_joinfree(char *dest, char *src);
+
+#endif

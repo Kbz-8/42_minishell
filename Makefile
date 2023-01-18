@@ -6,7 +6,7 @@
 #    By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/18 10:57:27 by maldavid          #+#    #+#              #
-#    Updated: 2023/01/18 11:34:35 by maldavid         ###   ########.fr        #
+#    Updated: 2023/01/18 11:38:00 by vvaas            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,6 +15,8 @@ NAME	= ./minishell
 SRCS	=	src/core/main.c \
 			src/core/errors.c \
 			src/core/memory.c \
+			src/core/user_input.c \
+			src/utils/ft_joinfree.c \
 
 OBJS	= $(SRCS:.c=.o)
 
