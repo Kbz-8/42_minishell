@@ -6,7 +6,7 @@
 /*   By: maldavid <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 11:23:06 by maldavid          #+#    #+#             */
-/*   Updated: 2023/01/18 11:36:56 by maldavid         ###   ########.fr       */
+/*   Updated: 2023/01/18 11:44:55 by maldavid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,27 @@ void	*alloc(size_t size)
 void	dealloc(void *ptr)
 {
 	t_list	*buf;
+	t_list	*tmp;
 
 	buf = *get_blocks();
-	(void)ptr;
+	if (buf == NULL)
+		return ;
+	if (buf->content == ptr)
+	{
+		tmp = buf;
+		buf = buf->next;
+		ft_lstdelone(tmp, free);
+	}
+	while (buf->next != NULL)
+	{
+		if (buf->next->content == ptr)
+		{
+			tmp = buf->next;
+			buf->next = tmp->next;
+			ft_lstdelone(tmp, free);
+		}
+		buf = buf->next;
+	}
 }
 
 void	allfree(void)
