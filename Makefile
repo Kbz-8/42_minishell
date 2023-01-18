@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: maldavid <marvin@42.fr>                    +#+  +:+       +#+         #
+#    By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/18 10:57:27 by maldavid          #+#    #+#              #
-#    Updated: 2023/01/18 11:09:49 by maldavid         ###   ########.fr        #
+#    Updated: 2023/01/18 11:32:32 by vvaas            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,7 @@ SRCS	=	src/core/main.c \
 OBJS	= $(SRCS:.c=.o)
 
 CC		= clang
-CFLAGS	= -Wall -Wextra -Werror -I third_party/libft -I includes
+CFLAGS	= -Wall -Wextra -Werror -I third_party/libft -I include
 
 RM		= rm -f
 
