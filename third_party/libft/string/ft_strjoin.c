@@ -3,29 +3,31 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maldavid <kbz_8.dev@akel-engine.com>       +#+  +:+       +#+        */
+/*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 11:45:41 by maldavid          #+#    #+#             */
-/*   Updated: 2022/09/28 11:13:32 by maldavid         ###   ########.fr       */
+/*   Updated: 2023/01/18 11:48:06 by vvaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strjoin(const char *s1, const char *s2)
+char	*ft_strjoin(char const *s1, char const *s2)
 {
-	char	*res;
-	t_size	s1_len;
-	t_size	s2_len;
+	unsigned int	i;
+	char			*new_str;
+	int				buffer_size;
 
 	if (!s1 || !s2)
-		return (FT_NULL);
-	s1_len = ft_strlen((char *)s1);
-	s2_len = ft_strlen((char *)s2);
-	res = (char *)ft_memalloc(s1_len + s2_len + 1);
-	if (!res)
-		return (FT_NULL);
-	ft_memcpy(res, (char *)s1, s1_len);
-	ft_memcpy(res + s1_len, (char *)s2, s2_len);
-	return (res);
+		return ((void *)0);
+	buffer_size = ft_strlen((char *)s1) + ft_strlen((char *)s2) + 1;
+	new_str = (char *)ft_calloc(1, buffer_size);
+	if (!new_str)
+		return (NULL);
+	i = 0;
+	while (*s1)
+		new_str[i++] = *s1++;
+	while (*s2)
+		new_str[i++] = *s2++;
+	return (new_str);
 }
