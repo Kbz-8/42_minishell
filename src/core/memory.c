@@ -6,7 +6,7 @@
 /*   By: maldavid <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 11:23:06 by maldavid          #+#    #+#             */
-/*   Updated: 2023/01/18 11:32:59 by maldavid         ###   ########.fr       */
+/*   Updated: 2023/01/18 11:36:56 by maldavid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	dealloc(void *ptr)
 	t_list	*buf;
 
 	buf = *get_blocks();
-	while ()
+	(void)ptr;
 }
 
 void	allfree(void)
