@@ -1,23 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ast.c                                              :+:      :+:    :+:   */
+/*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: maldavid <kbz_8.dev@akel-engine.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/19 02:07:39 by maldavid          #+#    #+#             */
-/*   Updated: 2023/01/19 04:27:20 by maldavid         ###   ########.fr       */
+/*   Created: 2023/01/19 04:34:34 by maldavid          #+#    #+#             */
+/*   Updated: 2023/01/19 04:35:41 by maldavid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <ast.h>
 #include <memory.h>
-#include <libft.h>
 
-t_ast		*generate_ast(const char *entry)
+t_token_list	*generate_token_list(const char *entry)
 {
-	t_ast	*ast;
+	t_token_list	*list;
 
-	ast = alloc(sizeof(t_ast));
-	return (NULL);
+	list = alloc(sizeof(t_token_list));
 }
