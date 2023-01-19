@@ -6,7 +6,7 @@
 /*   By: maldavid <kbz_8.dev@akel-engine.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 04:34:34 by maldavid          #+#    #+#             */
-/*   Updated: 2023/01/19 05:23:38 by maldavid         ###   ########.fr       */
+/*   Updated: 2023/01/19 07:22:00 by maldavid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,20 +17,23 @@
 static t_token_list	*new_token(char *str)
 {
 	t_token_list	*list;
+	size_t			size;
 
 	list = alloc(sizeof(t_token_list));
 	list->next = NULL;
-	list->str = alloc(ft_strlen(str));
+	size = ft_strlen(str) + 1;
+	list->str = alloc(size);
+	ft_bzero(list->str, size);
 	ft_strcpy(list->str, str);
-	if (ft_strchr(str, '|') != NULL)
+	if (str[0] == '|')
 		list->type = PIPE;
-	else if (ft_strstr(str, ">>") != NULL)
+	else if (str[0] == '>' && str[1] == '>')
 		list->type = DOUBLE_RED_R;
-	else if (ft_strstr(str, "<<") != NULL)
+	else if (str[0] == '<' && str[1] == '<')
 		list->type = DOUBLE_RED_L;
-	else if (ft_strchr(str, '>') != NULL)
+	else if (str[0] == '>')
 		list->type = SIMPLE_RED_R;
-	else if (ft_strchr(str, '<') != NULL)
+	else if (str[0] == '<')
 		list->type = SIMPLE_RED_L;
 	else
 		list->type = COMMAND;
@@ -52,16 +55,28 @@ static void	add_token_to_list(t_token_list **list, t_token_list *token)
 	ptr->next = token;
 }
 
-static void	add_redirection(t_token_list **list, char *str)
+static void	add_redirection(t_token_list **list, char **str)
 {
-	if (ft_strstr(str, "<<"))
+	if ((*str)[0] == '<' && (*str)[1] == '<')
+	{
 		add_token_to_list(list, new_token("<<"));
-	else if (ft_strstr(str, ">>"))
+		*str += 2;
+	}
+	else if ((*str)[0] == '>' && (*str)[1] == '>')
+	{
 		add_token_to_list(list, new_token(">>"));
-	else if (*str == '<')
+		*str += 2;
+	}
+	else if ((*str)[0] == '<')
+	{
 		add_token_to_list(list, new_token("<"));
-	else if (*str == '>')
+		(*str)++;
+	}
+	else if ((*str)[0] == '>')
+	{
 		add_token_to_list(list, new_token(">"));
+		(*str)++;
+	}
 }
 
 static void	add_command(t_token_list **list, char **str)
@@ -76,7 +91,8 @@ static void	add_command(t_token_list **list, char **str)
 		size++;
 		ptr++;
 	}
-	ptr = alloc(size);
+	ptr = alloc(size + 1);
+	ft_bzero(ptr, size + 1);
 	ft_memcpy(ptr, *str, size);
 	*str += size;
 	add_token_to_list(list, new_token(ptr));
@@ -86,6 +102,7 @@ t_token_list	*generate_token_list(char *entry)
 {
 	t_token_list	*list;
 
+	list = NULL;
 	while (*entry)
 	{
 		if (*entry == '|')
@@ -94,12 +111,11 @@ t_token_list	*generate_token_list(char *entry)
 			entry++;
 		}
 		else if (*entry == '<' || *entry == '>')
-		{
-			add_redirection(&list, entry);
-			entry++;
-		}
-		else
+			add_redirection(&list, &entry);
+		else if (!ft_isspace(*entry))
 			add_command(&list, &entry);
+		else
+			entry++;
 	}
 	return (list);
 }
