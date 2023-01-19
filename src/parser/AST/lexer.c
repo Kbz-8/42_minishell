@@ -6,7 +6,7 @@
 /*   By: maldavid <kbz_8.dev@akel-engine.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 04:34:34 by maldavid          #+#    #+#             */
-/*   Updated: 2023/01/19 07:22:00 by maldavid         ###   ########.fr       */
+/*   Updated: 2023/01/19 07:46:50 by maldavid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,22 +21,23 @@ static t_token_list	*new_token(char *str)
 
 	list = alloc(sizeof(t_token_list));
 	list->next = NULL;
+	list->token = alloc(sizeof(t_token));
 	size = ft_strlen(str) + 1;
-	list->str = alloc(size);
-	ft_bzero(list->str, size);
-	ft_strcpy(list->str, str);
+	list->token->str = alloc(size);
+	ft_bzero(list->token->str, size);
+	ft_strcpy(list->token->str, str);
 	if (str[0] == '|')
-		list->type = PIPE;
+		list->token->type = PIPE;
 	else if (str[0] == '>' && str[1] == '>')
-		list->type = DOUBLE_RED_R;
+		list->token->type = DOUBLE_RED_R;
 	else if (str[0] == '<' && str[1] == '<')
-		list->type = DOUBLE_RED_L;
+		list->token->type = DOUBLE_RED_L;
 	else if (str[0] == '>')
-		list->type = SIMPLE_RED_R;
+		list->token->type = SIMPLE_RED_R;
 	else if (str[0] == '<')
-		list->type = SIMPLE_RED_L;
+		list->token->type = SIMPLE_RED_L;
 	else
-		list->type = COMMAND;
+		list->token->type = COMMAND;
 	return (list);
 }
 

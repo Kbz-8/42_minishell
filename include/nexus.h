@@ -6,7 +6,7 @@
 /*   By: maldavid <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 11:59:38 by maldavid          #+#    #+#             */
-/*   Updated: 2023/01/19 01:48:07 by maldavid         ###   ########.fr       */
+/*   Updated: 2023/01/19 07:49:49 by maldavid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,9 @@ typedef union u_cmd
 
 typedef struct s_parser_info
 {
-	t_cmd		cmd;
-	const char	*args;
+	t_cmd					cmd;
+	const char				*args;
+	struct s_parser_info	*next;
 }	t_parser_info;
 
 typedef struct s_env_var
@@ -49,6 +50,6 @@ typedef struct s_env
 	int			last_return;
 }	t_env;
 
-t_env	*get_env_data();
+t_env	*get_env_data(void);
 
 #endif

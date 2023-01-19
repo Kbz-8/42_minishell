@@ -6,7 +6,7 @@
 /*   By: maldavid <kbz_8.dev@akel-engine.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 02:00:58 by maldavid          #+#    #+#             */
-/*   Updated: 2023/01/19 05:23:01 by maldavid         ###   ########.fr       */
+/*   Updated: 2023/01/19 07:47:28 by maldavid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,29 +23,31 @@ enum e_node_type
 	COMMAND,
 };
 
-typedef struct s_ast_node
+typedef struct s_token
 {
 	enum e_node_type	type;
-	const char			*str;
+	char				*str;
+}	t_token;
+
+typedef struct s_ast_node
+{
+	t_token				*token;
 	struct s_ast_node	*l_child;
 	struct s_ast_node	*r_child;
 }	t_ast_node;
 
-typedef struct	s_ast
+typedef struct s_ast
 {
 	t_ast_node	*root;
 }	t_ast;
 
 typedef struct s_token_list
 {
-	enum e_node_type	type;
-	char				*str;
+	t_token				*token;
 	struct s_token_list	*next;
 }	t_token_list;
 
 t_ast			*generate_ast(t_token_list *list);
-t_ast_node		*new_ast_node(enum e_node_type type, const char *str);
-t_ast_node		*add_pipe(t_ast_node *parent, t_ast_node *l, t_ast_node *r);
 t_token_list	*generate_token_list(char *entry);
 
 #endif

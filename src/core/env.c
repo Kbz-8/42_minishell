@@ -6,7 +6,7 @@
 /*   By: maldavid <kbz_8.dev@akel-engine.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 01:48:34 by maldavid          #+#    #+#             */
-/*   Updated: 2023/01/19 01:49:02 by maldavid         ###   ########.fr       */
+/*   Updated: 2023/01/19 07:34:40 by maldavid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 t_env	g_env;
 
-t_env	*get_env_data()
+t_env	*get_env_data(void)
 {
 	return (&g_env);
 }
