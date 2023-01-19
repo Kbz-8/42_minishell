@@ -6,11 +6,12 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 12:13:27 by vvaas             #+#    #+#             */
-/*   Updated: 2023/01/18 12:14:34 by vvaas            ###   ########.fr       */
+/*   Updated: 2023/01/19 01:18:21 by maldavid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
+#include <memory.h>
 
 void	ft_exit(void)
 {

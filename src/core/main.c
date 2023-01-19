@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 11:10:27 by maldavid          #+#    #+#             */
-/*   Updated: 2023/01/18 12:05:41 by maldavid         ###   ########.fr       */
+/*   Updated: 2023/01/19 01:17:24 by maldavid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 
 int	main(void)
 {
-	char *pouic = user_input();
 	allfree();
 	return (0);
 }

@@ -6,22 +6,20 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 12:06:31 by vvaas             #+#    #+#             */
-/*   Updated: 2023/01/18 12:12:31 by vvaas            ###   ########.fr       */
+/*   Updated: 2023/01/19 01:18:07 by maldavid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <nexus.h>
 #include <memory.h>
 #include <stdlib.h>
+#include <builtin.h>
 
-void	ft_exit()
+void	command(t_parser_info info)
 {
-	allfree();
-	exit(EXIT_SUCCESS);
-}
-void	command(t_parser_info com)
-{
-	if (com.command == EXIT)
-		ft_exit();
-	else if ()
+	if (info.cmd.builtin < 7)
+	{
+		if (info.cmd.builtin == EXIT)
+			ft_exit();
+	}
 }

@@ -6,7 +6,7 @@
 #    By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/18 10:57:27 by maldavid          #+#    #+#              #
-#    Updated: 2023/01/18 11:38:53 by vvaas            ###   ########.fr        #
+#    Updated: 2023/01/19 01:18:52 by maldavid         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,6 +17,8 @@ SRCS	=	src/core/main.c \
 			src/core/memory.c \
 			src/core/user_input.c \
 			src/utils/ft_joinfree.c \
+			src/exec/command.c \
+			src/exec/builtin/ft_exit.c \
 
 OBJS	= $(SRCS:.c=.o)
 
@@ -36,7 +38,7 @@ libft:
 
 $(NAME):	$(OBJS)
 	@echo "\e[1;32m[ linking ...]\e[1;00m "$@
-	@$(CC) -o $(NAME) $(OBJS) third_party/libft/libft.a
+	@$(CC) -o $(NAME) $(OBJS) third_party/libft/libft.a -lreadline
 	@echo "\e[1;32m[build finished]\e[1;00m"
 
 clean:

@@ -6,33 +6,49 @@
 /*   By: maldavid <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 11:59:38 by maldavid          #+#    #+#             */
-/*   Updated: 2023/01/18 12:34:48 by maldavid         ###   ########.fr       */
+/*   Updated: 2023/01/19 01:14:04 by maldavid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef NEXUS_H
 # define NEXUS_H
 
-typedef enum	e_command
+enum	e_builtin
 {
-	ECHO,
-	CD,
-	PWD,
-	EXPORT,
-	UNSET,
-	ENV,
-	EXIT
-}	t_command;
+	ECHO = 1,
+	CD = 2,
+	PWD = 3,
+	EXPORT = 4,
+	UNSET = 5,
+	ENV = 6,
+	EXIT = 7
+};
 
-typedef struct	s_parser_info
+typedef union u_cmd
 {
-	t_command	command;
+	enum e_builtin	builtin;
+	const char		*str;
+}	t_cmd;
+
+typedef struct s_parser_info
+{
+	t_cmd		cmd;
 	const char	*args;
 }	t_parser_info;
 
-typedef struct	s_env
+typedef struct s_env_var
 {
-	int	last_return;
+	const char			*key;
+	const char			*value;
+	struct s_env_var	*next;
+}	t_env_var;
+
+typedef struct s_env
+{
+	t_env_var	*vars;
+	int			last_return;
 }	t_env;
+
+t_env	g_env;
 
 #endif

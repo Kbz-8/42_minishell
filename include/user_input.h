@@ -6,13 +6,13 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 11:34:18 by vvaas             #+#    #+#             */
-/*   Updated: 2023/01/18 11:35:25 by vvaas            ###   ########.fr       */
+/*   Updated: 2023/01/19 01:13:42 by maldavid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef USER_INPUT_H
 # define USER_INPUT_H
 
-char	*user_input();
+char	*user_input(void);
 
 #endif

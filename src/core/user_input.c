@@ -6,10 +6,11 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 11:15:00 by vvaas             #+#    #+#             */
-/*   Updated: 2023/01/18 12:37:31 by vvaas            ###   ########.fr       */
+/*   Updated: 2023/01/19 01:17:45 by maldavid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdio.h>
 #include <readline/readline.h>
 
 char	*user_input(void)
