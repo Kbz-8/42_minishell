@@ -6,7 +6,7 @@
 /*   By: maldavid <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 11:59:38 by maldavid          #+#    #+#             */
-/*   Updated: 2023/01/19 01:14:04 by maldavid         ###   ########.fr       */
+/*   Updated: 2023/01/19 01:48:07 by maldavid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,6 @@ typedef struct s_env
 	int			last_return;
 }	t_env;
 
-t_env	g_env;
+t_env	*get_env_data();
 
 #endif

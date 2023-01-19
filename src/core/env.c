@@ -1,28 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strcmp.c                                        :+:      :+:    :+:   */
+/*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kroussar <contact@xtrm.me>                 +#+  +:+       +#+        */
+/*   By: maldavid <kbz_8.dev@akel-engine.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/31 08:20:14 by kroussar          #+#    #+#             */
-/*   Updated: 2023/01/19 01:39:20 by maldavid         ###   ########.fr       */
+/*   Created: 2023/01/19 01:48:34 by maldavid          #+#    #+#             */
+/*   Updated: 2023/01/19 01:49:02 by maldavid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include <nexus.h>
 
-int	ft_strcmp(const char *s1, const char *s2)
+t_env	g_env;
+
+t_env	*get_env_data()
 {
-	t_uint8	*ps1;
-	t_uint8	*ps2;
-
-	ps1 = (t_uint8 *)s1;
-	ps2 = (t_uint8 *)s2;
-	while (*ps1 == *ps2 && *ps1)
-	{
-		ps1++;
-		ps2++;
-	}
-	return (*ps1 - *ps2);
+	return (&g_env);
 }

@@ -6,19 +6,22 @@
 #    By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/18 10:57:27 by maldavid          #+#    #+#              #
-#    Updated: 2023/01/19 01:18:52 by maldavid         ###   ########.fr        #
+#    Updated: 2023/01/19 02:08:46 by maldavid         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME	= ./minishell
 
 SRCS	=	src/core/main.c \
+			src/core/env.c \
 			src/core/errors.c \
 			src/core/memory.c \
 			src/core/user_input.c \
 			src/utils/ft_joinfree.c \
 			src/exec/command.c \
 			src/exec/builtin/ft_exit.c \
+			src/parser/parser.c \
+			src/parser/AST/ast.c \
 
 OBJS	= $(SRCS:.c=.o)
 

@@ -6,16 +6,31 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 11:10:27 by maldavid          #+#    #+#             */
-/*   Updated: 2023/01/19 01:17:24 by maldavid         ###   ########.fr       */
+/*   Updated: 2023/01/19 01:42:37 by maldavid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <user_input.h>
 #include <libft.h>
 #include <memory.h>
+#include <stdio.h>
+#include <readline/readline.h>
 
 int	main(void)
 {
+	char	*entry;
+
+	entry = NULL;
+	ft_putstr("\nWelcome to Minishell by vvaas and maldavid !\n");
+	while (420 != 69)
+	{
+		free(entry);
+		ft_putstr("[minishell]$ ");
+		entry = readline(NULL);
+		if (ft_strcmp(entry, "exit") == 0)
+			break ;
+	}
+	free(entry);
 	allfree();
 	return (0);
 }

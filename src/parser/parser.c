@@ -1,28 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strcmp.c                                        :+:      :+:    :+:   */
+/*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kroussar <contact@xtrm.me>                 +#+  +:+       +#+        */
+/*   By: maldavid <kbz_8.dev@akel-engine.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/31 08:20:14 by kroussar          #+#    #+#             */
-/*   Updated: 2023/01/19 01:39:20 by maldavid         ###   ########.fr       */
+/*   Created: 2023/01/19 01:45:09 by maldavid          #+#    #+#             */
+/*   Updated: 2023/01/19 02:09:49 by maldavid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include <nexus.h>
+#include <stddef.h>
+#include <ast.h>
 
-int	ft_strcmp(const char *s1, const char *s2)
+t_parser_info	*parse(const char *entry)
 {
-	t_uint8	*ps1;
-	t_uint8	*ps2;
+	t_ast	*ast;
 
-	ps1 = (t_uint8 *)s1;
-	ps2 = (t_uint8 *)s2;
-	while (*ps1 == *ps2 && *ps1)
-	{
-		ps1++;
-		ps2++;
-	}
-	return (*ps1 - *ps2);
+	if (entry == NULL)
+		return (NULL);
+	ast = generate_ast(entry);
+	if (ast == NULL)
+		return (NULL);
+	return (NULL);
 }
