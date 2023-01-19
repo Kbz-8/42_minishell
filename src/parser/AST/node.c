@@ -6,7 +6,7 @@
 /*   By: maldavid <kbz_8.dev@akel-engine.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 02:33:34 by maldavid          #+#    #+#             */
-/*   Updated: 2023/01/19 12:32:25 by maldavid         ###   ########.fr       */
+/*   Updated: 2023/01/19 14:54:59 by maldavid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,14 +53,16 @@ void	add_redirections(t_ast *ast)
 	t_token_list	*token;
 
 	ptr = ast->root;
+	if (ptr == NULL)
+		return ;
 	while (ptr->r_child != NULL)
 	{
 		token = ptr->token;
-		if (token->token->type == PIPE)
+		if (token->token->type == PIPE || token->next == NULL)
 		{
 			while (token->prev != NULL && token->prev->token->type != PIPE)
 			{
-				if (token->type != COMMAND && token->type != HERE_DOC)
+				if (token->token->type != COMMAND && token->token->type != HERE_DOC)
 				{
 					ptr->l_child = new_ast_node(token, NULL, NULL);
 					break ;

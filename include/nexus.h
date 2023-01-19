@@ -6,7 +6,7 @@
 /*   By: maldavid <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 11:59:38 by maldavid          #+#    #+#             */
-/*   Updated: 2023/01/19 07:55:22 by maldavid         ###   ########.fr       */
+/*   Updated: 2023/01/19 15:41:01 by maldavid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,8 @@ typedef struct s_parser_info
 
 typedef struct s_env_var
 {
-	const char			*key;
-	const char			*value;
+	char				*key;
+	char				*value;
 	struct s_env_var	*next;
 }	t_env_var;
 
@@ -51,5 +51,7 @@ typedef struct s_env
 }	t_env;
 
 t_env	*get_env_data(void);
+void	init_minishell(void);
+void	add_env_var(char *key, char* value);
 
 #endif

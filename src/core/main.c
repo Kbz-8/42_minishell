@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 11:10:27 by maldavid          #+#    #+#             */
-/*   Updated: 2023/01/19 10:58:09 by maldavid         ###   ########.fr       */
+/*   Updated: 2023/01/19 15:22:27 by maldavid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ int	main(void)
 	char	*prompt;
 	size_t	username_size;
 
+	init_minishell();
 	entry = NULL;
 	ft_putstr("\nWelcome to Minishell by vvaas and maldavid !\n");
 	username_size = ft_strlen(getenv("USER"));
