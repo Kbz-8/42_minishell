@@ -6,7 +6,7 @@
 /*   By: maldavid <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 11:20:39 by maldavid          #+#    #+#             */
-/*   Updated: 2023/01/19 02:12:33 by maldavid         ###   ########.fr       */
+/*   Updated: 2023/01/19 09:48:47 by maldavid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # define E_UNKOWN		0
 # define E_MEMFAIL		1
+# define E_PIPES		2
 
 enum	e_type
 {

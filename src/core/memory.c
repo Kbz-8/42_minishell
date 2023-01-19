@@ -6,7 +6,7 @@
 /*   By: maldavid <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 11:23:06 by maldavid          #+#    #+#             */
-/*   Updated: 2023/01/19 02:11:28 by maldavid         ###   ########.fr       */
+/*   Updated: 2023/01/19 10:40:56 by maldavid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ void	dealloc(void *ptr)
 			tmp = buf->next;
 			buf->next = tmp->next;
 			ft_lstdelone(tmp, free);
+			return ;
 		}
 		buf = buf->next;
 	}

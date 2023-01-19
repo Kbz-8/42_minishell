@@ -6,7 +6,7 @@
 /*   By: maldavid <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 11:18:11 by maldavid          #+#    #+#             */
-/*   Updated: 2023/01/19 02:12:16 by maldavid         ###   ########.fr       */
+/*   Updated: 2023/01/19 09:44:41 by maldavid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,14 @@
 #include <libft.h>
 #include <memory.h>
 
-#define ERRORS_NUMBER 2
+#define ERRORS_NUMBER 3
 
 static const char	*get_str_error(int error)
 {
 	static const char	*errors[ERRORS_NUMBER] = {
 		"unknown error",
 		"memory allocation failed",
+		"parse error near '|'"
 	};
 
 	return (errors[error]);

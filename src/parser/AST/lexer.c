@@ -6,7 +6,7 @@
 /*   By: maldavid <kbz_8.dev@akel-engine.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 04:34:34 by maldavid          #+#    #+#             */
-/*   Updated: 2023/01/19 07:46:50 by maldavid         ###   ########.fr       */
+/*   Updated: 2023/01/19 12:06:41 by maldavid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static t_token_list	*new_token(char *str)
 	else if (str[0] == '>' && str[1] == '>')
 		list->token->type = DOUBLE_RED_R;
 	else if (str[0] == '<' && str[1] == '<')
-		list->token->type = DOUBLE_RED_L;
+		list->token->type = HERE_DOC;
 	else if (str[0] == '>')
 		list->token->type = SIMPLE_RED_R;
 	else if (str[0] == '<')
@@ -48,12 +48,14 @@ static void	add_token_to_list(t_token_list **list, t_token_list *token)
 	if (*list == NULL)
 	{
 		*list = token;
+		token->prev = NULL;
 		return ;
 	}
 	ptr = *list;
 	while (ptr->next != NULL)
 		ptr = ptr->next;
 	ptr->next = token;
+	token->prev = ptr;
 }
 
 static void	add_redirection(t_token_list **list, char **str)
