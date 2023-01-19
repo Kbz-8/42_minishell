@@ -6,7 +6,7 @@
 #    By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/18 10:57:27 by maldavid          #+#    #+#              #
-#    Updated: 2023/01/19 02:35:26 by maldavid         ###   ########.fr        #
+#    Updated: 2023/01/19 04:41:32 by maldavid         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,6 +23,7 @@ SRCS	=	src/core/main.c \
 			src/parser/parser.c \
 			src/parser/AST/ast.c \
 			src/parser/AST/node.c \
+			src/parser/AST/lexer.c \
 
 OBJS	= $(SRCS:.c=.o)
 

@@ -6,7 +6,7 @@
 /*   By: maldavid <kbz_8.dev@akel-engine.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 02:00:58 by maldavid          #+#    #+#             */
-/*   Updated: 2023/01/19 04:34:25 by maldavid         ###   ########.fr       */
+/*   Updated: 2023/01/19 05:23:01 by maldavid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,14 +38,14 @@ typedef struct	s_ast
 
 typedef struct s_token_list
 {
-	e_node_type			type;
-	const char			*str;
+	enum e_node_type	type;
+	char				*str;
 	struct s_token_list	*next;
 }	t_token_list;
 
-t_ast			*generate_ast(const char *entry);
+t_ast			*generate_ast(t_token_list *list);
 t_ast_node		*new_ast_node(enum e_node_type type, const char *str);
 t_ast_node		*add_pipe(t_ast_node *parent, t_ast_node *l, t_ast_node *r);
-t_token_list	*generate_token_list(const char *entry);
+t_token_list	*generate_token_list(char *entry);
 
 #endif
