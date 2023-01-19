@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 11:10:27 by maldavid          #+#    #+#             */
-/*   Updated: 2023/01/19 01:42:37 by maldavid         ###   ########.fr       */
+/*   Updated: 2023/01/19 02:14:06 by maldavid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,7 @@ int	main(void)
 	while (420 != 69)
 	{
 		free(entry);
-		ft_putstr("[minishell]$ ");
-		entry = readline(NULL);
+		entry = readline("[minishell]$ ");
 		if (ft_strcmp(entry, "exit") == 0)
 			break ;
 	}
