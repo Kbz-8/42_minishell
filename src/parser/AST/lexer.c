@@ -6,14 +6,16 @@
 /*   By: maldavid <kbz_8.dev@akel-engine.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 04:34:34 by maldavid          #+#    #+#             */
-/*   Updated: 2023/01/19 15:52:07 by maldavid         ###   ########.fr       */
+/*   Updated: 2023/01/21 13:49:59 by maldavid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <ast.h>
 #include <memory.h>
 #include <libft.h>
-#include <>
+#include <stdbool.h>
+
+char	*manage_var_in_quotes(char *str);
 
 static t_token_list	*new_token(char *str)
 {
@@ -87,11 +89,17 @@ static void	add_command(t_token_list **list, char **str)
 {
 	size_t	size;
 	char	*ptr;
+	bool	begin_string;
 
 	size = 0;
 	ptr = *str;
+	begin_string = false;
 	while (*ptr != '|' && *ptr != '<' && *ptr != '>' && *ptr != 0)
 	{
+		if (*ptr == '"')
+			begin_string = !begin_string;
+		if (begin_string && *ptr == '$')
+			manage_var_in_quotes(ptr + 1);
 		size++;
 		ptr++;
 	}

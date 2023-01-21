@@ -6,7 +6,7 @@
 /*   By: maldavid <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 11:59:38 by maldavid          #+#    #+#             */
-/*   Updated: 2023/01/19 15:41:01 by maldavid         ###   ########.fr       */
+/*   Updated: 2023/01/21 13:35:55 by maldavid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,9 @@ typedef struct s_env
 	int			last_return;
 }	t_env;
 
-t_env	*get_env_data(void);
-void	init_minishell(void);
-void	add_env_var(char *key, char* value);
+t_env		*get_env_data(void);
+void		init_minishell(void);
+void		add_env_var(char *key, char* value);
+const char	*get_env_var(char *key);
 
 #endif
