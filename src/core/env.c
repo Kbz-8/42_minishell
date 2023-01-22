@@ -6,7 +6,7 @@
 /*   By: maldavid <kbz_8.dev@akel-engine.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 01:48:34 by maldavid          #+#    #+#             */
-/*   Updated: 2023/01/21 13:38:09 by maldavid         ###   ########.fr       */
+/*   Updated: 2023/01/22 17:05:20 by maldavid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ const char	*get_env_var(char *key)
 	ptr = get_env_data()->vars;
 	while (ptr && ft_strcmp(ptr->key, key) != 0)
 		ptr = ptr->next;
-	if (ft_strcmp(ptr->key, key) == 0)
+	if (ptr && ft_strcmp(ptr->key, key) == 0)
 		return ((const char *)ptr->value);
 	return (NULL);
 }

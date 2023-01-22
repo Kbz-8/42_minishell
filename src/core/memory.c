@@ -6,7 +6,7 @@
 /*   By: maldavid <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 11:23:06 by maldavid          #+#    #+#             */
-/*   Updated: 2023/01/19 10:40:56 by maldavid         ###   ########.fr       */
+/*   Updated: 2023/01/22 17:22:38 by maldavid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	*alloc(size_t size)
 	ptr = malloc(size);
 	if (ptr == NULL)
 		report(FATAL_ERROR, E_MEMFAIL);
-	ft_lstadd_front(get_blocks(), ft_lstnew(ptr));
+	ft_lstadd_back(get_blocks(), ft_lstnew(ptr));
 	return (ptr);
 }
 
@@ -55,7 +55,7 @@ void	dealloc(void *ptr)
 	if (buf->content == ptr)
 	{
 		tmp = buf;
-		buf = buf->next;
+		*get_blocks() = buf->next;
 		ft_lstdelone(tmp, free);
 	}
 	while (buf->next != NULL)
