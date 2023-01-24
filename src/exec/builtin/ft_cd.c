@@ -1,30 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   errors.h                                           :+:      :+:    :+:   */
+/*   ft_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/18 11:20:39 by maldavid          #+#    #+#             */
-/*   Updated: 2023/01/24 08:59:27 by vvaas            ###   ########.fr       */
+/*   Created: 2023/01/24 08:32:33 by vvaas             #+#    #+#             */
+/*   Updated: 2023/01/24 08:39:22 by vvaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ERRORS_H
-# define ERRORS_H
+#include <nexus.h>
 
-# define E_UNKOWN			0
-# define E_MEMFAIL			1
-# define E_PIPES			2
-# define E_TOO_MANY_ARGS	3
-# define NUMBER_REQUIRED	4
-
-enum	e_type
+int	ft_cd(t_parser_info *info)
 {
-	ERROR,
-	FATAL_ERROR
-};
-
-void	report(enum e_type type, int error);
-
-#endif
+	(void)info;
+	return (0);
+}

@@ -21,6 +21,8 @@ SRCS	=	src/core/main.c \
 			src/utils/ft_joinfree.c \
 			src/exec/command.c \
 			src/exec/builtin/ft_exit.c \
+			src/exec/builtin/ft_cd.c \
+			src/exec/builtin/ft_pwd.c \
 			src/parser/parser.c \
 			src/parser/AST/ast.c \
 			src/parser/AST/node.c \
