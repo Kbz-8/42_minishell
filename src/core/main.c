@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 11:10:27 by maldavid          #+#    #+#             */
-/*   Updated: 2023/02/08 18:30:31 by maldavid         ###   ########.fr       */
+/*   Updated: 2023/02/08 18:31:55 by maldavid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ int	main(void)
 		entry = readline(prompt);
 		if (entry == 0 || ft_strcmp(entry, "exit") == 0	)
 			break ;
-		ft_putstr(getenv("USER"));
 		if (ft_strcmp(getenv("USER"), "maldavid") == 0)
 			(void)parse(entry);
 		else if (ft_strlen(entry) != 0)
