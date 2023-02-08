@@ -6,31 +6,22 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 15:25:46 by vvaas             #+#    #+#             */
-/*   Updated: 2023/02/06 15:55:54 by vvaas            ###   ########.fr       */
+/*   Updated: 2023/02/06 17:19:28 by vvaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <interactive.h>
 #include <stddef.h>
-#include <stdbool.h>
+#include <readline/readline.h>
+#include <stdio.h>
 
-int	new_prompt(bool	modify)
-{
-	static bool	value = 0;
-
-	if (modify)
-		value = !value;
-	return (value);
-}
 void	process(int sig, siginfo_t *client, void *context)
 {
 	(void)context;
 	(void)client;
 
 	if (sig == SIGINT)
-		new_prompt(1);
-	else
-		return;
+		rl_on_new_line();
 }
 
 void	init_sig(struct sigaction *sig)

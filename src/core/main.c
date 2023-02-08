@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 11:10:27 by maldavid          #+#    #+#             */
-/*   Updated: 2023/02/06 16:05:48 by vvaas            ###   ########.fr       */
+/*   Updated: 2023/02/06 18:25:50 by vvaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,11 +39,9 @@ int	main(void)
 	{
 		free(entry);
 		entry = readline(prompt);
-		if (entry == 0)
+		if (entry == 0 || ft_strcmp(entry, "exit") == 0	)
 			break ;
 		printf("%s\n", entry);
-		if (ft_strcmp(entry, "exit") == 0)
-			break ;
 	}
 	free(entry);
 	allfree();
