@@ -6,7 +6,7 @@
 /*   By: maldavid <kbz_8.dev@akel-engine.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 02:33:34 by maldavid          #+#    #+#             */
-/*   Updated: 2023/01/19 14:54:59 by maldavid         ###   ########.fr       */
+/*   Updated: 2023/02/08 18:16:38 by maldavid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,20 @@ void	add_pipes(t_ast *ast, t_token_list *list)
 	}
 }
 
+static void	insert_redirection(t_ast_node *node, t_token_list *token)
+{
+	while (token->prev != NULL && token->prev->token->type != PIPE)
+	{
+		ft_printf("youpi\n");
+		if (token->token->type != COMMAND && token->token->type != HERE_DOC)
+		{
+			node->l_child = new_ast_node(token, NULL, NULL);
+			break ;
+		}
+		token = token->prev;
+	}
+}
+
 void	add_redirections(t_ast *ast)
 {
 	t_ast_node		*ptr;
@@ -58,18 +72,18 @@ void	add_redirections(t_ast *ast)
 	while (ptr->r_child != NULL)
 	{
 		token = ptr->token;
-		if (token->token->type == PIPE || token->next == NULL)
-		{
-			while (token->prev != NULL && token->prev->token->type != PIPE)
-			{
-				if (token->token->type != COMMAND && token->token->type != HERE_DOC)
-				{
-					ptr->l_child = new_ast_node(token, NULL, NULL);
-					break ;
-				}
-				token = token->prev;
-			}
-		}
+		if (token->token->type == PIPE)
+			insert_redirection(ptr, token);
 		ptr = ptr->r_child;
+	}
+	insert_redirection(ptr, token);
+	while (token->next != NULL)
+	{
+		if (token->token->type != COMMAND && token->token->type != HERE_DOC)
+		{
+			ptr->r_child = new_ast_node(token, NULL, NULL);
+			break ;
+		}
+		token = token->next;
 	}
 }
