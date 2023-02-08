@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 11:10:27 by maldavid          #+#    #+#             */
-/*   Updated: 2023/02/06 18:25:50 by vvaas            ###   ########.fr       */
+/*   Updated: 2023/02/08 18:20:17 by vvaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,10 @@ int	main(void)
 {
 	char	*entry;
 	char	*prompt;
-	size_t	username_size;
-	struct sigaction sig;	
+	size_t	username_size;	
 
 	init_minishell();
-	init_sig(&sig);
+	init_sig();
 	entry = NULL;
 	ft_putstr("\nWelcome to Minishell by vvaas and maldavid !\n");
 	username_size = ft_strlen(getenv("USER"));
@@ -41,7 +40,8 @@ int	main(void)
 		entry = readline(prompt);
 		if (entry == 0 || ft_strcmp(entry, "exit") == 0	)
 			break ;
-		printf("%s\n", entry);
+		if (ft_strlen(entry) != 0)
+			printf("%s\n", entry);
 	}
 	free(entry);
 	allfree();
