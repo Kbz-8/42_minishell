@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 08:24:55 by vvaas             #+#    #+#             */
-/*   Updated: 2023/01/24 09:26:17 by vvaas            ###   ########.fr       */
+/*   Updated: 2023/02/10 17:48:26 by vvaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,5 +24,6 @@ int	ft_pwd(t_parser_info *info)
 		return (-1);
 	}
 	ft_putstr((char *)get_env_var("PWD"));
+	ft_putchar('\n');
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 11:10:27 by maldavid          #+#    #+#             */
-/*   Updated: 2023/02/10 17:35:25 by vvaas            ###   ########.fr       */
+/*   Updated: 2023/02/10 18:47:46 by vvaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 #include <parser.h>
 #include <stdlib.h>
 #include <interactive.h>
+#include <utils.h>
 
 int	main(void)
 {
@@ -42,6 +43,12 @@ int	main(void)
 			break ;
 		else if (ft_strncmp(entry, "echo", 4) == 0)
 			ft_echo(entry);
+		else if (ft_strcmp(entry, "pwd") == 0)
+			ft_putendl_fd((char *)get_env_var("PWD"), 1);
+		else if (ft_strcmp(entry, "env") == 0)
+			ft_putendl_fd((char *)get_env_var("ENV"), 1);
+		else if (is_exec(entry))
+			printf("EXECUTABLE\n");
 		else if (ft_strlen(entry) != 0)
 			printf("%s\n", entry);
 		if (ft_strcmp(getenv("USER"), "maldavid") == 0)

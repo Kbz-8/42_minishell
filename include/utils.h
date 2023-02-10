@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 11:27:36 by vvaas             #+#    #+#             */
-/*   Updated: 2023/01/18 11:33:24 by vvaas            ###   ########.fr       */
+/*   Updated: 2023/02/10 19:00:12 by vvaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,5 +14,5 @@
 # define UTILS_H
 
 char	*ft_joinfree(char *dest, char *src);
-
+bool	is_exec(char *name);
 #endif
