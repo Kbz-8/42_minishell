@@ -6,11 +6,10 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 11:10:27 by maldavid          #+#    #+#             */
-/*   Updated: 2023/02/10 17:31:06 by vvaas            ###   ########.fr       */
+/*   Updated: 2023/02/10 17:33:07 by vvaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <user_input.h>
 #include <builtin.h>
 #include <libft.h>
 #include <memory.h>
