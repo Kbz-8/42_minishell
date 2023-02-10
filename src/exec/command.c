@@ -6,15 +6,13 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 12:06:31 by vvaas             #+#    #+#             */
-/*   Updated: 2023/02/06 15:18:12 by vvaas            ###   ########.fr       */
+/*   Updated: 2023/02/08 19:14:50 by vvaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <nexus.h>
 #include <memory.h>
-#include <stdlib.h>
 #include <builtin.h>
-#include <unistd.h>
 
 void	command(t_parser_info info)
 {
