@@ -6,7 +6,7 @@
 /*   By: maldavid <kbz_8.dev@akel-engine.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 02:07:39 by maldavid          #+#    #+#             */
-/*   Updated: 2023/02/10 18:39:51 by maldavid         ###   ########.fr       */
+/*   Updated: 2023/02/10 20:35:52 by maldavid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,18 +35,24 @@ bool	sanitize_token_list(t_token_list *list)
 	return (true);
 }
 
-void print_token(t_token_list *token)
+#include <stdio.h>
+static char buffer[1024];
+
+static void print_subtree(t_ast_node* n, const char *prf_right, const char *prf_left, char *buf, int buf_sz)
 {
-	if (token->token->type == PIPE)
-		ft_putstr("|\n");
-	else if (token->token->type == SIMPLE_RED_L)
-		ft_putstr("<\n");
-	else if (token->token->type == SIMPLE_RED_R)
-		ft_putstr(">\n");
-	else if (token->token->type == DOUBLE_RED_R)
-		ft_putstr(">>\n");
-	else
-		ft_printf("token %s\n", token->token->str);
+    if (n->r_child)
+	{
+        int res = snprintf(buf, buf_sz, "%s", prf_right);
+        print_subtree(n->r_child, "     ", "|    ", buf + res, buf_sz - res);
+        *buf = '\0';
+    }
+    ft_printf("%s+---'%s'\n", buffer, n->token->token->str);
+    if (n->l_child)
+	{
+        int res = snprintf(buf, buf_sz, "%s", prf_left);
+        print_subtree(n->l_child, "|    ", "     ", buf + res, buf_sz - res);
+        *buf = '\0';
+    }
 }
 
 t_ast	*generate_ast(t_token_list *list)
@@ -61,10 +67,6 @@ t_ast	*generate_ast(t_token_list *list)
 		return (NULL);
 	add_pipes(ast, list);
 	add_redirections(ast);
-	print_token(ast->root->token);
-	if (ast->root->l_child)
-		print_token(ast->root->l_child->token);
-	if (ast->root->r_child)
-		print_token(ast->root->r_child->token);
+	print_subtree(ast->root, "     ", "     ", buffer, sizeof(buffer));
 	return (ast);
 }

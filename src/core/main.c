@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 11:10:27 by maldavid          #+#    #+#             */
-/*   Updated: 2023/02/10 18:47:46 by vvaas            ###   ########.fr       */
+/*   Updated: 2023/02/10 20:38:42 by maldavid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,18 +41,21 @@ int	main(void)
 		entry = readline(prompt);
 		if (entry == 0 || ft_strcmp(entry, "exit") == 0)
 			break ;
-		else if (ft_strncmp(entry, "echo", 4) == 0)
-			ft_echo(entry);
-		else if (ft_strcmp(entry, "pwd") == 0)
-			ft_putendl_fd((char *)get_env_var("PWD"), 1);
-		else if (ft_strcmp(entry, "env") == 0)
-			ft_putendl_fd((char *)get_env_var("ENV"), 1);
-		else if (is_exec(entry))
-			printf("EXECUTABLE\n");
-		else if (ft_strlen(entry) != 0)
-			printf("%s\n", entry);
 		if (ft_strcmp(getenv("USER"), "maldavid") == 0)
 			(void)parse(entry);
+		else
+		{
+			if (ft_strncmp(entry, "echo", 4) == 0)
+				ft_echo(entry);
+			else if (ft_strcmp(entry, "pwd") == 0)
+				ft_putendl_fd((char *)get_env_var("PWD"), 1);
+			else if (ft_strcmp(entry, "env") == 0)
+				ft_putendl_fd((char *)get_env_var("ENV"), 1);
+			else if (is_exec(entry))
+				printf("EXECUTABLE\n");
+			else if (ft_strlen(entry) != 0)
+				printf("%s\n", entry);
+		}
 	}
 	free(entry);
 	allfree();
