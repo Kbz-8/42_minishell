@@ -6,7 +6,7 @@
 /*   By: maldavid <kbz_8.dev@akel-engine.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 02:07:39 by maldavid          #+#    #+#             */
-/*   Updated: 2023/02/08 18:19:13 by maldavid         ###   ########.fr       */
+/*   Updated: 2023/02/10 18:39:51 by maldavid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,9 +62,9 @@ t_ast	*generate_ast(t_token_list *list)
 	add_pipes(ast, list);
 	add_redirections(ast);
 	print_token(ast->root->token);
-	/*
-	print_token(ast->root->l_child->token);
-	print_token(ast->root->r_child->token);
-	*/
+	if (ast->root->l_child)
+		print_token(ast->root->l_child->token);
+	if (ast->root->r_child)
+		print_token(ast->root->r_child->token);
 	return (ast);
 }
