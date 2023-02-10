@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 17:59:21 by vvaas             #+#    #+#             */
-/*   Updated: 2023/02/10 19:17:01 by vvaas            ###   ########.fr       */
+/*   Updated: 2023/02/10 20:14:39 by vvaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,11 +48,8 @@ static bool	is_executable(char *path)
 	int val;
 
 	val = stat(path, &file);
-	if (val == 0 && file.st_mode > 0 && file.st_mode & S_IXUSR)
-	{
-		ft_printf("%s\n", path);
+	if (val == 0 && file.st_mode > 0 && file.st_mode & S_IXUSR && file.st_mode & S_IXOTH && file.st_mode & S_IXGRP)
 		return (1);
-	}
 	return (0);
 }
 
@@ -70,11 +67,11 @@ bool	is_exec_path(char *name)
 		buffer = ft_joinfree(buffer, name);
 		if (is_file(buffer) && is_executable(buffer))
 		{
-			free(buffer);
+			dealloc(buffer);
 			ft_freesplit(paths);
 			return (1);
 		}
-		free(buffer);
+		dealloc(buffer);
 		i++;
 	}
 	ft_freesplit(paths);
@@ -86,19 +83,13 @@ bool	is_exec(char *name)
 	char *path;
 	int offset;
 
-	offset = 0;
-	if (ft_strncmp(name, "./", 2) == 0)
-		offset = 2;
-	path = ft_strjoin((char *)get_env_var("PWD"), "/");
-	path = ft_joinfree(path, name + offset);
-	if (offset == 2 && is_executable(path))
+	offset = 2 * (int)!(ft_strncmp(name, "./", 2) == 0);
+	path = ft_joinfree(ft_strjoin((char *)get_env_var("PWD"), "/"), name + offset);
+	ft_printf("%s\n", path);
+	if ((offset == 2 && is_executable(path)) || is_exec_path(name))
 	{
-		ft_printf("%s\n", path);
-		free(path);
+		dealloc(path);
 		return (1);
 	}
-	free(path);
-	if (is_exec_path(name))
-		return (1);
 	return (0);
 }
