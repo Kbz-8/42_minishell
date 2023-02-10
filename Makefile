@@ -6,7 +6,7 @@
 #    By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/18 10:57:27 by maldavid          #+#    #+#              #
-#    Updated: 2023/02/06 15:55:34 by vvaas            ###   ########.fr        #
+#    Updated: 2023/02/10 17:34:05 by vvaas            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,13 +17,13 @@ SRCS	=	src/core/main.c \
 			src/core/env.c \
 			src/core/errors.c \
 			src/core/memory.c \
-			src/core/user_input.c \
 			src/utils/ft_joinfree.c \
 			src/exec/command.c \
 			src/exec/interactive.c \
 			src/exec/builtin/ft_exit.c \
 			src/exec/builtin/ft_cd.c \
 			src/exec/builtin/ft_pwd.c \
+			src/exec/builtin/ft_echo.c \
 			src/parser/parser.c \
 			src/parser/AST/ast.c \
 			src/parser/AST/node.c \

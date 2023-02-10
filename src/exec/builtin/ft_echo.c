@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 18:25:19 by vvaas             #+#    #+#             */
-/*   Updated: 2023/02/10 17:32:04 by vvaas            ###   ########.fr       */
+/*   Updated: 2023/02/10 17:38:35 by vvaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,11 @@ void	ft_echo(const char *args)
 	bool newline;
 	unsigned int i;
 
-	i = 0;
+	i = 4; // enlever une fois parser fini
 	newline = 1;
 	while (args[i] == ' ')
 		i++;
-	if (ft_strncmp(args, "-n", 2) == 0)
+	if (ft_strncmp(&args[i], "-n", 2) == 0)
 	{
 		newline = 0;
 		i += 2;
