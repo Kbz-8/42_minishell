@@ -6,14 +6,14 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 15:25:46 by vvaas             #+#    #+#             */
-/*   Updated: 2023/02/08 18:19:12 by vvaas            ###   ########.fr       */
+/*   Updated: 2023/02/13 09:31:48 by maldavid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <interactive.h>
 #include <stddef.h>
-#include <readline/readline.h>
 #include <stdio.h>
+#include <readline/readline.h>
 
 void	process(int sig)
 {
