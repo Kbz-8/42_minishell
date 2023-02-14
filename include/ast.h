@@ -6,7 +6,7 @@
 /*   By: maldavid <kbz_8.dev@akel-engine.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 02:00:58 by maldavid          #+#    #+#             */
-/*   Updated: 2023/02/13 11:32:09 by maldavid         ###   ########.fr       */
+/*   Updated: 2023/02/14 12:43:43 by maldavid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,12 @@
 
 enum e_node_type
 {
-	PIPE,
-	SIMPLE_RED_L,
-	SIMPLE_RED_R,
-	DOUBLE_RED_R,
-	HERE_DOC,
-	COMMAND,
+	PIPE = 0,
+	SIMPLE_RED_L = 1,
+	SIMPLE_RED_R = 2,
+	DOUBLE_RED_R = 3,
+	HERE_DOC = 4,
+	COMMAND = 5,
 };
 
 typedef struct s_token
