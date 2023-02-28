@@ -6,7 +6,7 @@
 /*   By: maldavid <kbz_8.dev@akel-engine.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 02:33:34 by maldavid          #+#    #+#             */
-/*   Updated: 2023/02/10 19:21:23 by maldavid         ###   ########.fr       */
+/*   Updated: 2023/02/28 18:54:03 by maldavid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include <libft.h>
 #include <stdbool.h>
 
-t_ast_node	*new_ast_node(t_token_list *token, t_ast_node *l, t_ast_node *r)
+t_ast_node	*new_ast_node(t_token *token, t_ast_node *l, t_ast_node *r)
 {
 	t_ast_node	*node;
 
@@ -26,72 +26,48 @@ t_ast_node	*new_ast_node(t_token_list *token, t_ast_node *l, t_ast_node *r)
 	return (node);
 }
 
-void	add_pipes(t_ast *ast, t_token_list *list)
+static t_token_list	*get_sub_list(t_token_list *list, size_t len)
 {
-	t_ast_node	*ptr;
+	t_token_list	*new_list;
+	t_token_list	*ptr;
 
+	new_list = alloc(sizeof(t_token_list));
+	ptr = new_list;
+	while(len > 0 && list != NULL)
+	{
+		ptr->token = list->token;
+		ptr->next = alloc(sizeof(t_token_list));
+		ptr = ptr->next;
+		list = list->next;
+		len--;
+	}
+	return (new_token);
+}
+
+static t_token_list	*separator_position(t_token_list *list)
+{
 	while (list != NULL)
 	{
-		if (list->token->type == PIPE)
-		{
-			if (ast->root == NULL)
-				ast->root = new_ast_node(list, NULL, NULL);
-			else
-			{
-				ptr = ast->root;
-				while (ptr->r_child != NULL)
-					ptr = ptr->r_child;
-				ptr->r_child = new_ast_node(list, NULL, NULL);
-			}
-		}
+		if (list->token->type != COMMAND && list->token->type != HERE_DOC)
+			return (list);
 		list = list->next;
 	}
+	return (NULL);
 }
 
-static void	insert_redirection(t_ast_node *node, t_token_list *token, bool is_last)
+static void	token_list_to_ast(t_ast_node *ast, t_token_list *list)
 {
-	if (is_last)
-	{
-		while (token->next != NULL)
-		{
-			if (token->token->type != COMMAND && token->token->type != HERE_DOC && token->token->type != PIPE)
-			{
-				node->r_child = new_ast_node(token, NULL, NULL);
-				return ;
-			}
-			token = token->next;
-		}
-	}
-	while (token->prev != NULL && token->prev->token->type != PIPE)
-	{
-		if (token->token->type != COMMAND && token->token->type != HERE_DOC && token->token->type != PIPE)
-		{
-			node->l_child = new_ast_node(token, NULL, NULL);
-			return ;
-		}
-		token = token->prev;
-	}
-}
+	t_token_list	*sep;
 
-void	add_redirections(t_ast *ast)
-{
-	t_ast_node		*ptr;
-	t_token_list	*token;
-
-	ptr = ast->root;
-	if (ptr == NULL)
+	sep = separator_position(list);
+	ast = new_ast_node(list->token, NULL, NULL);
+	if (sep == NULL)
 		return ;
-	while (ptr != NULL || ptr == ast->root)
-	{
-		token = ptr->token;
-		if (token->token->type == PIPE)
-			insert_redirection(ptr, token, false);
-		if (ptr->r_child == NULL)
-		{
-			token = ptr->token;
-			if (token->token->type == PIPE)
-				insert_redirection(ptr, token, true);
-		}
-		ptr = ptr->r_child;
-	}
+	token_list_to_ast(ast->l_child, )
+}
+
+void	to_ast(t_ast *ast, t_token_list *list)
+{
+	// TODO : manage env vars
+	token_list_to_ast(ast->root, list);
 }

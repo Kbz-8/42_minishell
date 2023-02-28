@@ -6,7 +6,7 @@
 /*   By: maldavid <kbz_8.dev@akel-engine.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 02:00:58 by maldavid          #+#    #+#             */
-/*   Updated: 2023/02/14 12:43:43 by maldavid         ###   ########.fr       */
+/*   Updated: 2023/02/28 19:04:48 by maldavid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ typedef struct s_token_list
 
 typedef struct s_ast_node
 {
-	t_token_list		*token;
+	t_token				*token;
 	struct s_ast_node	*l_child;
 	struct s_ast_node	*r_child;
 }	t_ast_node;
@@ -51,8 +51,6 @@ typedef struct s_ast
 t_ast			*generate_ast(t_token_list *list);
 t_token_list	*generate_token_list(char *entry);
 t_ast_node		*new_ast_node(t_token_list *token, t_ast_node *l, t_ast_node *r);
-void			add_pipes(t_ast *ast, t_token_list *list);
-void			add_redirections(t_ast *ast);
-void			add_leaves(t_ast *ast);
+void			to_ast(t_ast *ast, t_token_list *list);
 
 #endif
