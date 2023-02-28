@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 12:13:27 by vvaas             #+#    #+#             */
-/*   Updated: 2023/01/24 09:08:24 by vvaas            ###   ########.fr       */
+/*   Updated: 2023/02/28 15:42:00 by vvaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 #include <errors.h>
 #include <stdbool.h>
 #include <errors.h>
+#include <memory.h>
 
 static bool	ft_is_number(char *arg)
 {
@@ -46,5 +47,6 @@ int	ft_exit(t_parser_info *info)
 {
 	if (!ft_is_exit_code((char *)info->args))
 		return (256);
+	allfree();
 	return (ft_atoi(info->args));
 }

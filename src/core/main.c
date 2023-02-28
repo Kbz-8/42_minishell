@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 11:10:27 by maldavid          #+#    #+#             */
-/*   Updated: 2023/02/13 09:32:48 by maldavid         ###   ########.fr       */
+/*   Updated: 2023/02/28 18:21:18 by vvaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 #include <stdlib.h>
 #include <interactive.h>
 #include <utils.h>
-
+#include <readline/history.h>
 int	main(void)
 {
 	char	*entry;
@@ -39,6 +39,8 @@ int	main(void)
 	{
 		free(entry);
 		entry = readline(prompt);
+		if (ft_strlen(entry) != 0)
+			add_history(entry);
 		if (entry == 0 || ft_strcmp(entry, "exit") == 0)
 			break ;
 		if (ft_strcmp(getenv("USER"), "maldavid") == 0 || ft_strcmp(getenv("USER"), "kbz_8") == 0)
@@ -51,10 +53,12 @@ int	main(void)
 				ft_putendl_fd((char *)get_env_var("PWD"), 1);
 			else if (ft_strcmp(entry, "env") == 0)
 				ft_putendl_fd((char *)get_env_var("ENV"), 1);
-			else if (is_exec(entry))
-				printf("EXECUTABLE\n");
-			else if (ft_strlen(entry) != 0)
-				printf("%s\n", entry);
+			else if (is_exec(entry) == 1)
+				ft_exec(entry);
+			else if (is_exec(entry) == 2)
+				ft_exec(get_exec_path(entry));
+			else if (is_exec(entry) == 0)
+				printf("minishell: command not found: %s\n", entry);
 		}
 	}
 	free(entry);

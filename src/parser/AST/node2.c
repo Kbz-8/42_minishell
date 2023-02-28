@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   node2.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maldavid <kbz_8.dev@akel-engine.com>       +#+  +:+       +#+        */
+/*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 11:33:00 by maldavid          #+#    #+#             */
-/*   Updated: 2023/02/14 12:49:09 by maldavid         ###   ########.fr       */
+/*   Updated: 2023/02/28 15:27:56 by vvaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,12 @@
 
 void	manage_redirection(t_ast_node *node)
 {
-
+	(void)node;
 }
 
 void	manage_pipe(t_ast_node *node)
 {
-
+	(void)node;
 }
 
 void	visit(t_ast_node *node)

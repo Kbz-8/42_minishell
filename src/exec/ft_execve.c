@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 17:59:21 by vvaas             #+#    #+#             */
-/*   Updated: 2023/02/10 20:14:39 by vvaas            ###   ########.fr       */
+/*   Updated: 2023/02/28 18:01:42 by vvaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@
 #include <memory.h>
 #include <utils.h>
 #include <sys/stat.h>
+#include <builtin.h>
+#include <signal.h>
 static void	ft_freesplit(char **tab)
 {
 	int i;
@@ -29,17 +31,6 @@ static void	ft_freesplit(char **tab)
 		i++;
 	}
 	free(tab);
-}
-
-static bool	is_file(char *path)
-{
-	int fd;
-
-	fd = (open(path, 00));
-	if (!fd)
-		return (0);
-	close(fd);
-	return (1);
 }
 
 static bool	is_executable(char *path)
@@ -65,7 +56,7 @@ bool	is_exec_path(char *name)
 	{
 		buffer = ft_joinfree(paths[i], "/");
 		buffer = ft_joinfree(buffer, name);
-		if (is_file(buffer) && is_executable(buffer))
+		if (is_executable(buffer))
 		{
 			dealloc(buffer);
 			ft_freesplit(paths);
@@ -78,18 +69,61 @@ bool	is_exec_path(char *name)
 	return (0);
 }
 
-bool	is_exec(char *name)
+char *get_exec_path(char *name)
 {
-	char *path;
-	int offset;
+	char **paths;
+	int i;
+	char *buffer;
 
-	offset = 2 * (int)!(ft_strncmp(name, "./", 2) == 0);
-	path = ft_joinfree(ft_strjoin((char *)get_env_var("PWD"), "/"), name + offset);
-	ft_printf("%s\n", path);
-	if ((offset == 2 && is_executable(path)) || is_exec_path(name))
+	i = 0;
+	paths = ft_split(get_env_var("PATH"), ':');
+	while (paths[i])
 	{
-		dealloc(path);
-		return (1);
+		buffer = ft_joinfree(paths[i], "/");
+		buffer = ft_joinfree(buffer, name);
+		if (is_executable(buffer))
+		{
+			ft_freesplit(paths);
+			return (buffer);
+		}
+		dealloc(buffer);
+		i++;
 	}
+	ft_freesplit(paths);
+	return (0);
+}
+
+char **do_tab(char *input)
+{
+	char **tab;
+
+	tab = kalloc(2, sizeof(char *));
+	tab[0] = kalloc(ft_strlen(ft_strrchr(input, '/') + 1), sizeof(char));
+	tab[0] = ft_strrchr(input, '/') + 1;
+	tab[1] = NULL;
+	return (tab);
+}
+
+void	ft_exec(char *input)
+{
+	pid_t pid;
+
+	if (is_executable(input))
+	{
+		pid = fork();
+		if (pid == 0)
+		{
+			execve(input, do_tab(input), NULL);
+			kill(getpid(), SIGTERM);
+		}
+	}
+}
+
+int	is_exec(char *input)
+{
+	if (is_executable(input))
+		return (1);
+	if (is_exec_path(input))
+		return (2);
 	return (0);
 }
