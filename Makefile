@@ -6,7 +6,7 @@
 #    By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/18 10:57:27 by maldavid          #+#    #+#              #
-#    Updated: 2023/02/13 11:36:04 by maldavid         ###   ########.fr        #
+#    Updated: 2023/03/09 16:29:52 by vvaas            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,6 +18,7 @@ SRCS	=	src/core/main.c \
 			src/core/errors.c \
 			src/core/memory.c \
 			src/utils/ft_joinfree.c \
+			src/utils/ft_freesplit.c \
 			src/exec/command.c \
 			src/exec/ft_execve.c \
 			src/exec/interactive.c \

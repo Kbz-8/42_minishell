@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   node.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maldavid <kbz_8.dev@akel-engine.com>       +#+  +:+       +#+        */
+/*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 02:33:34 by maldavid          #+#    #+#             */
-/*   Updated: 2023/02/28 18:54:03 by maldavid         ###   ########.fr       */
+/*   Updated: 2023/03/01 18:33:00 by vvaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include <libft.h>
 #include <stdbool.h>
 
-t_ast_node	*new_ast_node(t_token *token, t_ast_node *l, t_ast_node *r)
+/*t_ast_node	*new_ast_node(t_token *token, t_ast_node *l, t_ast_node *r)
 {
 	t_ast_node	*node;
 
@@ -63,11 +63,13 @@ static void	token_list_to_ast(t_ast_node *ast, t_token_list *list)
 	ast = new_ast_node(list->token, NULL, NULL);
 	if (sep == NULL)
 		return ;
-	token_list_to_ast(ast->l_child, )
+	// token_list_to_ast(ast->l_child, )
 }
 
 void	to_ast(t_ast *ast, t_token_list *list)
 {
 	// TODO : manage env vars
-	token_list_to_ast(ast->root, list);
+	// token_list_to_ast(ast->root, list);
 }
+
+*/

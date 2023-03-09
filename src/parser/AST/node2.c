@@ -6,14 +6,14 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 11:33:00 by maldavid          #+#    #+#             */
-/*   Updated: 2023/02/28 19:19:47 by maldavid         ###   ########.fr       */
+/*   Updated: 2023/03/01 18:33:14 by vvaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <ast.h>
 #include <stddef.h>
 
-void	manage_redirection(t_ast_node *node)
+/*void	manage_redirection(t_ast_node *node)
 {
 	(void)node;
 }
@@ -41,3 +41,5 @@ void	add_leaves(t_ast *ast)
 		return ;
 	visit(ast->root);
 }
+
+*/

@@ -1,23 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init.c                                             :+:      :+:    :+:   */
+/*   ft_freesplit.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/19 15:22:37 by maldavid          #+#    #+#             */
-/*   Updated: 2023/03/01 18:48:16 by vvaas            ###   ########.fr       */
+/*   Created: 2023/03/09 16:28:59 by vvaas             #+#    #+#             */
+/*   Updated: 2023/03/09 16:29:34 by vvaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <nexus.h>
 #include <stdlib.h>
-#include <interactive.h>
 
-void	init_minishell(void)
+void	ft_freesplit(char **tab)
 {
-	add_env_var("PATH", getenv("PATH"));
-	add_env_var("USER", getenv("USER"));
-	add_env_var("PWD", getenv("PWD"));
-	init_sig();
+	int i;
+
+	i = 0;
+	while (tab[i])
+	{
+		free(tab[i]);
+		i++;
+	}
+	free(tab);
 }

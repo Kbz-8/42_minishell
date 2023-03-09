@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 17:59:21 by vvaas             #+#    #+#             */
-/*   Updated: 2023/02/28 18:01:42 by vvaas            ###   ########.fr       */
+/*   Updated: 2023/03/09 18:10:36 by vvaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,18 +20,9 @@
 #include <sys/stat.h>
 #include <builtin.h>
 #include <signal.h>
-static void	ft_freesplit(char **tab)
-{
-	int i;
-
-	i = 0;
-	while (tab[i])
-	{
-		free(tab[i]);
-		i++;
-	}
-	free(tab);
-}
+#include <readline/readline.h>
+#include <sys/types.h>
+#include<sys/wait.h>
 
 static bool	is_executable(char *path)
 {
@@ -54,15 +45,15 @@ bool	is_exec_path(char *name)
 	paths = ft_split(get_env_var("PATH"), ':');
 	while (paths[i])
 	{
-		buffer = ft_joinfree(paths[i], "/");
+		buffer = ft_strjoin(paths[i], "/");
 		buffer = ft_joinfree(buffer, name);
 		if (is_executable(buffer))
 		{
-			dealloc(buffer);
+			free(buffer);
 			ft_freesplit(paths);
 			return (1);
 		}
-		dealloc(buffer);
+		free(buffer);
 		i++;
 	}
 	ft_freesplit(paths);
@@ -79,14 +70,14 @@ char *get_exec_path(char *name)
 	paths = ft_split(get_env_var("PATH"), ':');
 	while (paths[i])
 	{
-		buffer = ft_joinfree(paths[i], "/");
+		buffer = ft_strjoin(paths[i], "/");
 		buffer = ft_joinfree(buffer, name);
 		if (is_executable(buffer))
 		{
 			ft_freesplit(paths);
 			return (buffer);
 		}
-		dealloc(buffer);
+		free(buffer);
 		i++;
 	}
 	ft_freesplit(paths);
@@ -97,8 +88,8 @@ char **do_tab(char *input)
 {
 	char **tab;
 
-	tab = kalloc(2, sizeof(char *));
-	tab[0] = kalloc(ft_strlen(ft_strrchr(input, '/') + 1), sizeof(char));
+	tab = ft_calloc(2, sizeof(char *));
+	tab[0] = ft_calloc(ft_strlen(ft_strrchr(input, '/') + 1), sizeof(char));
 	tab[0] = ft_strrchr(input, '/') + 1;
 	tab[1] = NULL;
 	return (tab);
@@ -115,6 +106,10 @@ void	ft_exec(char *input)
 		{
 			execve(input, do_tab(input), NULL);
 			kill(getpid(), SIGTERM);
+		}
+		else
+		{
+			waitpid(pid, 0, 0);
 		}
 	}
 }
