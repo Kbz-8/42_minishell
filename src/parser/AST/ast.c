@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ast.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
+/*   By: maldavid <kbz_8.dev@akel-engine.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 02:07:39 by maldavid          #+#    #+#             */
-/*   Updated: 2023/03/01 18:33:29 by vvaas            ###   ########.fr       */
+/*   Updated: 2023/02/28 15:53:58 by maldavid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ t_ast	*generate_ast(t_token_list *list)
 		return (NULL);
 	ast = alloc(sizeof(t_ast));
 	ast->root = NULL;
-	// to_ast(ast, list);
+	to_ast(ast, list);
 	print_subtree(ast->root, "     ", "     ", buffer, sizeof(buffer));
 	return (ast);
 }
