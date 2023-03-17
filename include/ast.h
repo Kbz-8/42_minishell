@@ -6,12 +6,14 @@
 /*   By: maldavid <kbz_8.dev@akel-engine.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 02:00:58 by maldavid          #+#    #+#             */
-/*   Updated: 2023/03/09 16:29:56 by maldavid         ###   ########.fr       */
+/*   Updated: 2023/03/17 17:36:37 by maldavid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef AST_H
 # define AST_H
+
+#include <nexus.h>
 
 enum e_node_type
 {
@@ -50,7 +52,7 @@ typedef struct s_ast
 
 t_ast			*generate_ast(t_token_list *list);
 t_token_list	*generate_token_list(char *entry);
-t_ast_node		*new_ast_node(t_token *token, t_ast_node *l, t_ast_node *r);
 void			to_ast(t_ast *ast, t_token_list *list);
+t_parser_info	*visit_ast(t_ast *ast);
 
 #endif

@@ -6,7 +6,7 @@
 #    By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/18 10:57:27 by maldavid          #+#    #+#              #
-#    Updated: 2023/03/09 16:29:52 by vvaas            ###   ########.fr        #
+#    Updated: 2023/03/17 17:36:46 by maldavid         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,9 +27,9 @@ SRCS	=	src/core/main.c \
 			src/exec/builtin/ft_pwd.c \
 			src/exec/builtin/ft_echo.c \
 			src/parser/parser.c \
+			src/parser/AST/ast_visitor.c \
 			src/parser/AST/ast.c \
 			src/parser/AST/node.c \
-			src/parser/AST/node2.c \
 			src/parser/AST/lexer.c \
 			src/parser/AST/lexer2.c \
 
