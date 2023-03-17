@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 11:10:27 by maldavid          #+#    #+#             */
-/*   Updated: 2023/03/09 18:14:12 by vvaas            ###   ########.fr       */
+/*   Updated: 2023/03/17 15:02:10 by vvaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@
 void	temp_exec(char *entry)
 {
 	char *path;
-
 	if (ft_strncmp(entry, "echo", 4) == 0)
 		ft_echo(entry);
 	else if (ft_strcmp(entry, "pwd") == 0)
@@ -33,7 +32,7 @@ void	temp_exec(char *entry)
 		ft_putendl_fd((char *)get_env_var("ENV"), 1);
 	else if (is_exec(entry) == 1)
 		ft_exec(entry);
-	else if (is_exec(entry) == 2)
+	else if (is_exec(entry) == 2 && ft_strlen(entry) != 0)
 	{
 		path = get_exec_path(entry);
 		ft_exec(path);
