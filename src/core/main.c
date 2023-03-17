@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 11:10:27 by maldavid          #+#    #+#             */
-/*   Updated: 2023/03/17 15:02:10 by vvaas            ###   ########.fr       */
+/*   Updated: 2023/03/17 15:15:28 by vvaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	temp_exec(char *entry)
 		ft_exec(path);
 		free(path);
 	}
-	else if (is_exec(entry) == 0)
+	else if (is_exec(entry) == 0 && ft_nstrchr(entry, ' ') == NULL)
 		printf("minishell: command not found: %s\n", entry);
 }
 
