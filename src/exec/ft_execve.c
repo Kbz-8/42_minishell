@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 17:59:21 by vvaas             #+#    #+#             */
-/*   Updated: 2023/03/17 14:57:02 by vvaas            ###   ########.fr       */
+/*   Updated: 2023/03/17 16:57:08 by vvaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,9 +108,7 @@ void	ft_exec(char *input)
 			kill(getpid(), SIGTERM);
 		}
 		else
-		{
 			waitpid(pid, 0, 0);
-		}
 	}
 	return;
 }
