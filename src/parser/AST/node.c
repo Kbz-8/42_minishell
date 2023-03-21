@@ -6,7 +6,7 @@
 /*   By: maldavid <kbz_8.dev@akel-engine.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 02:33:34 by maldavid          #+#    #+#             */
-/*   Updated: 2023/03/17 18:06:45 by maldavid         ###   ########.fr       */
+/*   Updated: 2023/03/21 05:13:51 by maldavid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static t_token_list	*get_sub_list(t_token_list *list, size_t len)
 		return (NULL);
 	new_list = alloc(sizeof(t_token_list));
 	ptr = new_list;
-	while (len > 0 && list != NULL)
+	while (len != 0 && list != NULL)
 	{
 		ptr->token = list->token;
 		if (list->next != NULL)

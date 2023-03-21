@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 17:59:21 by vvaas             #+#    #+#             */
-/*   Updated: 2023/03/17 16:57:08 by vvaas            ###   ########.fr       */
+/*   Updated: 2023/03/21 03:22:57 by maldavid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,10 @@
 #include <sys/stat.h>
 #include <builtin.h>
 #include <signal.h>
+#include <stdio.h>
 #include <readline/readline.h>
 #include <sys/types.h>
-#include<sys/wait.h>
+#include <sys/wait.h>
 
 static bool	is_executable(char *path)
 {
