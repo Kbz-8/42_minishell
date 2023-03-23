@@ -6,13 +6,14 @@
 /*   By: maldavid <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/21 13:25:28 by maldavid          #+#    #+#             */
-/*   Updated: 2023/01/22 17:08:24 by maldavid         ###   ########.fr       */
+/*   Updated: 2023/03/23 10:13:33 by maldavid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <nexus.h>
 #include <libft.h>
 #include <memory.h>
+#include <ast.h>
 
 const char	*manage_var_in_quotes(char *str)
 {
@@ -34,4 +35,16 @@ const char	*manage_var_in_quotes(char *str)
 	if (var_value == NULL)
 		return (NULL);
 	return (var_value);
+}
+
+void	free_token_list(t_token_list *list)
+{
+	t_token_list *ptr;
+
+	while (list != NULL)
+	{
+		ptr = list->next;
+		dealloc(list);
+		list = ptr;
+	}
 }

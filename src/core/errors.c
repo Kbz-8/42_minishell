@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 11:18:11 by maldavid          #+#    #+#             */
-/*   Updated: 2023/01/24 08:59:43 by vvaas            ###   ########.fr       */
+/*   Updated: 2023/03/23 10:25:03 by maldavid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include <libft.h>
 #include <memory.h>
 
-#define ERRORS_NUMBER 5
+#define ERRORS_NUMBER 6
 
 static const char	*get_str_error(int error)
 {
@@ -23,6 +23,7 @@ static const char	*get_str_error(int error)
 		"unknown error",
 		"memory allocation failed",
 		"parse error near '|'",
+		"parse error near redirection",
 		"too many arguments",
 		"numerical argument required"
 	};

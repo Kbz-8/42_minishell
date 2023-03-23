@@ -6,7 +6,7 @@
 /*   By: maldavid <kbz_8.dev@akel-engine.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 02:07:39 by maldavid          #+#    #+#             */
-/*   Updated: 2023/03/17 17:07:18 by maldavid         ###   ########.fr       */
+/*   Updated: 2023/03/23 12:11:21 by maldavid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,25 +15,6 @@
 #include <libft.h>
 #include <stdbool.h>
 #include <errors.h>
-
-bool	sanitize_token_list(t_token_list *list)
-{
-	if (list->token->type == PIPE)
-	{
-		report(ERROR, E_PIPES);
-		return (false);
-	}
-	while (list != NULL)
-	{
-		if (list->token->type == PIPE && list->prev->token->type == PIPE)
-		{
-			report(ERROR, E_PIPES);
-			return (false);
-		}
-		list = list->next;
-	}
-	return (true);
-}
 
 #include <stdio.h>
 static char buffer[1024];
@@ -59,11 +40,12 @@ t_ast	*generate_ast(t_token_list *list)
 {
 	t_ast	*ast;
 
-	if (list == NULL || !sanitize_token_list(list))
+	if (list == NULL)
 		return (NULL);
 	ast = alloc(sizeof(t_ast));
 	ast->root = NULL;
 	to_ast(ast, list);
 	print_subtree(ast->root, "     ", "     ", buffer, sizeof(buffer));
+	free_token_list(list);
 	return (ast);
 }

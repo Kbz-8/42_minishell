@@ -6,7 +6,7 @@
 /*   By: maldavid <kbz_8.dev@akel-engine.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 02:33:34 by maldavid          #+#    #+#             */
-/*   Updated: 2023/03/21 05:13:51 by maldavid         ###   ########.fr       */
+/*   Updated: 2023/03/23 15:37:14 by maldavid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ static t_token_list	*get_sub_list(t_token_list *list, size_t len)
 static t_token_list	*separator_position(t_token_list *list, int *pos)
 {
 	*pos = 0;
-	while (list != NULL && list->token != NULL)
+	while (list != NULL && list->next != NULL)
 	{
 		if (list->token->type != COMMAND && list->token->type != HERE_DOC)
 			return (list);
@@ -69,8 +69,10 @@ static void	token_list_to_ast(t_ast_node **ast, t_token_list *list)
 	t_token_list	*r_sub;
 	int				pos;
 
+	if (list == NULL || list->token == NULL)
+		return ;
 	sep = separator_position(list, &pos);
-	if (sep == NULL)
+	if (sep == NULL || list->next == NULL)
 	{
 		(*ast) = new_ast_node(list->token);
 		return ;
@@ -80,6 +82,8 @@ static void	token_list_to_ast(t_ast_node **ast, t_token_list *list)
 	r_sub = get_sub_list(sep->next, -1);
 	token_list_to_ast(&(*ast)->l_child, l_sub);
 	token_list_to_ast(&(*ast)->r_child, r_sub);
+	free_token_list(l_sub);
+	free_token_list(r_sub);
 }
 
 void	to_ast(t_ast *ast, t_token_list *list)
