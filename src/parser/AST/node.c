@@ -6,7 +6,7 @@
 /*   By: maldavid <kbz_8.dev@akel-engine.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 02:33:34 by maldavid          #+#    #+#             */
-/*   Updated: 2023/03/23 15:37:14 by maldavid         ###   ########.fr       */
+/*   Updated: 2023/03/28 16:56:13 by maldavid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ static void	token_list_to_ast(t_ast_node **ast, t_token_list *list)
 	if (list == NULL || list->token == NULL)
 		return ;
 	sep = separator_position(list, &pos);
-	if (sep == NULL || list->next == NULL)
+	if (sep == NULL)
 	{
 		(*ast) = new_ast_node(list->token);
 		return ;

@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 17:59:21 by vvaas             #+#    #+#             */
-/*   Updated: 2023/03/21 03:22:57 by maldavid         ###   ########.fr       */
+/*   Updated: 2023/03/28 18:20:40 by maldavid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,7 @@ void	ft_exec(char *input)
 
 	if (is_executable(input))
 	{
+		kill(getpid(), SIGUSR1);
 		pid = fork();
 		if (pid == 0)
 		{
@@ -109,7 +110,11 @@ void	ft_exec(char *input)
 			kill(getpid(), SIGTERM);
 		}
 		else
+		{
 			waitpid(pid, 0, 0);
+			kill(getpid(), SIGUSR1);
+			printf("\n");
+		}
 	}
 	return;
 }
