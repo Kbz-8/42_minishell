@@ -6,7 +6,7 @@
 /*   By: maldavid <kbz_8.dev@akel-engine.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 13:45:21 by maldavid          #+#    #+#             */
-/*   Updated: 2022/10/03 15:23:58 by maldavid         ###   ########.fr       */
+/*   Updated: 2023/05/14 11:06:10 by maldavid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,6 @@ void	ft_lstdelone(t_list *lst, void (*del)(void *))
 	if (!lst || !del)
 		return ;
 	del(lst->content);
-	free(lst);
+	ft_free(lst);
 	lst = FT_NULL;
 }

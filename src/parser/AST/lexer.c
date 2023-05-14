@@ -6,7 +6,7 @@
 /*   By: maldavid <kbz_8.dev@akel-engine.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 04:34:34 by maldavid          #+#    #+#             */
-/*   Updated: 2023/02/28 19:04:56 by maldavid         ###   ########.fr       */
+/*   Updated: 2023/05/14 09:22:18 by maldavid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,17 +30,17 @@ static t_token_list	*new_token(char *str)
 	ft_bzero(list->token->str, size);
 	ft_strcpy(list->token->str, str);
 	if (str[0] == '|')
-		list->token->type = PIPE;
+		list->token->type = AST_PIPE;
 	else if (str[0] == '>' && str[1] == '>')
-		list->token->type = DOUBLE_RED_R;
+		list->token->type = AST_DOUBLE_RED_R;
 	else if (str[0] == '<' && str[1] == '<')
-		list->token->type = HERE_DOC;
+		list->token->type = AST_HERE_DOC;
 	else if (str[0] == '>')
-		list->token->type = SIMPLE_RED_R;
+		list->token->type = AST_SIMPLE_RED_R;
 	else if (str[0] == '<')
-		list->token->type = SIMPLE_RED_L;
+		list->token->type = AST_SIMPLE_RED_L;
 	else
-		list->token->type = COMMAND;
+		list->token->type = AST_COMMAND;
 	return (list);
 }
 

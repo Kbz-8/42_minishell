@@ -6,7 +6,7 @@
 /*   By: maldavid <kbz_8.dev@akel-engine.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/11 15:44:48 by maldavid          #+#    #+#             */
-/*   Updated: 2022/12/14 19:04:08 by maldavid         ###   ########.fr       */
+/*   Updated: 2023/05/14 11:03:20 by maldavid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ char	*ft_strnjoin(char const *s1, char const *s2, int n)
 	int		j;
 	char	*str;
 
-	str = (char *)malloc(ft_strlen(s1) + ft_strlen(s2) + 1);
+	str = (char *)ft_malloc(ft_strlen(s1) + ft_strlen(s2) + 1);
 	if (!str)
 		return (NULL);
 	i = 0;
@@ -36,6 +36,6 @@ char	*ft_strnjoin(char const *s1, char const *s2, int n)
 		j++;
 	}
 	str[i + j] = 0;
-	free((char *)s1);
+	ft_free((char *)s1);
 	return (str);
 }

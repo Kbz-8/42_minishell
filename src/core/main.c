@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 11:10:27 by maldavid          #+#    #+#             */
-/*   Updated: 2023/03/28 18:19:30 by vvaas            ###   ########.fr       */
+/*   Updated: 2023/05/14 12:03:32 by maldavid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,32 @@ void	temp_exec(char *entry)
 		printf("minishell: command not found: %s\n", entry);
 }
 
+void	print_parser_info(t_parser_info *info)
+{
+	int	i;
+
+	if(info == NULL)
+		return;
+	ft_printf("command : '%s'\nargs :\n", info->cmd.str);
+	i = 0;
+	while (info->args[i] != NULL)
+	{
+		ft_printf("\t'%s'\n", info->args[i]);
+		i++;
+	}
+	if (info->link == NONE)
+		ft_putstr("is not linked to next info\n\n");
+	else if (info->link == PIPE)
+		ft_putstr("is linked to next info by a pipe\n\n");
+	else if (info->link == R_IN)
+		ft_putstr("is linked to next info by a redirection in\n\n");
+	else if (info->link == R_OUT)
+		ft_putstr("is linked to next info by a redirection out\n\n");
+	else if (info->link == R_OUT_ABSOLUTE)
+		ft_putstr("is linked to next info by an absolute redirection out\n\n");
+	print_parser_info(info->next);
+}
+
 int	main(void)
 {
 	char	*entry;
@@ -67,7 +93,7 @@ int	main(void)
 		if (entry == 0 || ft_strcmp(entry, "exit") == 0)
 			break ;
 		if (ft_strcmp(getenv("USER"), "maldavid") == 0 || ft_strcmp(getenv("USER"), "kbz_8") == 0)
-			(void)parse(entry);
+			print_parser_info(parse(entry));
 		else
 			temp_exec(entry);
 	}

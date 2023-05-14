@@ -6,7 +6,7 @@
 /*   By: maldavid <kbz_8.dev@akel-engine.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/27 11:13:50 by maldavid          #+#    #+#             */
-/*   Updated: 2023/01/05 15:36:53 by maldavid         ###   ########.fr       */
+/*   Updated: 2023/05/14 11:00:16 by maldavid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,12 +36,21 @@ typedef unsigned int		t_u32;
 typedef unsigned long long	t_uint64;
 typedef unsigned long long	t_u64;
 
+typedef void				*(*t_alloc)(t_size);
+typedef void				(*t_free)(void *);
+
 typedef struct s_list
 {
 	void			*content;
 	struct s_list	*next;
 }		t_list;
 
+void	ft_set_internal_malloc(t_alloc f);
+t_alloc	*ft_get_internal_alloc(void);
+void	*ft_malloc(t_size size);
+void	ft_set_internal_free(t_free f);
+t_free	*ft_get_internal_free(void);
+void	ft_free(void *ptr);
 int		ft_putchar(unsigned char c);
 int		ft_putchar_fd(unsigned char c, int fd);
 int		ft_putstr(char *s);

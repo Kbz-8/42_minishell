@@ -6,7 +6,7 @@
 /*   By: maldavid <kbz_8.dev@akel-engine.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 12:56:27 by maldavid          #+#    #+#             */
-/*   Updated: 2022/09/29 12:52:18 by maldavid         ###   ########.fr       */
+/*   Updated: 2023/05/14 11:05:32 by maldavid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ char	*ft_strnew(t_size size)
 {
 	char	*str;
 
-	str = (char *)malloc(size + 1);
+	str = (char *)ft_malloc(size + 1);
 	if (!str)
 		return (FT_NULL);
 	ft_memset(str, 0, size + 1);

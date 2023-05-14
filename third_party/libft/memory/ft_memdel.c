@@ -6,7 +6,7 @@
 /*   By: maldavid <kbz_8.dev@akel-engine.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 12:54:02 by maldavid          #+#    #+#             */
-/*   Updated: 2022/09/27 11:33:35 by maldavid         ###   ########.fr       */
+/*   Updated: 2023/05/14 11:01:43 by maldavid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,6 @@ void	ft_memdel(void **ap)
 {
 	if (!ap || !*ap)
 		return ;
-	free(*ap);
+	ft_free(*ap);
 	*ap = FT_NULL;
 }

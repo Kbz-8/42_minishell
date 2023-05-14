@@ -6,7 +6,7 @@
 /*   By: maldavid <kbz_8.dev@akel-engine.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 13:14:06 by maldavid          #+#    #+#             */
-/*   Updated: 2022/10/07 04:15:45 by maldavid         ###   ########.fr       */
+/*   Updated: 2023/05/14 11:06:05 by maldavid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	ft_lstclear(t_list **lst, void (*del)(void *))
 		next = (*lst)->next;
 		if (del)
 			del((*lst)->content);
-		free(*lst);
+		ft_free(*lst);
 		*lst = next;
 	}
 	*lst = FT_NULL;

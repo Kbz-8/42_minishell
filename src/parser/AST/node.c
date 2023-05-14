@@ -6,7 +6,7 @@
 /*   By: maldavid <kbz_8.dev@akel-engine.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 02:33:34 by maldavid          #+#    #+#             */
-/*   Updated: 2023/03/28 16:56:13 by maldavid         ###   ########.fr       */
+/*   Updated: 2023/05/14 09:22:35 by maldavid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ static t_token_list	*separator_position(t_token_list *list, int *pos)
 	*pos = 0;
 	while (list != NULL && list->next != NULL)
 	{
-		if (list->token->type != COMMAND && list->token->type != HERE_DOC)
+		if (list->token->type != AST_COMMAND && list->token->type != AST_HERE_DOC)
 			return (list);
 		(*pos)++;
 		list = list->next;

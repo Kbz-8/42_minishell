@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 12:13:27 by vvaas             #+#    #+#             */
-/*   Updated: 2023/02/28 15:42:00 by vvaas            ###   ########.fr       */
+/*   Updated: 2023/05/14 11:22:02 by maldavid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,8 @@ static bool	ft_is_exit_code(char *arg)
 
 int	ft_exit(t_parser_info *info)
 {
-	if (!ft_is_exit_code((char *)info->args))
+	if (!ft_is_exit_code((char *)info->args[1]))
 		return (256);
 	allfree();
-	return (ft_atoi(info->args));
+	return (ft_atoi(info->args[1]));
 }

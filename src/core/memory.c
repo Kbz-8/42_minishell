@@ -6,7 +6,7 @@
 /*   By: maldavid <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 11:23:06 by maldavid          #+#    #+#             */
-/*   Updated: 2023/01/22 17:22:38 by maldavid         ###   ########.fr       */
+/*   Updated: 2023/05/14 11:20:32 by maldavid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,56 +15,48 @@
 #include <errors.h>
 #include <libft.h>
 
-static t_list	**get_blocks(void)
+static t_block	**get_blocks(void)
 {
-	static t_list	*head = NULL;
+	static t_block	*head = NULL;
 
 	return (&head);
 }
 
 void	*alloc(size_t size)
 {
-	void	*ptr;
+	t_block	*block;
 
-	ptr = malloc(size);
-	if (ptr == NULL)
+	block = malloc(size + sizeof(t_block));
+	if (block == NULL)
 		report(FATAL_ERROR, E_MEMFAIL);
-	ft_lstadd_back(get_blocks(), ft_lstnew(ptr));
-	return (ptr);
-}
-
-void	*kalloc(size_t n, size_t size)
-{
-	void	*ptr;
-
-	if (n * size > 0xFFFFFFFFUL || n >= 0xFFFFFFFFUL || size >= 0xFFFFFFFFUL)
-		return (NULL);
-	ptr = alloc(n * size);
-	ft_bzero(ptr, size * n);
-	return (ptr);
+	block->next = *get_blocks();
+	block->ptr = (void *)((unsigned long)block + sizeof(t_block));
+	*get_blocks() = block;
+	return (block->ptr);
 }
 
 void	dealloc(void *ptr)
 {
-	t_list	*buf;
-	t_list	*tmp;
+	t_block	*buf;
+	t_block	*tmp;
 
 	buf = *get_blocks();
 	if (buf == NULL)
 		return ;
-	if (buf->content == ptr)
+	if (buf->ptr == ptr)
 	{
 		tmp = buf;
 		*get_blocks() = buf->next;
-		ft_lstdelone(tmp, free);
+		free(tmp);
+		return ;
 	}
 	while (buf->next != NULL)
 	{
-		if (buf->next->content == ptr)
+		if (buf->next->ptr == ptr)
 		{
 			tmp = buf->next;
 			buf->next = tmp->next;
-			ft_lstdelone(tmp, free);
+			free(tmp);
 			return ;
 		}
 		buf = buf->next;
@@ -73,5 +65,14 @@ void	dealloc(void *ptr)
 
 void	allfree(void)
 {
-	ft_lstclear(get_blocks(), free);
+	t_block	*buf;
+	t_block	*dbuf;
+
+	buf = *get_blocks();
+	while (buf != NULL)
+	{
+		dbuf = buf->next;
+		free(buf);
+		buf = dbuf;
+	}
 }

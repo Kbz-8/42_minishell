@@ -6,11 +6,11 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 16:28:59 by vvaas             #+#    #+#             */
-/*   Updated: 2023/03/09 16:29:34 by vvaas            ###   ########.fr       */
+/*   Updated: 2023/05/14 12:27:58 by maldavid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
+#include <libft.h>
 
 void	ft_freesplit(char **tab)
 {
@@ -19,8 +19,8 @@ void	ft_freesplit(char **tab)
 	i = 0;
 	while (tab[i])
 	{
-		free(tab[i]);
+		ft_free(tab[i]);
 		i++;
 	}
-	free(tab);
+	ft_free(tab);
 }

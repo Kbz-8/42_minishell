@@ -6,7 +6,7 @@
 /*   By: maldavid <kbz_8.dev@akel-engine.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/11 15:34:11 by maldavid          #+#    #+#             */
-/*   Updated: 2022/12/09 20:05:35 by maldavid         ###   ########.fr       */
+/*   Updated: 2023/05/14 11:03:09 by maldavid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@ static void	ft_save(char **save, char *buf)
 	if (BUFFER_SIZE < 2 || !buf || *buf == 0)
 		return ;
 	size = ft_strlen(buf);
-	free(*save);
-	*save = (char *)malloc(size + 1);
+	ft_free(*save);
+	*save = (char *)ft_malloc(size + 1);
 	if (*save == NULL)
 		return ;
 	ft_memset(*save, 0, size + 1);
@@ -43,9 +43,9 @@ static char	*process_line(char *line, char *ptr, char *buffer, char **save)
 	line = ft_strnjoin(line, buffer, ptr - buffer + 1);
 	buf = ft_strnjoin(NULL, ptr, -1);
 	if (*save != buffer)
-		free(buffer);
+		ft_free(buffer);
 	ft_save(save, buf + 1);
-	free(buf);
+	ft_free(buf);
 	return (line);
 }
 
@@ -54,7 +54,7 @@ static void	ft_save_init(char **save, char **line)
 	*line = NULL;
 	if (*save && **save)
 		*line = ft_strnjoin(NULL, *save, -1);
-	free(*save);
+	ft_free(*save);
 	*save = NULL;
 }
 
@@ -71,7 +71,7 @@ static char	*read_line(int fd, char **save)
 		if (ptr && ft_strlen(ptr) > 1)
 			return (process_line(line, ptr, *save, save));
 	}
-	buffer = (char *)malloc(BUFFER_SIZE + 1);
+	buffer = (char *)ft_malloc(BUFFER_SIZE + 1);
 	ft_memset(buffer, 0, BUFFER_SIZE + 1);
 	ft_save_init(save, &line);
 	while (read(fd, buffer, BUFFER_SIZE) > 0)
@@ -82,7 +82,7 @@ static char	*read_line(int fd, char **save)
 		line = ft_strnjoin(line, buffer, -1);
 		ft_memset(buffer, 0, ft_strlen(buffer));
 	}
-	free(buffer);
+	ft_free(buffer);
 	return (line);
 }
 

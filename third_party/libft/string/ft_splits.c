@@ -6,7 +6,7 @@
 /*   By: maldavid <kbz_8.dev@akel-engine.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/20 14:35:09 by maldavid          #+#    #+#             */
-/*   Updated: 2022/09/28 10:01:50 by maldavid         ###   ########.fr       */
+/*   Updated: 2023/05/14 11:03:56 by maldavid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ static char	*ft_splits_strdup(const char *str, const char *charset)
 	char	*buf;
 	char	*p_buf;
 
-	buf = (char *)malloc(ft_splits_strlen(str, charset) + 1);
+	buf = (char *)ft_malloc(ft_splits_strlen(str, charset) + 1);
 	if (!buf)
 		return (FT_NULL);
 	p_buf = buf;
@@ -75,7 +75,7 @@ char	**ft_splits(const char *s, const char *charset)
 
 	i = 0;
 	is_word = 0;
-	tab = (char **)malloc((ft_splits_get_words(s, charset) + 1) * 8);
+	tab = (char **)ft_malloc((ft_splits_get_words(s, charset) + 1) * 8);
 	if (!tab)
 		return (FT_NULL);
 	while (*s++)
