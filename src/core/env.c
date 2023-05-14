@@ -6,7 +6,7 @@
 /*   By: maldavid <kbz_8.dev@akel-engine.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 01:48:34 by maldavid          #+#    #+#             */
-/*   Updated: 2023/02/10 17:48:53 by maldavid         ###   ########.fr       */
+/*   Updated: 2023/05/14 14:18:34 by maldavid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,24 +14,20 @@
 #include <memory.h>
 #include <libft.h>
 
-t_env	g_env;
-
 t_env	*get_env_data(void)
 {
-	return (&g_env);
+	static t_env	env;
+
+	return (&env);
 }
 
-void	add_env_var(char *key, char* value)
+void	add_env_var(char *key, char *value)
 {
 	t_env_var	*new;
 
 	new = alloc(sizeof(t_env_var));
-	new->key = alloc(ft_strlen(key) + 1);
-	ft_bzero(new->key, ft_strlen(key) + 1);
-	ft_strcpy(new->key, key);
-	new->value = alloc(ft_strlen(value) + 1);
-	ft_bzero(new->value, ft_strlen(value) + 1);
-	ft_strcpy(new->value, value);
+	new->key = ft_strdup(key);
+	new->value = ft_strdup(value);
 	new->next = get_env_data()->vars;
 	get_env_data()->vars = new;
 }
@@ -39,7 +35,7 @@ void	add_env_var(char *key, char* value)
 const char	*get_env_var(char *key)
 {
 	t_env_var	*ptr;
-	
+
 	ptr = get_env_data()->vars;
 	while (ptr && ft_strcmp(ptr->key, key) != 0)
 		ptr = ptr->next;

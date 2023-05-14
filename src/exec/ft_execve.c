@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 17:59:21 by vvaas             #+#    #+#             */
-/*   Updated: 2023/03/28 18:20:40 by maldavid         ###   ########.fr       */
+/*   Updated: 2023/05/14 14:08:12 by maldavid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,19 +28,18 @@
 static bool	is_executable(char *path)
 {
 	struct stat file;
-	int val;
+	int 		val;
 
 	val = stat(path, &file);
-	if (val == 0 && file.st_mode > 0 && file.st_mode & S_IXUSR && file.st_mode & S_IXOTH && file.st_mode & S_IXGRP)
-		return (1);
-	return (0);
+	return (val == 0 && file.st_mode > 0 && file.st_mode & S_IXUSR && \
+		file.st_mode & S_IXOTH && file.st_mode & S_IXGRP);
 }
 
 bool	is_exec_path(char *name)
 {
-	char **paths;
-	int i;
-	char *buffer;
+	char	**paths;
+	int		i;
+	char	*buffer;
 
 	i = 0;
 	paths = ft_split(get_env_var("PATH"), ':');
@@ -50,22 +49,22 @@ bool	is_exec_path(char *name)
 		buffer = ft_joinfree(buffer, name);
 		if (is_executable(buffer))
 		{
-			free(buffer);
+			ft_free(buffer);
 			ft_freesplit(paths);
 			return (1);
 		}
-		free(buffer);
+		ft_free(buffer);
 		i++;
 	}
 	ft_freesplit(paths);
 	return (0);
 }
 
-char *get_exec_path(char *name)
+char	*get_exec_path(char *name)
 {
-	char **paths;
-	int i;
-	char *buffer;
+	char	**paths;
+	int		i;
+	char	*buffer;
 
 	i = 0;
 	paths = ft_split(get_env_var("PATH"), ':');
@@ -78,16 +77,16 @@ char *get_exec_path(char *name)
 			ft_freesplit(paths);
 			return (buffer);
 		}
-		free(buffer);
+		ft_free(buffer);
 		i++;
 	}
 	ft_freesplit(paths);
 	return (0);
 }
 
-char **do_tab(char *input)
+char	**do_tab(char *input)
 {
-	char **tab;
+	char	**tab;
 
 	tab = ft_calloc(2, sizeof(char *));
 	tab[0] = ft_calloc(ft_strlen(ft_strrchr(input, '/') + 1), sizeof(char));
@@ -98,7 +97,7 @@ char **do_tab(char *input)
 
 void	ft_exec(char *input)
 {
-	pid_t pid;
+	pid_t	pid;
 
 	if (is_executable(input))
 	{

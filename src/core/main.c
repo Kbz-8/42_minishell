@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 11:10:27 by maldavid          #+#    #+#             */
-/*   Updated: 2023/05/14 12:03:32 by maldavid         ###   ########.fr       */
+/*   Updated: 2023/05/14 14:00:09 by maldavid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@
 
 void	temp_exec(char *entry)
 {
-	char *path;
+	char	*path;
+
 	if (ft_strncmp(entry, "echo", 4) == 0)
 		ft_echo(entry);
 	else if (ft_strcmp(entry, "pwd") == 0)
@@ -48,8 +49,8 @@ void	print_parser_info(t_parser_info *info)
 {
 	int	i;
 
-	if(info == NULL)
-		return;
+	if (info == NULL)
+		return ;
 	ft_printf("command : '%s'\nargs :\n", info->cmd.str);
 	i = 0;
 	while (info->args[i] != NULL)

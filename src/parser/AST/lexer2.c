@@ -6,7 +6,7 @@
 /*   By: maldavid <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/21 13:25:28 by maldavid          #+#    #+#             */
-/*   Updated: 2023/03/23 10:13:33 by maldavid         ###   ########.fr       */
+/*   Updated: 2023/05/14 14:01:23 by maldavid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ const char	*manage_var_in_quotes(char *str)
 
 void	free_token_list(t_token_list *list)
 {
-	t_token_list *ptr;
+	t_token_list	*ptr;
 
 	while (list != NULL)
 	{

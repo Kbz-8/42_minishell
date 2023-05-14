@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 11:59:38 by maldavid          #+#    #+#             */
-/*   Updated: 2023/05/14 10:23:35 by maldavid         ###   ########.fr       */
+/*   Updated: 2023/05/14 13:58:39 by maldavid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ typedef struct s_env
 
 t_env		*get_env_data(void);
 void		init_minishell(void);
-void		add_env_var(char *key, char* value);
+void		add_env_var(char *key, char *value);
 const char	*get_env_var(char *key);
 
 #endif
