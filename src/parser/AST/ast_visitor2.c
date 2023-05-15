@@ -6,7 +6,7 @@
 /*   By: maldavid <kbz_8.dev@akel-engine.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/14 11:30:04 by maldavid          #+#    #+#             */
-/*   Updated: 2023/05/14 18:16:34 by maldavid         ###   ########.fr       */
+/*   Updated: 2023/05/15 17:31:18 by maldavid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static int	args_splits_strlen(const char *str, char sep)
 	check_sep = true;
 	while (*str && length)
 	{
-		if (*str == '"')
+		if (*str == '"' || *str == '\'')
 			check_sep = !check_sep;
 		else
 			length++;
@@ -50,7 +50,7 @@ static int	args_splits_get_words(const char *str, char sep)
 	check_sep = true;
 	while (*str)
 	{
-		if (*str == '"')
+		if (*str == '"' || *str == '\'')
 			check_sep = !check_sep;
 		if (check_sep && *str == sep)
 			is_word = 0;
@@ -71,17 +71,15 @@ static char	*args_splits_strdup(const char *str, char sep)
 	bool	check_sep;
 
 	buf = (char *)alloc(args_splits_strlen(str, sep) + 1);
-	if (!buf)
-		return (NULL);
 	p_buf = buf;
 	check_sep = true;
 	while (*str)
 	{
-		if (*str == '"')
+		if (*str == '"' || *str == '\'')
 			check_sep = !check_sep;
 		if (check_sep && *str == sep)
 			break ;
-		if (*str != '"')
+		if (*str != '"' || *str != '\'')
 		{
 			*buf = *str;
 			buf++;
@@ -105,7 +103,7 @@ char	**args_split(const char *s, char sep)
 	check_sep = true;
 	while (*s)
 	{
-		if (*s == '"')
+		if (*s == '"' || *s == '\'')
 			check_sep = !check_sep;
 		if (check_sep && *s == sep)
 			is_word = 0;

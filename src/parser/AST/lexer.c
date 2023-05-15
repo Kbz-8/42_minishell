@@ -6,7 +6,7 @@
 /*   By: maldavid <kbz_8.dev@akel-engine.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 04:34:34 by maldavid          #+#    #+#             */
-/*   Updated: 2023/05/14 09:22:18 by maldavid         ###   ########.fr       */
+/*   Updated: 2023/05/15 17:16:39 by maldavid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,7 @@ static t_token_list	*new_token(char *str)
 	list->next = NULL;
 	list->token = alloc(sizeof(t_token));
 	size = ft_strlen(str) + 1;
-	list->token->str = alloc(size);
-	ft_bzero(list->token->str, size);
+	list->token->str = ft_memalloc(size);
 	ft_strcpy(list->token->str, str);
 	if (str[0] == '|')
 		list->token->type = AST_PIPE;
@@ -103,8 +102,7 @@ static void	add_command(t_token_list **list, char **str)
 		size++;
 		ptr++;
 	}
-	ptr = alloc(size + 1);
-	ft_bzero(ptr, size + 1);
+	ptr = ft_memalloc(size + 1);
 	ft_memcpy(ptr, *str, size);
 	*str += size;
 	add_token_to_list(list, new_token(ptr));

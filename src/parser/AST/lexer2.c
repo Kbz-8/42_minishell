@@ -6,7 +6,7 @@
 /*   By: maldavid <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/21 13:25:28 by maldavid          #+#    #+#             */
-/*   Updated: 2023/05/14 14:01:23 by maldavid         ###   ########.fr       */
+/*   Updated: 2023/05/15 17:28:58 by maldavid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,7 @@ const char	*manage_var_in_quotes(char *str)
 	const char	*var_value;
 	int			i;
 
-	var_name = alloc(ft_strlen(str) + 1);
-	ft_bzero(var_name, ft_strlen(str) + 1);
+	var_name = ft_memalloc(ft_strlen(str) + 1);
 	i = 0;
 	while (*str && !ft_isspace(*str) && *str != '"')
 	{

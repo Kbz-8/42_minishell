@@ -6,7 +6,7 @@
 /*   By: maldavid <kbz_8.dev@akel-engine.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/17 17:26:28 by maldavid          #+#    #+#             */
-/*   Updated: 2023/05/14 11:43:17 by maldavid         ###   ########.fr       */
+/*   Updated: 2023/05/15 17:19:09 by maldavid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,7 @@ static t_parser_info	*visit_command(t_ast_node *node)
 	int					i;
 	t_parser_info		*info;
 
-	info = alloc(sizeof(t_parser_info));
-	ft_memset(info, 0, sizeof(t_parser_info));
+	info = ft_memalloc(sizeof(t_parser_info));
 	info->args = (const char **)args_split(node->token->str, ' ');
 	i = 0;
 	while (i < (int)(sizeof(builtins) / sizeof(builtins[0])))
