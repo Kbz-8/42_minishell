@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 11:10:27 by maldavid          #+#    #+#             */
-/*   Updated: 2023/05/14 14:00:09 by maldavid         ###   ########.fr       */
+/*   Updated: 2023/05/20 16:12:16 by maldavid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ int	main(void)
 			add_history(entry);
 		if (entry == 0 || ft_strcmp(entry, "exit") == 0)
 			break ;
-		if (ft_strcmp(getenv("USER"), "maldavid") == 0 || ft_strcmp(getenv("USER"), "kbz_8") == 0)
+		if (ft_strstr("maldavid malo kbz_8", getenv("USER")) != NULL)
 			print_parser_info(parse(entry));
 		else
 			temp_exec(entry);

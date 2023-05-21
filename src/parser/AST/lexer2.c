@@ -6,7 +6,7 @@
 /*   By: maldavid <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/21 13:25:28 by maldavid          #+#    #+#             */
-/*   Updated: 2023/05/15 17:28:58 by maldavid         ###   ########.fr       */
+/*   Updated: 2023/05/21 15:27:19 by maldavid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,23 +14,22 @@
 #include <libft.h>
 #include <memory.h>
 #include <ast.h>
+#include <stdint.h>
 
-const char	*manage_var_in_quotes(char *str)
+char	*manage_var_in_quotes(char *str, char **name)
 {
-	char		*var_name;
-	const char	*var_value;
+	char	*var_value;
 	int			i;
 
-	var_name = ft_memalloc(ft_strlen(str) + 1);
+	*name = ft_memalloc(ft_strlen(str) + 1);
 	i = 0;
 	while (*str && !ft_isspace(*str) && *str != '"')
 	{
-		var_name[i] = *str;
+		(*name)[i] = *str;
 		i++;
 		str++;
 	}
-	var_value = get_env_var(var_name);
-	dealloc(var_name);
+	var_value = (char *)get_env_var(*name);
 	if (var_value == NULL)
 		return (NULL);
 	return (var_value);
@@ -46,4 +45,32 @@ void	free_token_list(t_token_list *list)
 		dealloc(list);
 		list = ptr;
 	}
+}
+
+void	manage_realloc(char **ptr, uint32_t *alloc_size, uint32_t i)
+{
+	if (i >= *alloc_size)
+	{
+		*alloc_size += i + 255;
+		*ptr = realloc_but_not_the_std_lib(*ptr, *alloc_size + 1);
+	}
+}
+
+void	include_var(t_command_data *data, char **str)
+{
+	size_t	var_val_size;
+
+	data->var_value = manage_var_in_quotes(*str + 1, &data->var_name);
+	if (data->var_value == NULL)
+	{
+		data->ptr[data->i++] = '$';
+		(*str)++;
+		return ;
+	}
+	var_val_size = ft_strlen(data->var_value);
+	manage_realloc(&data->ptr, &data->alloc_size, data->i + var_val_size);
+	ft_strcpy(data->ptr + data->i, data->var_value);
+	data->i += var_val_size;
+	(*str) += ft_strlen(data->var_name) + 1;
+	dealloc(data->var_name);
 }

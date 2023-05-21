@@ -6,7 +6,7 @@
 /*   By: maldavid <kbz_8.dev@akel-engine.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 04:34:34 by maldavid          #+#    #+#             */
-/*   Updated: 2023/05/15 17:16:39 by maldavid         ###   ########.fr       */
+/*   Updated: 2023/05/21 15:19:05 by maldavid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,11 @@
 #include <memory.h>
 #include <libft.h>
 #include <stdbool.h>
+#include <stdint.h>
 
-char	*manage_var_in_quotes(char *str);
+char	*manage_var_in_quotes(char *str, char **name);
+void	manage_realloc(char **ptr, uint32_t *alloc_size, uint32_t i);
+void	include_var(t_command_data *data, char **str);
 
 static t_token_list	*new_token(char *str)
 {
@@ -86,26 +89,25 @@ static void	add_redirection(t_token_list **list, char **str)
 
 static void	add_command(t_token_list **list, char **str)
 {
-	size_t	size;
-	char	*ptr;
-	bool	begin_string;
+	t_command_data	data;
 
-	size = 0;
-	ptr = *str;
-	begin_string = false;
-	while (*ptr != '|' && *ptr != '<' && *ptr != '>' && *ptr != 0)
+	ft_memset(&data, 0, sizeof(t_command_data));
+	data.alloc_size = 255;
+	data.ptr = ft_memalloc(data.alloc_size);
+	while (*(*str) != '|' && *(*str) != '<' && *(*str) != '>' && *(*str) != 0)
 	{
-		if (*ptr == '"')
-			begin_string = !begin_string;
-		if (begin_string && *ptr == '$')
-			manage_var_in_quotes(ptr + 1);
-		size++;
-		ptr++;
+		manage_realloc(&data.ptr, &data.alloc_size, data.i);
+		if (*(*str) == '"')
+			data.in_string = !data.in_string;
+		if (data.in_string && *(*str) == '$')
+		{
+			include_var(&data, str);
+			continue ;
+		}
+		data.ptr[data.i++] = *(*str);
+		(*str)++;
 	}
-	ptr = ft_memalloc(size + 1);
-	ft_memcpy(ptr, *str, size);
-	*str += size;
-	add_token_to_list(list, new_token(ptr));
+	add_token_to_list(list, new_token(data.ptr));
 }
 
 t_token_list	*generate_token_list(char *entry)

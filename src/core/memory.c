@@ -6,7 +6,7 @@
 /*   By: maldavid <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 11:23:06 by maldavid          #+#    #+#             */
-/*   Updated: 2023/05/14 11:20:32 by maldavid         ###   ########.fr       */
+/*   Updated: 2023/05/20 16:55:35 by maldavid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,30 @@ void	*alloc(size_t size)
 {
 	t_block	*block;
 
-	block = malloc(size + sizeof(t_block));
+	block = malloc(sizeof(t_block));
 	if (block == NULL)
 		report(FATAL_ERROR, E_MEMFAIL);
 	block->next = *get_blocks();
-	block->ptr = (void *)((unsigned long)block + sizeof(t_block));
+	block->ptr = malloc(size);
 	*get_blocks() = block;
 	return (block->ptr);
+}
+
+void	*realloc_but_not_the_std_lib(void *ptr, size_t size)
+{
+	t_block	*buf;
+
+	buf = *get_blocks();
+	while (buf != NULL)
+	{
+		if (buf->ptr == ptr)
+		{
+			buf->ptr = realloc(ptr, size);
+			return (buf->ptr);
+		}
+		buf = buf->next;
+	}
+	return (NULL);
 }
 
 void	dealloc(void *ptr)
@@ -47,6 +64,7 @@ void	dealloc(void *ptr)
 	{
 		tmp = buf;
 		*get_blocks() = buf->next;
+		free(tmp->ptr);
 		free(tmp);
 		return ;
 	}
@@ -56,6 +74,7 @@ void	dealloc(void *ptr)
 		{
 			tmp = buf->next;
 			buf->next = tmp->next;
+			free(tmp->ptr);
 			free(tmp);
 			return ;
 		}
@@ -72,6 +91,7 @@ void	allfree(void)
 	while (buf != NULL)
 	{
 		dbuf = buf->next;
+		free(buf->ptr);
 		free(buf);
 		buf = dbuf;
 	}

@@ -6,7 +6,7 @@
 /*   By: maldavid <kbz_8.dev@akel-engine.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 02:00:58 by maldavid          #+#    #+#             */
-/*   Updated: 2023/05/14 12:27:13 by maldavid         ###   ########.fr       */
+/*   Updated: 2023/05/21 15:04:55 by maldavid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include <nexus.h>
 # include <stdbool.h>
+# include <stdint.h>
 
 enum e_node_type
 {
@@ -50,6 +51,16 @@ typedef struct s_ast
 {
 	t_ast_node	*root;
 }	t_ast;
+
+typedef struct s_command_data
+{
+	char		*ptr;
+	char		*var_name;
+	char		*var_value;
+	uint32_t	alloc_size;
+	uint32_t	i;
+	bool		in_string;
+}	t_command_data;
 
 t_ast			*generate_ast(t_token_list *list);
 t_token_list	*generate_token_list(char *entry);
