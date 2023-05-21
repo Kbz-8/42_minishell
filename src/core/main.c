@@ -6,19 +6,19 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 11:10:27 by maldavid          #+#    #+#             */
-/*   Updated: 2023/05/20 16:12:16 by maldavid         ###   ########.fr       */
+/*   Updated: 2023/05/21 16:40:30 by maldavid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <prompt.h>
 #include <builtin.h>
 #include <libft.h>
 #include <memory.h>
-#include <stdio.h>
-#include <readline/readline.h>
 #include <parser.h>
 #include <stdlib.h>
 #include <interactive.h>
 #include <utils.h>
+#include <stdio.h>
 #include <readline/history.h>
 
 void	temp_exec(char *entry)
@@ -73,25 +73,19 @@ void	print_parser_info(t_parser_info *info)
 
 int	main(void)
 {
-	char	*entry;
-	char	*prompt;
-	size_t	username_size;	
+	t_prompt	prompt;
+	char 		*entry;
 
-	init_minishell();
 	entry = NULL;
-	ft_putstr("\nWelcome to Minishell by vvaas and maldavid !\n");
-	username_size = ft_strlen(getenv("USER"));
-	prompt = alloc(username_size + 16);
-	prompt[0] = '[';
-	ft_strcpy(prompt + 1, getenv("USER"));
-	ft_strcpy(prompt + 1 + username_size, "@ minishell]$ ");
+	init_minishell();
+	init_prompt(&prompt);
 	while (420 != 69)
 	{
 		free(entry);
-		entry = readline(prompt);
+		entry = display_prompt(&prompt);
 		if (ft_strlen(entry) != 0)
 			add_history(entry);
-		if (entry == 0 || ft_strcmp(entry, "exit") == 0)
+		if (entry == NULL || ft_strcmp(entry, "exit") == 0)
 			break ;
 		if (ft_strstr("maldavid malo kbz_8", getenv("USER")) != NULL)
 			print_parser_info(parse(entry));

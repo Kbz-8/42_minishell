@@ -6,7 +6,7 @@
 /*   By: maldavid <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/21 13:25:28 by maldavid          #+#    #+#             */
-/*   Updated: 2023/05/21 15:27:19 by maldavid         ###   ########.fr       */
+/*   Updated: 2023/05/21 16:17:00 by maldavid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 char	*manage_var_in_quotes(char *str, char **name)
 {
 	char	*var_value;
-	int			i;
+	int		i;
 
 	*name = ft_memalloc(ft_strlen(str) + 1);
 	i = 0;
