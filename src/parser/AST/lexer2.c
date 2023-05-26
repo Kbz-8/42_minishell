@@ -6,7 +6,7 @@
 /*   By: maldavid <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/21 13:25:28 by maldavid          #+#    #+#             */
-/*   Updated: 2023/05/21 16:17:00 by maldavid         ###   ########.fr       */
+/*   Updated: 2023/05/26 19:48:27 by maldavid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,10 +56,44 @@ void	manage_realloc(char **ptr, uint32_t *alloc_size, uint32_t i)
 	}
 }
 
+static void	manage_last_var_request(t_command_data *data, char **str)
+{
+	size_t	i;
+	char	*ptr;
+	char	*itoa;
+
+	i = 0;
+	ptr = (*str) + 1;
+	while (ptr[i])
+	{
+		if (!ft_isspace(ptr[i]) && ptr[i] != '?')
+		{
+			data->ptr[data->i++] = '$';
+			(*str)++;
+			return ;
+		}
+		if (ptr[i] == '?')
+		{
+			itoa = ft_itoa(get_env_data()->last_return);
+			ft_strcpy(data->ptr + data->i, itoa);
+			data->i += ft_strlen(itoa);
+			*str += i + 2;
+			dealloc(itoa);
+			return ;
+		}
+		i++;
+	}
+}
+
 void	include_var(t_command_data *data, char **str)
 {
 	size_t	var_val_size;
 
+	if (!data->in_string)
+	{
+		manage_last_var_request(data, str);
+		return ;
+	}
 	data->var_value = manage_var_in_quotes(*str + 1, &data->var_name);
 	if (data->var_value == NULL)
 	{

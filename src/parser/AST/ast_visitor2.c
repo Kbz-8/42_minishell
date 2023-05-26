@@ -6,7 +6,7 @@
 /*   By: maldavid <kbz_8.dev@akel-engine.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/14 11:30:04 by maldavid          #+#    #+#             */
-/*   Updated: 2023/05/15 17:31:18 by maldavid         ###   ########.fr       */
+/*   Updated: 2023/05/26 19:58:27 by maldavid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ static char	*args_splits_strdup(const char *str, char sep)
 			check_sep = !check_sep;
 		if (check_sep && *str == sep)
 			break ;
-		if (*str != '"' || *str != '\'')
+		if (*str != '"' && *str != '\'')
 		{
 			*buf = *str;
 			buf++;

@@ -6,7 +6,7 @@
 /*   By: maldavid <kbz_8.dev@akel-engine.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 04:34:34 by maldavid          #+#    #+#             */
-/*   Updated: 2023/05/21 15:19:05 by maldavid         ###   ########.fr       */
+/*   Updated: 2023/05/26 19:34:25 by maldavid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ static void	add_command(t_token_list **list, char **str)
 		manage_realloc(&data.ptr, &data.alloc_size, data.i);
 		if (*(*str) == '"')
 			data.in_string = !data.in_string;
-		if (data.in_string && *(*str) == '$')
+		else if (*(*str) == '$')
 		{
 			include_var(&data, str);
 			continue ;
