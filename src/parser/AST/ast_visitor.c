@@ -6,7 +6,7 @@
 /*   By: maldavid <kbz_8.dev@akel-engine.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/17 17:26:28 by maldavid          #+#    #+#             */
-/*   Updated: 2023/05/28 17:01:19 by maldavid         ###   ########.fr       */
+/*   Updated: 2023/05/28 17:04:41 by maldavid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,10 @@ static t_parser_info	*visit_command(t_ast_node *node)
 	i = 0;
 	while (i < (int)(sizeof(builtins) / sizeof(builtins[0])))
 	{
-		if (ft_strcmp(node->token->str, builtins[i]) == 0)
+		if (ft_strcmp(info->args[0], builtins[i]) == 0)
 		{
 			info->cmd.builtin = i + 1;
-			return (info);
+			break ;
 		}
 		i++;
 	}
