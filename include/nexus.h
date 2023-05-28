@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 11:59:38 by maldavid          #+#    #+#             */
-/*   Updated: 2023/05/28 16:53:55 by maldavid         ###   ########.fr       */
+/*   Updated: 2023/05/28 17:01:40 by maldavid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,11 +35,10 @@ enum	e_command_link
 	R_OUT_ABSOLUTE = 4
 };
 
-typedef union u_cmd
+typedef struct u_cmd
 {
 	enum e_builtin	builtin;
 	char			*str;
-	bool			has_command;
 }	t_cmd;
 
 typedef struct s_parser_info
