@@ -6,7 +6,7 @@
 /*   By: maldavid <kbz_8.dev@akel-engine.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/21 16:21:17 by maldavid          #+#    #+#             */
-/*   Updated: 2023/05/26 22:53:05 by maldavid         ###   ########.fr       */
+/*   Updated: 2023/05/28 16:53:32 by maldavid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 #include <memory.h>
 #include <stdio.h>
 #include <readline/readline.h>
+#include <stdbool.h>
 
 void	init_prompt(t_prompt *prompt)
 {
@@ -30,10 +31,27 @@ void	init_prompt(t_prompt *prompt)
 	ft_strcpy(prompt->text + 1 + username_size, "@ minishell]$ ");
 }
 
+static void	incomplete_string(char *entry)
+{
+	(void)entry;
+}
+
 char	*display_prompt(t_prompt *prompt)
 {
 	char	*entry;
+	size_t	i;
+	bool	in_string;
 
+	i = 0;
+	in_string = false;
 	entry = readline(prompt->text);
+	while (entry[i] != 0)
+	{
+		if (entry[i] == '"' || entry[i] == '\'')
+			in_string = !in_string;
+		i++;
+	}
+	if (in_string)
+		incomplete_string(entry);
 	return (entry);
 }

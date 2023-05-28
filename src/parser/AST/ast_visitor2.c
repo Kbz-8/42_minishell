@@ -6,7 +6,7 @@
 /*   By: maldavid <kbz_8.dev@akel-engine.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/14 11:30:04 by maldavid          #+#    #+#             */
-/*   Updated: 2023/05/26 19:58:27 by maldavid         ###   ########.fr       */
+/*   Updated: 2023/05/28 16:37:22 by maldavid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,6 +115,6 @@ char	**args_split(const char *s, char sep)
 		}
 		s++;
 	}
-	tab[i] = 0;
+	tab[i] = NULL;
 	return (tab);
 }
