@@ -6,7 +6,7 @@
 /*   By: maldavid <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/21 13:25:28 by maldavid          #+#    #+#             */
-/*   Updated: 2023/05/26 19:48:27 by maldavid         ###   ########.fr       */
+/*   Updated: 2023/05/28 17:27:58 by maldavid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void	manage_realloc(char **ptr, uint32_t *alloc_size, uint32_t i)
 	}
 }
 
-static void	manage_last_var_request(t_command_data *data, char **str)
+static void	manage_raw_var_request(t_command_data *data, char **str)
 {
 	size_t	i;
 	char	*ptr;
@@ -91,7 +91,7 @@ void	include_var(t_command_data *data, char **str)
 
 	if (!data->in_string)
 	{
-		manage_last_var_request(data, str);
+		manage_raw_var_request(data, str);
 		return ;
 	}
 	data->var_value = manage_var_in_quotes(*str + 1, &data->var_name);
