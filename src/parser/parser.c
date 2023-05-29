@@ -6,13 +6,14 @@
 /*   By: maldavid <kbz_8.dev@akel-engine.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 01:45:09 by maldavid          #+#    #+#             */
-/*   Updated: 2023/05/14 12:39:37 by maldavid         ###   ########.fr       */
+/*   Updated: 2023/05/29 17:55:46 by maldavid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <nexus.h>
 #include <stddef.h>
 #include <ast.h>
+#include <libft.h>
 
 t_parser_info	*parse(const char *entry)
 {

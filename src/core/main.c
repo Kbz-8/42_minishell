@@ -6,19 +6,19 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 11:10:27 by maldavid          #+#    #+#             */
-/*   Updated: 2023/05/29 17:30:31 by maldavid         ###   ########.fr       */
+/*   Updated: 2023/05/29 17:45:35 by maldavid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <prompt.h>
-#include <builtin.h>
 #include <libft.h>
-#include <memory.h>
-#include <parser.h>
-#include <stdlib.h>
-#include <interactive.h>
 #include <utils.h>
 #include <stdio.h>
+#include <memory.h>
+#include <parser.h>
+#include <prompt.h>
+#include <stdlib.h>
+#include <builtin.h>
+#include <interactive.h>
 #include <readline/history.h>
 
 /*void	temp_exec(char *entry)

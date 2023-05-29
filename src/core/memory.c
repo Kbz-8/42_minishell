@@ -6,7 +6,7 @@
 /*   By: maldavid <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 11:23:06 by maldavid          #+#    #+#             */
-/*   Updated: 2023/05/29 17:20:18 by maldavid         ###   ########.fr       */
+/*   Updated: 2023/05/29 18:03:33 by maldavid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ void	dealloc(void *ptr)
 	}
 	while (buf->next != NULL)
 	{
-		if (buf->next->ptr != ptr)
+		if (buf->next->ptr == ptr)
 		{
 			tmp = buf->next;
 			buf->next = tmp->next;

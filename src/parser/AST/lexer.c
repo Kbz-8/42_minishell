@@ -6,7 +6,7 @@
 /*   By: maldavid <kbz_8.dev@akel-engine.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 04:34:34 by maldavid          #+#    #+#             */
-/*   Updated: 2023/05/28 17:26:59 by maldavid         ###   ########.fr       */
+/*   Updated: 2023/05/29 18:42:50 by maldavid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 #include <stdbool.h>
 #include <stdint.h>
 
-char	*manage_var_in_quotes(char *str, char **name);
 void	manage_realloc(char **ptr, uint32_t *alloc_size, uint32_t i);
 void	include_var(t_command_data *data, char **str);
 
@@ -97,7 +96,9 @@ static void	add_command(t_token_list **list, char **str)
 	while (*(*str) != '|' && *(*str) != '<' && *(*str) != '>' && *(*str) != 0)
 	{
 		manage_realloc(&data.ptr, &data.alloc_size, data.i);
-		if (*(*str) == '$')
+		if (*(*str) == '\'')
+			data.in_string = !data.in_string;
+		else if (*(*str) == '$' && !data.in_string)
 		{
 			include_var(&data, str);
 			continue ;

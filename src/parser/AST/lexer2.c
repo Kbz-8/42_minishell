@@ -6,7 +6,7 @@
 /*   By: maldavid <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/21 13:25:28 by maldavid          #+#    #+#             */
-/*   Updated: 2023/05/28 17:27:58 by maldavid         ###   ########.fr       */
+/*   Updated: 2023/05/29 18:37:07 by maldavid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 #include <ast.h>
 #include <stdint.h>
 
-char	*manage_var_in_quotes(char *str, char **name)
+char	*manage_var(char *str, char **name)
 {
 	char	*var_value;
 	int		i;
@@ -56,45 +56,42 @@ void	manage_realloc(char **ptr, uint32_t *alloc_size, uint32_t i)
 	}
 }
 
-static void	manage_raw_var_request(t_command_data *data, char **str)
+static size_t	manage_last_return(t_command_data *data, char *str)
 {
 	size_t	i;
 	char	*ptr;
 	char	*itoa;
 
 	i = 0;
-	ptr = (*str) + 1;
+	ptr = str + 1;
 	while (ptr[i])
 	{
 		if (!ft_isspace(ptr[i]) && ptr[i] != '?')
-		{
-			data->ptr[data->i++] = '$';
-			(*str)++;
-			return ;
-		}
+			return (0);
 		if (ptr[i] == '?')
 		{
 			itoa = ft_itoa(get_env_data()->last_return);
 			ft_strcpy(data->ptr + data->i, itoa);
 			data->i += ft_strlen(itoa);
-			*str += i + 2;
 			dealloc(itoa);
-			return ;
+			return (i + 2);
 		}
 		i++;
 	}
+	return (0);
 }
 
 void	include_var(t_command_data *data, char **str)
 {
 	size_t	var_val_size;
 
-	if (!data->in_string)
+	var_val_size = manage_last_return(data, *str);
+	if (var_val_size != 0)
 	{
-		manage_raw_var_request(data, str);
+		(*str) += var_val_size;
 		return ;
 	}
-	data->var_value = manage_var_in_quotes(*str + 1, &data->var_name);
+	data->var_value = manage_var(*str + 1, &data->var_name);
 	if (data->var_value == NULL)
 	{
 		data->ptr[data->i++] = '$';
