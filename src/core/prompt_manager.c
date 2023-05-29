@@ -6,12 +6,13 @@
 /*   By: maldavid <kbz_8.dev@akel-engine.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/21 16:21:17 by maldavid          #+#    #+#             */
-/*   Updated: 2023/05/29 17:11:25 by maldavid         ###   ########.fr       */
+/*   Updated: 2023/05/29 19:17:29 by maldavid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <libft.h>
 #include <stdio.h>
+#include <stdint.h>
 #include <prompt.h>
 #include <stddef.h>
 #include <memory.h>
@@ -31,31 +32,30 @@ void	init_prompt(t_prompt *prompt)
 	ft_strcpy(prompt->text + 1 + username_size, "@ minishell]$ ");
 }
 
-static void	incomplete_string(char **entry)
+static void	incomplete_string(char **entry, uint8_t in_string)
 {
 	char	*new_line;
 	char	*new_entry;
 	size_t	i;
 	size_t	j;
-	bool	in_string;
 
 	i = 0;
-	in_string = true;
 	new_line = readline("> ");
 	j = ft_strlen(*entry);
 	new_entry = malloc(j + ft_strlen(new_line) + 2);
 	ft_memset(new_entry, 0, j + ft_strlen(new_line) + 2);
 	ft_strcpy(new_entry, *entry);
-	new_entry[j] = '\n';
-	j++;
+	new_entry[j++] = '\n';
 	while (new_line[i] != 0)
 	{
-		if (new_line[i] == '"' || new_line[i] == '\'')
-			in_string = !in_string;
+		if ((in_string & BITS_DOUBLE_QUOTES) == 1 && new_line[i] == '"')
+			in_string = (in_string ^ BITS_DOUBLE_QUOTES);
+		else if ((in_string & BITS_SINGLE_QUOTES) == 1 && new_line[i] == '\'')
+			in_string = (in_string ^ BITS_SINGLE_QUOTES);
 		new_entry[j++] = new_line[i++];
 	}
 	if (in_string)
-		incomplete_string(&new_entry);
+		incomplete_string(&new_entry, in_string);
 	free(*entry);
 	*entry = new_entry;
 }
@@ -64,18 +64,20 @@ char	*display_prompt(t_prompt *prompt)
 {
 	char	*entry;
 	size_t	i;
-	bool	in_string;
+	uint8_t	in_string;
 
 	i = 0;
-	in_string = false;
+	in_string = 0;
 	entry = readline(prompt->text);
 	while (entry[i] != 0)
 	{
-		if (entry[i] == '"' || entry[i] == '\'')
-			in_string = !in_string;
+		if (entry[i] == '"' && (in_string & BITS_SINGLE_QUOTES) == 0)
+			in_string = BITS_DOUBLE_QUOTES;
+		else if (entry[i] == '\'' && (in_string & BITS_DOUBLE_QUOTES) == 0)
+			in_string = BITS_SINGLE_QUOTES;
 		i++;
 	}
 	if (in_string)
-		incomplete_string(&entry);
+		incomplete_string(&entry, in_string);
 	return (entry);
 }
