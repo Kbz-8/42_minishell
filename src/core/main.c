@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 11:10:27 by maldavid          #+#    #+#             */
-/*   Updated: 2023/05/29 17:27:59 by maldavid         ###   ########.fr       */
+/*   Updated: 2023/05/29 17:30:31 by maldavid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 #include <stdio.h>
 #include <readline/history.h>
 
-void	temp_exec(char *entry)
+/*void	temp_exec(char *entry)
 {
 	char	*path;
 
@@ -43,7 +43,7 @@ void	temp_exec(char *entry)
 	}
 	else if (is_exec(entry) == 0)
 		printf("minishell: command not found: %s\n", entry);
-}
+}*/
 
 void	print_parser_info(t_parser_info *info)
 {
@@ -90,7 +90,7 @@ int	main(void)
 		if (ft_strstr("maldavid malo kbz_8", getenv("USER")) != NULL)
 			print_parser_info(parse(entry));
 		else
-			temp_exec(entry);
+			command(parse(entry));
 	}
 	free(entry);
 	allfree();
