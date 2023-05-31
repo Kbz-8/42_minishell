@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 15:25:46 by vvaas             #+#    #+#             */
-/*   Updated: 2023/03/28 18:14:18 by vvaas            ###   ########.fr       */
+/*   Updated: 2023/05/31 20:43:48 by maldavid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,12 @@
 #include <readline/readline.h>
 #include <signal.h>
 #include <unistd.h>
+#include <nexus.h>
+#include <libft.h>
+
 void	process(int sig)
 {
-	static bool listen = 1;
+	static bool	listen = 1;
 
 	if (sig == SIGUSR1)
 		listen = !listen;
@@ -27,9 +30,10 @@ void	process(int sig)
 	if (sig == SIGINT)
 	{
 		rl_on_new_line();
-		puts("");
+		ft_putchar('\n');
 		rl_replace_line("", 0);
 		rl_redisplay();
+		get_env_data()->stop_prompt = true;
 	}
 	if (sig == SIGQUIT)
 		printf("%c%c  %c%c", 8, 8, 8, 8);

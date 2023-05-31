@@ -6,12 +6,13 @@
 /*   By: maldavid <kbz_8.dev@akel-engine.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/21 16:21:17 by maldavid          #+#    #+#             */
-/*   Updated: 2023/05/29 19:17:29 by maldavid         ###   ########.fr       */
+/*   Updated: 2023/05/31 20:51:16 by maldavid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <libft.h>
 #include <stdio.h>
+#include <nexus.h>
 #include <stdint.h>
 #include <prompt.h>
 #include <stddef.h>
@@ -49,15 +50,21 @@ static void	incomplete_string(char **entry, uint8_t in_string)
 	while (new_line[i] != 0)
 	{
 		if ((in_string & BITS_DOUBLE_QUOTES) == 1 && new_line[i] == '"')
-			in_string = (in_string ^ BITS_DOUBLE_QUOTES);
+			in_string = 0;
 		else if ((in_string & BITS_SINGLE_QUOTES) == 1 && new_line[i] == '\'')
-			in_string = (in_string ^ BITS_SINGLE_QUOTES);
+			in_string = 0;
 		new_entry[j++] = new_line[i++];
 	}
+	free(*entry);
+	if (get_env_data()->stop_prompt)
+	{
+		dealloc(new_entry);
+		*entry = NULL;
+		return ;
+	}
+	*entry = new_entry;
 	if (in_string)
 		incomplete_string(&new_entry, in_string);
-	free(*entry);
-	*entry = new_entry;
 }
 
 char	*display_prompt(t_prompt *prompt)
