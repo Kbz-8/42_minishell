@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 17:41:30 by vvaas             #+#    #+#             */
-/*   Updated: 2023/02/10 17:57:56 by vvaas            ###   ########.fr       */
+/*   Updated: 2023/06/01 02:26:55 by vvaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	ft_env(t_parser_info *info)
 {
 	t_env_var *args;
 
-	if (info->args)
+	if (info->args[1])
 	{
 		report(ERROR, E_TOO_MANY_ARGS);
 		return (-1);

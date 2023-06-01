@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 08:24:55 by vvaas             #+#    #+#             */
-/*   Updated: 2023/02/10 17:48:26 by vvaas            ###   ########.fr       */
+/*   Updated: 2023/06/01 02:36:58 by vvaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 
 int	ft_pwd(t_parser_info *info)
 {
-	if (info->args)
+	if (info->args[1])
 	{
 		report(ERROR, E_TOO_MANY_ARGS);
 		return (-1);
