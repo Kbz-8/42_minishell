@@ -6,7 +6,7 @@
 /*   By: maldavid <kbz_8.dev@akel-engine.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/21 16:21:17 by maldavid          #+#    #+#             */
-/*   Updated: 2023/05/31 20:51:16 by maldavid         ###   ########.fr       */
+/*   Updated: 2023/06/01 03:26:45 by maldavid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,17 +49,18 @@ static void	incomplete_string(char **entry, uint8_t in_string)
 	new_entry[j++] = '\n';
 	while (new_line[i] != 0)
 	{
-		if ((in_string & BITS_DOUBLE_QUOTES) == 1 && new_line[i] == '"')
-			in_string = 0;
-		else if ((in_string & BITS_SINGLE_QUOTES) == 1 && new_line[i] == '\'')
-			in_string = 0;
+		if (in_string == BITS_DOUBLE_QUOTES && new_line[i] == '"')
+			in_string ^= BITS_DOUBLE_QUOTES;
+		else if (in_string == BITS_SINGLE_QUOTES && new_line[i] == '\'')
+			in_string ^= BITS_SINGLE_QUOTES;
 		new_entry[j++] = new_line[i++];
 	}
 	free(*entry);
 	if (get_env_data()->stop_prompt)
 	{
-		dealloc(new_entry);
-		*entry = NULL;
+		free(new_entry);
+		*entry = malloc(1);
+		*(*entry) = 0;
 		return ;
 	}
 	*entry = new_entry;
@@ -78,13 +79,14 @@ char	*display_prompt(t_prompt *prompt)
 	entry = readline(prompt->text);
 	while (entry[i] != 0)
 	{
-		if (entry[i] == '"' && (in_string & BITS_SINGLE_QUOTES) == 0)
-			in_string = BITS_DOUBLE_QUOTES;
-		else if (entry[i] == '\'' && (in_string & BITS_DOUBLE_QUOTES) == 0)
-			in_string = BITS_SINGLE_QUOTES;
+		if (entry[i] == '"' && in_string != BITS_SINGLE_QUOTES)
+			in_string ^= BITS_DOUBLE_QUOTES;
+		else if (entry[i] == '\'' && in_string != BITS_DOUBLE_QUOTES)
+			in_string ^= BITS_SINGLE_QUOTES;
 		i++;
 	}
 	if (in_string)
 		incomplete_string(&entry, in_string);
+	get_env_data()->stop_prompt = false;
 	return (entry);
 }
