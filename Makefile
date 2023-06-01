@@ -6,7 +6,7 @@
 #    By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/18 10:57:27 by maldavid          #+#    #+#              #
-#    Updated: 2023/05/31 20:15:32 by maldavid         ###   ########.fr        #
+#    Updated: 2023/06/01 02:26:01 by vvaas            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,6 +27,7 @@ SRCS	=	src/core/main.c \
 			src/exec/builtin/ft_cd.c \
 			src/exec/builtin/ft_pwd.c \
 			src/exec/builtin/ft_echo.c \
+			src/exec/builtin/ft_env.c \
 			src/parser/parser.c \
 			src/parser/AST/ast_visitor.c \
 			src/parser/AST/ast_visitor2.c \

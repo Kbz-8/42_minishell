@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 12:06:31 by vvaas             #+#    #+#             */
-/*   Updated: 2023/05/28 16:34:54 by vvaas            ###   ########.fr       */
+/*   Updated: 2023/06/01 02:40:51 by vvaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@
 
 void	command(t_parser_info *info)
 {
+	if (!info)
+		return ;
 	if (info->cmd.builtin < 8)
 	{
 		if (info->cmd.builtin == ECHO)
@@ -28,6 +30,10 @@ void	command(t_parser_info *info)
 			ft_pwd(info);
 		else if (info->cmd.builtin == CD)
 			ft_cd(info);
+		else if (info->cmd.builtin == ENV)
+			ft_env(info);
+		else
+			ft_exec(info->args);
 	}
 }
 
