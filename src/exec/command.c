@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 12:06:31 by vvaas             #+#    #+#             */
-/*   Updated: 2023/06/01 02:40:51 by vvaas            ###   ########.fr       */
+/*   Updated: 2023/06/01 18:39:42 by maldavid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,6 @@ void	command(t_parser_info *info)
 			ft_cd(info);
 		else if (info->cmd.builtin == ENV)
 			ft_env(info);
-		else
-			ft_exec(info->args);
 	}
 }
 

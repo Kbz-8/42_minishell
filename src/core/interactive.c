@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 15:25:46 by vvaas             #+#    #+#             */
-/*   Updated: 2023/06/01 17:29:13 by maldavid         ###   ########.fr       */
+/*   Updated: 2023/06/01 22:29:52 by maldavid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	process(int sig)
 	if (sig == SIGUSR1)
 		listen = !listen;
 	if (!listen)
-		return;
+		return ;
 	if (sig == SIGINT)
 	{
 		rl_on_new_line();

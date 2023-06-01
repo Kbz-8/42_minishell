@@ -6,7 +6,7 @@
 /*   By: maldavid <kbz_8.dev@akel-engine.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/23 10:28:28 by maldavid          #+#    #+#             */
-/*   Updated: 2023/05/14 14:01:46 by maldavid         ###   ########.fr       */
+/*   Updated: 2023/06/01 20:08:41 by maldavid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 #include <memory.h>
 #include <errors.h>
 #include <stdbool.h>
+#include <libft.h>
 
 static bool	something_went_wrong(int error_code)
 {

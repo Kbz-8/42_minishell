@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 11:10:27 by maldavid          #+#    #+#             */
-/*   Updated: 2023/05/29 17:45:35 by maldavid         ###   ########.fr       */
+/*   Updated: 2023/06/01 22:34:31 by maldavid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ void	print_parser_info(t_parser_info *info)
 int	main(void)
 {
 	t_prompt	prompt;
-	char 		*entry;
+	char		*entry;
 
 	entry = NULL;
 	init_minishell();
@@ -83,7 +83,7 @@ int	main(void)
 	{
 		free(entry);
 		entry = display_prompt(&prompt);
-		if (ft_strlen(entry) != 0)
+		if (ft_strlen(entry) != 0 && !prompt.here_doc)
 			add_history(entry);
 		if (entry == NULL || ft_strcmp(entry, "exit") == 0)
 			break ;
