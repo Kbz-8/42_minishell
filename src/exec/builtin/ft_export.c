@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/01 02:29:32 by vvaas             #+#    #+#             */
-/*   Updated: 2023/06/16 22:14:02 by vvaas            ###   ########.fr       */
+/*   Updated: 2023/06/18 17:16:11 by vvaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,6 @@
 
 void	ft_export(t_parser_info *info)
 {
-	if (ft_strc)
+	if (ft_strcmp())
 	info->args
 }

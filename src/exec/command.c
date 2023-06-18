@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 12:06:31 by vvaas             #+#    #+#             */
-/*   Updated: 2023/06/01 18:39:42 by maldavid         ###   ########.fr       */
+/*   Updated: 2023/06/18 17:49:23 by vvaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,13 @@
 #include <builtin.h>
 #include <stdbool.h>
 #include <utils.h>
+#include <libft.h>
+
 
 void	command(t_parser_info *info)
 {
+	char **placeholder;
+
 	if (!info)
 		return ;
 	if (info->cmd.builtin < 8)
@@ -33,11 +37,8 @@ void	command(t_parser_info *info)
 		else if (info->cmd.builtin == ENV)
 			ft_env(info);
 	}
-}
-
-bool	is_command(char *input)
-{
-	if (is_exec(input) > 0)
-		return (1);
-	return (0);
+	ft_printf("%s\n", create_input(info));
+	placeholder = create_env();
+	while (*placeholder)
+		ft_printf("%s\n", *placeholder++);
 }
