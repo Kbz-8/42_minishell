@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 12:06:31 by vvaas             #+#    #+#             */
-/*   Updated: 2023/06/18 17:49:23 by vvaas            ###   ########.fr       */
+/*   Updated: 2023/06/20 23:31:33 by vvaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,15 +16,13 @@
 #include <stdbool.h>
 #include <utils.h>
 #include <libft.h>
-
-
+#include <unistd.h>
+#include <stdio.h>
 void	command(t_parser_info *info)
 {
-	char **placeholder;
-
 	if (!info)
 		return ;
-	if (info->cmd.builtin < 8)
+	if (info->cmd.builtin < 8 && info->cmd.builtin > 0)
 	{
 		if (info->cmd.builtin == ECHO)
 			ft_echo(info);
@@ -37,8 +35,11 @@ void	command(t_parser_info *info)
 		else if (info->cmd.builtin == ENV)
 			ft_env(info);
 	}
-	ft_printf("%s\n", create_input(info));
-	placeholder = create_env();
-	while (*placeholder)
-		ft_printf("%s\n", *placeholder++);
+	else if (is_executable_name(info->cmd.str))
+		ft_execve(is_exec_path(info->cmd.str), (char **)info->args, create_env());
+	else if (is_environment(info->cmd.str))
+		add_env(info->cmd.str);
+	else if (is_executable(info->cmd.str))
+		ft_execve(info->cmd.str, (char **)info->args, create_env());
+	add_env_var("LANGUAGE", "fr");
 }

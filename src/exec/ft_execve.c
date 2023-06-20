@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 17:59:21 by vvaas             #+#    #+#             */
-/*   Updated: 2023/06/18 17:47:47 by vvaas            ###   ########.fr       */
+/*   Updated: 2023/06/20 23:26:03 by vvaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,29 +25,60 @@
 #include <sys/types.h>
 #include <sys/wait.h>
 
-char	*create_input(t_parser_info *info)
+bool	is_executable(char *path)
 {
-	char *input;
-	unsigned int i;
-	unsigned int count;
+	struct stat file;
+	int 		val;
 
-	i = 1;
-	count = 0;
-	count += ft_strlen(info->cmd.str);
-	while (info->args[i])
+	val = stat(path, &file);
+	return (val == 0 && file.st_mode > 0 && file.st_mode & S_IXUSR && \
+		file.st_mode & S_IXOTH && file.st_mode & S_IXGRP);
+}
+
+bool	is_executable_name(char *name)
+{
+	char *output;
+
+	output = is_exec_path(name);
+	if (!output)
+		return (0);
+	free(output);
+	return (1);
+}
+char	*is_exec_path(char *name)
+{
+	char	**paths;
+	int		i;
+	char	*buffer;
+
+	i = 0;
+	paths = ft_split(get_env_var("PATH"), ':');
+	while (paths[i])
 	{
-		count += ft_strlen(info->args[i]) + 1;
+		buffer = ft_strjoin(paths[i], "/");
+		buffer = ft_joinfree(buffer, name);
+		if (is_executable(buffer))
+		{
+			ft_freesplit(paths);
+			return (buffer);
+		}
+		ft_free(buffer);
 		i++;
 	}
-	input = ft_calloc(count + 1, sizeof(char));
-	ft_strcpy(input, info->cmd.str);
-	i = 1;
-	while (info->args[i])
-	{
-		ft_strcat(input, " ");
-		ft_strcat(input, info->args[i++]);
-	}
-	return (input);
+	ft_freesplit(paths);
+	return (NULL);
+}
+
+
+void	ft_execve(char *path, char **argv, char **env)
+{
+	pid_t	pid;
+
+	pid = fork();
+	if (pid == 0)
+		execve(path, argv, env);
+	else
+		waitpid(pid, 0, 0);
 }
 
 char	**create_env(void)
@@ -70,7 +101,7 @@ char	**create_env(void)
 	args = get_env_data()->vars;
 	while (args->next)
 	{
-		env_tab[i] = ft_calloc(ft_strlen(args->key) + 1 + ft_strlen(args->value), sizeof(char));
+		env_tab[i] = ft_calloc(ft_strlen(args->key) + 2 + ft_strlen(args->value), sizeof(char));
 		ft_strcpy(env_tab[i], args->key);
 		ft_strcat(env_tab[i], "=");
 		ft_strcat(env_tab[i], args->value);
@@ -81,40 +112,6 @@ char	**create_env(void)
 }
 
 /*
-static bool	is_executable(char *path)
-{
-	struct stat file;
-	int 		val;
-
-	val = stat(path, &file);
-	return (val == 0 && file.st_mode > 0 && file.st_mode & S_IXUSR && \
-		file.st_mode & S_IXOTH && file.st_mode & S_IXGRP);
-}
-
-bool	is_exec_path(char *name)
-{
-	char	**paths;
-	int		i;
-	char	*buffer;
-
-	i = 0;
-	paths = ft_split(get_env_var("PATH"), ':');
-	while (paths[i])
-	{
-		buffer = ft_strjoin(paths[i], "/");
-		buffer = ft_joinfree(buffer, name);
-		if (is_executable(buffer))
-		{
-			ft_free(buffer);
-			ft_freesplit(paths);
-			return (1);
-		}
-		ft_free(buffer);
-		i++;
-	}
-	ft_freesplit(paths);
-	return (0);
-}
 
 char	*get_exec_path(char *name)
 {
