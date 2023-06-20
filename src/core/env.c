@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maldavid <kbz_8.dev@akel-engine.com>       +#+  +:+       +#+        */
+/*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 01:48:34 by maldavid          #+#    #+#             */
-/*   Updated: 2023/05/31 20:25:58 by maldavid         ###   ########.fr       */
+/*   Updated: 2023/06/21 00:30:27 by vvaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,4 +42,15 @@ const char	*get_env_var(char *key)
 	if (ptr && ft_strcmp(ptr->key, key) == 0)
 		return ((const char *)ptr->value);
 	return (NULL);
+}
+
+void	remove_env_var(char *key)
+{
+	t_env_var	*ptr;
+
+	ptr = get_env_data()->vars;
+	while (ft_strcmp(key, ptr->key) != 0 && ptr->next)
+	{
+		ptr = ptr->next
+	}
 }
