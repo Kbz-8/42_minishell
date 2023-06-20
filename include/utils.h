@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 11:27:36 by vvaas             #+#    #+#             */
-/*   Updated: 2023/06/20 23:26:00 by vvaas            ###   ########.fr       */
+/*   Updated: 2023/06/21 00:19:31 by vvaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,4 +28,5 @@ char	*create_input(t_parser_info *info);
 char	**create_env(void);
 bool	is_environment(char *input);
 void	add_env(char *input);
+void	ft_export(t_parser_info *info);
 #endif

@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 12:06:31 by vvaas             #+#    #+#             */
-/*   Updated: 2023/06/20 23:31:33 by vvaas            ###   ########.fr       */
+/*   Updated: 2023/06/21 00:23:54 by vvaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 #include <libft.h>
 #include <unistd.h>
 #include <stdio.h>
+
 void	command(t_parser_info *info)
 {
 	if (!info)
@@ -34,6 +35,8 @@ void	command(t_parser_info *info)
 			ft_cd(info);
 		else if (info->cmd.builtin == ENV)
 			ft_env(info);
+		else if (info->cmd.builtin == EXPORT)
+			ft_export(info);	
 	}
 	else if (is_executable_name(info->cmd.str))
 		ft_execve(is_exec_path(info->cmd.str), (char **)info->args, create_env());
@@ -41,5 +44,4 @@ void	command(t_parser_info *info)
 		add_env(info->cmd.str);
 	else if (is_executable(info->cmd.str))
 		ft_execve(info->cmd.str, (char **)info->args, create_env());
-	add_env_var("LANGUAGE", "fr");
 }
