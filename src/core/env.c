@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 01:48:34 by maldavid          #+#    #+#             */
-/*   Updated: 2023/06/23 17:38:40 by maldavid         ###   ########.fr       */
+/*   Updated: 2023/06/24 20:30:35 by vvaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,27 @@ void	remove_env_var(char *key)
 			dealloc(ptr->next->key);
 			dealloc(ptr->next->value);
 			dealloc(ptr->next);
+			return ;
+		}
+		ptr = ptr->next;
+	}
+}
+
+void	modify_env_var(char *key, char *new_key, char *new_value)
+{
+	t_env_var	*ptr;
+
+	ptr = get_env_data()->vars;
+	if (ptr == NULL)
+		return ;
+	while (ptr->next != NULL)
+	{
+		if (ft_strcmp(key, ptr->key) == 0)
+		{;
+			dealloc(ptr->key);
+			dealloc(ptr->value);
+			ptr->key = ft_strdup(new_key);
+			ptr->value = ft_strdup(new_value);
 			return ;
 		}
 		ptr = ptr->next;

@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 12:06:31 by vvaas             #+#    #+#             */
-/*   Updated: 2023/06/21 00:23:54 by vvaas            ###   ########.fr       */
+/*   Updated: 2023/06/24 21:20:01 by vvaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,29 @@
 #include <libft.h>
 #include <unistd.h>
 #include <stdio.h>
+#include <sys/stat.h>
+
+bool	require_input(t_parser_info *info)
+{
+	char *path;
+	struct stat file;
+
+	path = is_exec_path(info->cmd.str);
+	stat(path, &file);
+	free(path);
+	return (S_ISREG(file.st_mode));
+}
+
+void	exec_command(t_parser_info *info)
+{
+	int linker;
+
+	while(info)
+	{
+		if (info->link)
+			linker = info->link;
+	}
+}
 
 void	command(t_parser_info *info)
 {

@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 15:25:46 by vvaas             #+#    #+#             */
-/*   Updated: 2023/06/01 22:29:52 by maldavid         ###   ########.fr       */
+/*   Updated: 2023/06/24 20:08:11 by vvaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,6 @@
 
 void	process(int sig)
 {
-	static bool	listen = true;
-
-	if (sig == SIGUSR1)
-		listen = !listen;
-	if (!listen)
-		return ;
 	if (sig == SIGINT)
 	{
 		rl_on_new_line();
@@ -40,7 +34,6 @@ void	process(int sig)
 
 void	init_sig(void)
 {
-	signal(SIGUSR1, process);
 	signal(SIGINT, process);
 	signal(SIGQUIT, process);
 }
