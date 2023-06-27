@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 11:10:27 by maldavid          #+#    #+#             */
-/*   Updated: 2023/06/23 17:25:12 by maldavid         ###   ########.fr       */
+/*   Updated: 2023/06/27 16:37:50 by maldavid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,10 @@ int	main(void)
 			add_history(entry);
 		if (entry == NULL || ft_strcmp(entry, "exit") == 0)
 			break ;
-		command(parse(entry));
+		if (ft_strstr("maldavid malo kbz_8", getenv("USER")) != NULL)
+			print_parser_info(parse(entry));
+		else
+			command(parse(entry));
 	}
 	free(entry);
 	allfree();

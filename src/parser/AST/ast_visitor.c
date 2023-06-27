@@ -6,7 +6,7 @@
 /*   By: maldavid <kbz_8.dev@akel-engine.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/17 17:26:28 by maldavid          #+#    #+#             */
-/*   Updated: 2023/06/01 20:23:42 by maldavid         ###   ########.fr       */
+/*   Updated: 2023/06/27 17:12:32 by maldavid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,5 @@ t_parser_info	*visit_ast(t_ast_node *ast)
 		return (visit_command(ast));
 	else if (ast->token->type == AST_PIPE)
 		return (visit_pipe(ast));
-	else
-		return (visit_redirection(ast));
-	return (NULL);
+	return (visit_redirection(ast));
 }

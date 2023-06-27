@@ -1,28 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser.c                                           :+:      :+:    :+:   */
+/*   node2.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: maldavid <kbz_8.dev@akel-engine.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/19 01:45:09 by maldavid          #+#    #+#             */
-/*   Updated: 2023/06/27 16:37:12 by maldavid         ###   ########.fr       */
+/*   Created: 2023/06/27 17:50:40 by maldavid          #+#    #+#             */
+/*   Updated: 2023/06/27 19:38:07 by maldavid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <ast.h>
 #include <nexus.h>
 #include <stddef.h>
-#include <ast.h>
-#include <libft.h>
 
-t_parser_info	*parse(const char *entry)
+void	get_local_env_vars(t_ast *ast, t_token_list *list)
 {
-	t_ast	*ast;
+	size_t	i;
 
-	if (entry == NULL)
-		return (NULL);
-	ast = generate_ast(generate_token_list((char *)entry));
-	if (ast == NULL || !preprocess_ast_visit(ast->root))
-		return (NULL);
-	return (visit_ast(ast->root));
+	if (list->token->type == COMMAND)
+	{
+		while (list->token->str[i] != 0)
+		{
+			i++;
+		}
+	}
+	if (list->next != NULL)
+		get_local_env_vars(ast, list->next);
 }

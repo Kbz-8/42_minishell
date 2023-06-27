@@ -6,7 +6,7 @@
 /*   By: maldavid <kbz_8.dev@akel-engine.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 02:00:58 by maldavid          #+#    #+#             */
-/*   Updated: 2023/06/01 19:05:18 by maldavid         ###   ########.fr       */
+/*   Updated: 2023/06/27 17:25:55 by maldavid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ typedef struct s_ast_node
 
 typedef struct s_ast
 {
+	t_env_var	*local_vars;
 	t_ast_node	*root;
 }	t_ast;
 

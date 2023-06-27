@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 12:06:31 by vvaas             #+#    #+#             */
-/*   Updated: 2023/06/24 21:20:01 by vvaas            ###   ########.fr       */
+/*   Updated: 2023/06/27 16:36:52 by maldavid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,12 +33,12 @@ bool	require_input(t_parser_info *info)
 
 void	exec_command(t_parser_info *info)
 {
-	int linker;
+	//int linker;
 
 	while(info)
 	{
-		if (info->link)
-			linker = info->link;
+	//	if (info->link)
+	//		linker = info->link;
 	}
 }
 

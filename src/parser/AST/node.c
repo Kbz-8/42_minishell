@@ -6,7 +6,7 @@
 /*   By: maldavid <kbz_8.dev@akel-engine.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 02:33:34 by maldavid          #+#    #+#             */
-/*   Updated: 2023/06/01 20:52:20 by maldavid         ###   ########.fr       */
+/*   Updated: 2023/06/27 17:51:29 by maldavid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 #include <memory.h>
 #include <libft.h>
 #include <stdbool.h>
+
+void	get_local_env_vars(t_ast *ast, t_token_list *list);
 
 static t_ast_node	*new_ast_node(t_token *token)
 {
@@ -90,6 +92,6 @@ static void	token_list_to_ast(t_ast_node **ast, t_token_list *list)
 
 void	to_ast(t_ast *ast, t_token_list *list)
 {
-	// TODO : manage env vars
+	get_local_env_vars(ast, list);
 	token_list_to_ast(&ast->root, list);
 }

@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 11:59:38 by maldavid          #+#    #+#             */
-/*   Updated: 2023/06/24 20:22:47 by vvaas            ###   ########.fr       */
+/*   Updated: 2023/06/26 14:24:20 by maldavid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,20 +41,21 @@ typedef struct u_cmd
 	char			*str;
 }	t_cmd;
 
-typedef struct s_parser_info
-{
-	t_cmd					cmd;
-	const char				**args;
-	enum e_command_link		link;
-	struct s_parser_info	*next;
-}	t_parser_info;
-
 typedef struct s_env_var
 {
 	char				*key;
 	char				*value;
 	struct s_env_var	*next;
 }	t_env_var;
+
+typedef struct s_parser_info
+{
+	t_cmd					cmd;
+	const char				**args;
+	enum e_command_link		link;
+	t_env_var				*local_vars;
+	struct s_parser_info	*next;
+}	t_parser_info;
 
 typedef struct s_env
 {

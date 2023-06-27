@@ -3,4 +3,5 @@
 *.swp
 *.swx
 .gdb_history
+.vs_code/
 minishell
