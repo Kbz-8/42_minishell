@@ -6,7 +6,7 @@
 /*   By: maldavid <kbz_8.dev@akel-engine.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 17:50:40 by maldavid          #+#    #+#             */
-/*   Updated: 2023/06/27 19:38:07 by maldavid         ###   ########.fr       */
+/*   Updated: 2023/06/27 21:24:54 by maldavid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@ void	get_local_env_vars(t_ast *ast, t_token_list *list)
 {
 	size_t	i;
 
-	if (list->token->type == COMMAND)
+	i = 0;
+	if (list->token->type == AST_COMMAND)
 	{
 		while (list->token->str[i] != 0)
 		{
