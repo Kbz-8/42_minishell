@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 12:06:31 by vvaas             #+#    #+#             */
-/*   Updated: 2023/06/27 21:29:12 by vvaas            ###   ########.fr       */
+/*   Updated: 2023/06/28 00:15:21 by vvaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 #include <unistd.h>
 #include <stdio.h>
 #include <sys/stat.h>
+#include <fcntl.h>
 
 bool	require_input(t_parser_info *info)
 {
@@ -29,17 +30,6 @@ bool	require_input(t_parser_info *info)
 	stat(path, &file);
 	free(path);
 	return (S_ISREG(file.st_mode));
-}
-
-void	exec_command(t_parser_info *info)
-{
-	//int linker;
-
-	while(info)
-	{
-	//	if (info->link)
-	//		linker = info->link;
-	}
 }
 
 void	command(t_parser_info *info)
@@ -69,4 +59,54 @@ void	command(t_parser_info *info)
 		add_env(info->cmd.str);
 	else if (is_executable(info->cmd.str))
 		ft_execve(info->cmd.str, (char **)info->args, create_env());
+}
+
+void	r_out(t_parser_info *info)
+{
+	int save;
+
+	save = dup(1);
+	close(1);
+	open(info->next->args[0], O_CREAT | O_APPEND | O_WRONLY, 0644);
+	command(info);
+	dup2(save, 1);
+}
+
+void	r_out_absolute(t_parser_info *info)
+{
+	int save;
+
+	save = dup(1);
+	close(1);
+	open(info->next->args[0], O_CREAT | O_TRUNC | O_WRONLY, 0644);
+	command(info);
+	dup2(save, 1);
+}
+
+void	r_in(t_parser_info *info)
+{
+	int save;
+
+	save = dup(0);
+	close(0);
+	open(info->next->args[0], O_CREAT | O_RDONLY);
+	command(info);
+	dup2(save, 0);
+}
+
+void	exec_command(t_parser_info *info)
+{
+	while (info)
+	{
+		if (info->link == R_OUT_ABSOLUTE)
+			r_out_absolute(info);
+		else if (info->link == R_OUT)
+			r_out(info);
+		else if (info->link == R_IN)
+			r_in(info);
+		else
+			command(info);
+		info = info->next;
+	}
+
 }

@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 17:59:21 by vvaas             #+#    #+#             */
-/*   Updated: 2023/06/20 23:26:03 by vvaas            ###   ########.fr       */
+/*   Updated: 2023/06/27 23:16:28 by vvaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ char	**create_env(void)
 		args = args->next;
 	}
 	count += ft_strlen(args->key) + 1 + ft_strlen(args->value);
-	env_tab = ft_calloc(count, sizeof(char *));
+	env_tab = ft_calloc(count + 1, sizeof(char *));
 	args = get_env_data()->vars;
 	while (args->next)
 	{
@@ -108,6 +108,7 @@ char	**create_env(void)
 		args = args->next;
 		i++;
 	}
+	env_tab[i] = NULL;
 	return (env_tab);
 }
 
