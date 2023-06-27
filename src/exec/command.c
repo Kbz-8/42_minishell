@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 12:06:31 by vvaas             #+#    #+#             */
-/*   Updated: 2023/06/27 16:36:52 by maldavid         ###   ########.fr       */
+/*   Updated: 2023/06/27 21:29:12 by vvaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,9 @@ void	command(t_parser_info *info)
 		else if (info->cmd.builtin == ENV)
 			ft_env(info);
 		else if (info->cmd.builtin == EXPORT)
-			ft_export(info);	
+			ft_export(info);
+		else if (info->cmd.builtin == UNSET)
+			ft_unset(info);
 	}
 	else if (is_executable_name(info->cmd.str))
 		ft_execve(is_exec_path(info->cmd.str), (char **)info->args, create_env());

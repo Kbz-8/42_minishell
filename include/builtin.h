@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 12:13:35 by vvaas             #+#    #+#             */
-/*   Updated: 2023/06/26 17:15:30 by maldavid         ###   ########.fr       */
+/*   Updated: 2023/06/27 21:29:21 by vvaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,5 +22,5 @@ int		ft_pwd(t_parser_info *info);
 void	ft_export(t_parser_info *info);
 void	ft_echo(t_parser_info *info);
 int		ft_env(t_parser_info *info);
-
+void	ft_unset(t_parser_info *info);
 #endif

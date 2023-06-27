@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 01:48:34 by maldavid          #+#    #+#             */
-/*   Updated: 2023/06/24 20:30:35 by vvaas            ###   ########.fr       */
+/*   Updated: 2023/06/27 21:35:00 by vvaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ void	modify_env_var(char *key, char *new_key, char *new_value)
 	while (ptr->next != NULL)
 	{
 		if (ft_strcmp(key, ptr->key) == 0)
-		{;
+		{
 			dealloc(ptr->key);
 			dealloc(ptr->value);
 			ptr->key = ft_strdup(new_key);

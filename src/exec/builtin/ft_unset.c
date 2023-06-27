@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 00:28:11 by vvaas             #+#    #+#             */
-/*   Updated: 2023/06/21 00:31:49 by vvaas            ###   ########.fr       */
+/*   Updated: 2023/06/27 21:30:01 by vvaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,12 @@
 
 void	ft_unset(t_parser_info *info)
 {
-	(void)info;
-	// trouver comment rm une env var
+	int i;
+
+	i = 1;
+	while (info->args[i])
+	{
+		remove_env_var((char *)info->args[i]);
+		i++;
+	}
 }
