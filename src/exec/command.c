@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 12:06:31 by vvaas             #+#    #+#             */
-/*   Updated: 2023/06/28 00:15:21 by vvaas            ###   ########.fr       */
+/*   Updated: 2023/06/28 16:13:40 by vvaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 #include <stdio.h>
 #include <sys/stat.h>
 #include <fcntl.h>
+#include <sys/wait.h>
 
 bool	require_input(t_parser_info *info)
 {
@@ -94,6 +95,34 @@ void	r_in(t_parser_info *info)
 	dup2(save, 0);
 }
 
+void	c_pipe(t_parser_info *info)
+{
+	int saves[2];
+	pid_t pid;
+	int pipes[2];
+
+	pipe(pipes);
+	saves[0] = dup(0);
+	saves[1] = dup(1);
+	pid = fork();
+	if (pid != 0)
+	{
+		close(pipes[1]);
+		waitpid(pid, 0, 0);
+		close(0);
+		dup(pipes[0]);
+		command(info->next);
+		dup2(saves[0], 0);
+		return ;
+	}
+	close(pipes[0]);
+	close(1);
+	dup(pipes[1]);
+	command(info);
+	dup2(saves[1], 1);
+	exit(0);
+}
+
 void	exec_command(t_parser_info *info)
 {
 	while (info)
@@ -104,6 +133,11 @@ void	exec_command(t_parser_info *info)
 			r_out(info);
 		else if (info->link == R_IN)
 			r_in(info);
+		else if (info->link == PIPE)
+		{
+			c_pipe(info);
+			info = info->next;
+		}
 		else
 			command(info);
 		info = info->next;
