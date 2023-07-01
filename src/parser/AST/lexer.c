@@ -6,7 +6,7 @@
 /*   By: maldavid <kbz_8.dev@akel-engine.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 04:34:34 by maldavid          #+#    #+#             */
-/*   Updated: 2023/06/27 16:36:08 by maldavid         ###   ########.fr       */
+/*   Updated: 2023/06/29 15:18:17 by maldavid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,16 +82,21 @@ static void	add_redirection(t_token_list **list, char **str)
 static void	add_command(t_token_list **list, char **str)
 {
 	t_command_data	data;
+	bool			double_quoted;
 
 	ft_memset(&data, 0, sizeof(t_command_data));
 	data.alloc_size = 255;
 	data.ptr = ft_memalloc(data.alloc_size);
+	double_quoted = false;
 	while (*(*str) != '|' && *(*str) != '<' && *(*str) != '>' && *(*str) != 0)
 	{
 		manage_realloc(&data.ptr, &data.alloc_size, data.i);
-		if (*(*str) == '\'')
+		if (*(*str) == '\'' && !double_quoted)
 			data.in_string = !data.in_string;
-		else if (*(*str) == '$' && !data.in_string)
+		else if (*(*str) == '"' && !data.in_string)
+			double_quoted = !double_quoted;
+		else if ((*(*str) == '$' && !data.in_string) || \
+				(*(*str) == '~' && !double_quoted && !data.in_string))
 		{
 			include_var(&data, str);
 			continue ;

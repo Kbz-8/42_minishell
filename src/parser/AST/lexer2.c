@@ -6,7 +6,7 @@
 /*   By: maldavid <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/21 13:25:28 by maldavid          #+#    #+#             */
-/*   Updated: 2023/05/29 18:37:07 by maldavid         ###   ########.fr       */
+/*   Updated: 2023/06/29 15:23:49 by maldavid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,13 @@ void	include_var(t_command_data *data, char **str)
 {
 	size_t	var_val_size;
 
+	if (*(*str) == '~')
+	{
+		ft_strcpy(data->ptr + data->i, get_env_var("HOME"));
+		data->i += ft_strlen(get_env_var("HOME"));
+		(*str)++;
+		return ;
+	}
 	var_val_size = manage_last_return(data, *str);
 	if (var_val_size != 0)
 	{
