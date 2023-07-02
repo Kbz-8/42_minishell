@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 15:25:46 by vvaas             #+#    #+#             */
-/*   Updated: 2023/06/24 20:08:11 by vvaas            ###   ########.fr       */
+/*   Updated: 2023/07/01 15:37:02 by vvaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 
 void	process(int sig)
 {
-	if (sig == SIGINT)
+	if (sig == SIGINT && get_env_data()->listen)
 	{
 		rl_on_new_line();
 		ft_putchar('\n');

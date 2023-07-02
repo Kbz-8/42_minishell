@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 15:22:37 by maldavid          #+#    #+#             */
-/*   Updated: 2023/06/01 17:29:46 by maldavid         ###   ########.fr       */
+/*   Updated: 2023/07/01 15:29:40 by vvaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,5 +38,6 @@ void	init_minishell(void)
 		i++;
 	}
 	get_env_data()->last_return = 0;
+	get_env_data()->listen = true;
 	init_sig();
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prompt_manager.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maldavid <kbz_8.dev@akel-engine.com>       +#+  +:+       +#+        */
+/*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/21 16:21:17 by maldavid          #+#    #+#             */
-/*   Updated: 2023/06/01 22:28:28 by maldavid         ###   ########.fr       */
+/*   Updated: 2023/07/02 22:59:21 by vvaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,11 @@ char	*display_prompt(t_prompt *prompt)
 	char	*entry;
 
 	entry = readline(prompt->text);
+	if (!entry)
+	{
+		ft_printf("exit\n"); // FIX DU SEGFAULT AVEC CTRL D 
+		return (NULL);
+	}
 	ptr = ft_strstr(entry, "<<");
 	prompt->here_doc = false;
 	if (ptr != NULL)

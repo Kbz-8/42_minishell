@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 12:06:31 by vvaas             #+#    #+#             */
-/*   Updated: 2023/06/28 16:13:40 by vvaas            ###   ########.fr       */
+/*   Updated: 2023/07/02 23:21:21 by vvaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,17 +21,6 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 #include <sys/wait.h>
-
-bool	require_input(t_parser_info *info)
-{
-	char *path;
-	struct stat file;
-
-	path = is_exec_path(info->cmd.str);
-	stat(path, &file);
-	free(path);
-	return (S_ISREG(file.st_mode));
-}
 
 void	command(t_parser_info *info)
 {
@@ -62,7 +51,7 @@ void	command(t_parser_info *info)
 		ft_execve(info->cmd.str, (char **)info->args, create_env());
 }
 
-void	r_out(t_parser_info *info)
+void	r_out_absolute(t_parser_info *info)
 {
 	int save;
 
@@ -73,7 +62,7 @@ void	r_out(t_parser_info *info)
 	dup2(save, 1);
 }
 
-void	r_out_absolute(t_parser_info *info)
+void	r_out(t_parser_info *info)
 {
 	int save;
 
@@ -111,7 +100,7 @@ void	c_pipe(t_parser_info *info)
 		waitpid(pid, 0, 0);
 		close(0);
 		dup(pipes[0]);
-		command(info->next);
+		exec_command(info->next);
 		dup2(saves[0], 0);
 		return ;
 	}
@@ -127,20 +116,21 @@ void	exec_command(t_parser_info *info)
 {
 	while (info)
 	{
+		get_env_data()->listen = false;
+		if (info->link == NONE)
+			command(info);
 		if (info->link == R_OUT_ABSOLUTE)
 			r_out_absolute(info);
 		else if (info->link == R_OUT)
 			r_out(info);
 		else if (info->link == R_IN)
 			r_in(info);
-		else if (info->link == PIPE)
+		else if (info && info->link == PIPE)
 		{
 			c_pipe(info);
-			info = info->next;
+			break;
 		}
-		else
-			command(info);
 		info = info->next;
 	}
-
+	get_env_data()->listen = true;
 }
