@@ -6,7 +6,7 @@
 #    By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/18 10:57:27 by maldavid          #+#    #+#              #
-#    Updated: 2023/06/27 21:29:44 by vvaas            ###   ########.fr        #
+#    Updated: 2023/07/07 15:52:32 by maldavid         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,15 +41,29 @@ SRCS	=	src/core/main.c \
 			src/parser/AST/lexer.c \
 			src/parser/AST/lexer2.c \
 
-OBJS	= $(SRCS:.c=.o)
+OBJ_DIR	= objs
+OBJS	= $(addprefix $(OBJ_DIR)/, $(SRCS:.c=.o))
 
 CC		= clang
-CFLAGS	= -Wall -Wextra -Werror -I third_party/libft -I include -g
+CFLAGS	= -Wall -Wextra -Werror -I third_party/libft -I include
 
-RM		= rm -f
+DEBUG		?= false
+MODE		=  "release"
+TOOLCHAIN	?= clang
 
-%.o: %.c
-	@echo "\e[1;32m[compiling...   ]\e[1;00m "$<
+ifeq ($(TOOLCHAIN), gcc)
+	CC = gcc
+endif
+
+ifeq ($(DEBUG), true)
+	CFLAGS += -g -D DEBUG
+	MODE = "debug"
+endif
+
+RM		= rm -rf
+
+$(OBJ_DIR)/%.o: %.c
+	@echo "\e[1;32m[compiling "$(MODE)" {"$(CC)"}...]\e[1;00m "$<
 	@$(CC) $(CFLAGS) $(COPTS) -c $< -o $@
 
 all:		libft $(NAME)
@@ -57,13 +71,16 @@ all:		libft $(NAME)
 libft:
 	@make -C third_party/libft
 
-$(NAME):	$(OBJS)
-	@echo "\e[1;32m[ linking ...]\e[1;00m "$@
+$(NAME):	$(OBJ_DIR) $(OBJS)
+	@echo "\e[1;32m[linking   "$(MODE)" {"$(CC)"}...]\e[1;00m "$@
 	@$(CC) -o $(NAME) $(OBJS) third_party/libft/libft.a -lreadline
 	@echo "\e[1;32m[build finished]\e[1;00m"
 
+$(OBJ_DIR):
+	@mkdir -p $(sort $(addprefix $(OBJ_DIR)/, $(dir $(SRCS))))
+
 clean:
-	@$(RM) $(OBJS)
+	@$(RM) $(OBJ_DIR)
 
 fclean:		clean
 	@$(RM) $(NAME)
