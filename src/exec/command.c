@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 12:06:31 by vvaas             #+#    #+#             */
-/*   Updated: 2023/07/02 23:21:21 by vvaas            ###   ########.fr       */
+/*   Updated: 2023/07/10 17:13:06 by vvaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,26 +51,35 @@ void	command(t_parser_info *info)
 		ft_execve(info->cmd.str, (char **)info->args, create_env());
 }
 
-void	r_out_absolute(t_parser_info *info)
+bool	is_redir(t_parser_info *info)
 {
-	int save;
-
-	save = dup(1);
-	close(1);
-	open(info->next->args[0], O_CREAT | O_APPEND | O_WRONLY, 0644);
-	command(info);
-	dup2(save, 1);
+	return ((info->link == R_OUT || info->link == R_OUT_ABSOLUTE) && info->next->next);
 }
 
-void	r_out(t_parser_info *info)
+t_parser_info	*r_out(t_parser_info *info, bool absolute)
 {
 	int save;
+	t_parser_info *tmp;
 
+	tmp = info;
+	while (is_redir(info))
+	{
+		if (!absolute)
+			close(open(info->next->args[0], O_CREAT | O_TRUNC | O_WRONLY, 0644));
+		else
+			close(open(info->next->args[0], O_CREAT | O_APPEND | O_WRONLY, 0644));
+		info = info->next;
+		absolute = (info->link == R_OUT_ABSOLUTE);
+	}
 	save = dup(1);
 	close(1);
-	open(info->next->args[0], O_CREAT | O_TRUNC | O_WRONLY, 0644);
-	command(info);
+	if (!absolute)
+		open(info->next->args[0], O_CREAT | O_TRUNC | O_WRONLY, 0644);
+	else
+		open(info->next->args[0], O_CREAT | O_APPEND | O_WRONLY, 0644);
+	command(tmp);
 	dup2(save, 1);
+	return (info->next);
 }
 
 void	r_in(t_parser_info *info)
@@ -79,7 +88,7 @@ void	r_in(t_parser_info *info)
 
 	save = dup(0);
 	close(0);
-	open(info->next->args[0], O_CREAT | O_RDONLY);
+	open(info->next->args[0], O_RDONLY | O_CREAT);
 	command(info);
 	dup2(save, 0);
 }
@@ -114,23 +123,31 @@ void	c_pipe(t_parser_info *info)
 
 void	exec_command(t_parser_info *info)
 {
+	static t_parser_info *cmd = NULL;
+
+	if (!cmd)
+		cmd = info;
+	get_env_data()->listen = false;
 	while (info)
 	{
-		get_env_data()->listen = false;
 		if (info->link == NONE)
+		{
 			command(info);
-		if (info->link == R_OUT_ABSOLUTE)
-			r_out_absolute(info);
-		else if (info->link == R_OUT)
-			r_out(info);
+			info = info->next;
+		}
+		else if (info->link == R_OUT || info->link == R_OUT_ABSOLUTE)
+			info = r_out(info, (info->link == R_OUT_ABSOLUTE));
 		else if (info->link == R_IN)
+		{
 			r_in(info);
+			info = info->next;
+		}
 		else if (info && info->link == PIPE)
 		{
 			c_pipe(info);
+			info = info->next;
 			break;
 		}
-		info = info->next;
 	}
 	get_env_data()->listen = true;
 }
