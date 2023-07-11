@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 12:06:31 by vvaas             #+#    #+#             */
-/*   Updated: 2023/07/11 16:44:39 by vvaas            ###   ########.fr       */
+/*   Updated: 2023/07/11 18:38:32 by vvaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void	command(t_parser_info *info)
 
 bool	is_redir(t_parser_info *info)
 {
-	return ((info->link == R_OUT || info->link == R_OUT_ABSOLUTE) && info->next->next);
+	return ((info->next->link == R_OUT || info->next->link == R_OUT_ABSOLUTE) && info->next->next);
 }
 
 char	**input(t_parser_info *info)
