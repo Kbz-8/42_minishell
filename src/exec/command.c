@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 12:06:31 by vvaas             #+#    #+#             */
-/*   Updated: 2023/07/10 17:13:06 by vvaas            ###   ########.fr       */
+/*   Updated: 2023/07/11 16:44:39 by vvaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,12 +56,28 @@ bool	is_redir(t_parser_info *info)
 	return ((info->link == R_OUT || info->link == R_OUT_ABSOLUTE) && info->next->next);
 }
 
+char	**input(t_parser_info *info)
+{
+	t_parser_info *last_input;
+	int i;
+
+	i = 0;
+	while (info && info->link != PIPE)
+	{
+		if (info->link == R_IN)
+			last_input = info;
+		info = info->next;
+	}
+	return ((char **)info->args);
+}
+
 t_parser_info	*r_out(t_parser_info *info, bool absolute)
 {
 	int save;
 	t_parser_info *tmp;
 
 	tmp = info;
+	
 	while (is_redir(info))
 	{
 		if (!absolute)
@@ -123,10 +139,6 @@ void	c_pipe(t_parser_info *info)
 
 void	exec_command(t_parser_info *info)
 {
-	static t_parser_info *cmd = NULL;
-
-	if (!cmd)
-		cmd = info;
 	get_env_data()->listen = false;
 	while (info)
 	{
