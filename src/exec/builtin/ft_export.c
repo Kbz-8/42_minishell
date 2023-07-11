@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/01 02:29:32 by vvaas             #+#    #+#             */
-/*   Updated: 2023/07/11 18:51:52 by vvaas            ###   ########.fr       */
+/*   Updated: 2023/07/11 19:09:43 by vvaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,18 +17,17 @@
 void	print_sorted_env(void)
 {
 	t_env_var	*var;
-	t_env_var	*backup;
-	char *lowest_key;
+	char *lowest;
 
-	backup = get_env_data()->vars;
-	lowest_key = backup->key;
+	var = get_env_data()->vars;
+	lowest = var->key;
 	while (var)
 	{
-		if (ft_strcmp(var->key, lowest_key) < 0)
-			lowest_key = var->key;
+		if (ft_strcmp(var->key, lowest) < 0)
+			lowest = var->key;
 		var = var->next;
 	}
-	ft_printf("%s\n", lowest_key);
+	ft_printf("%s\n", lowest);
 }
 
 void	ft_export(t_parser_info *info)
