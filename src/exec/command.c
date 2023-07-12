@@ -56,21 +56,6 @@ bool	is_redir(t_parser_info *info)
 	return ((info->next->link == R_OUT || info->next->link == R_OUT_ABSOLUTE) && info->next->next);
 }
 
-char	**input(t_parser_info *info)
-{
-	t_parser_info *last_input;
-	int i;
-
-	i = 0;
-	while (info && info->link != PIPE)
-	{
-		if (info->link == R_IN)
-			last_input = info;
-		info = info->next;
-	}
-	return ((char **)info->args);
-}
-
 t_parser_info	*r_out(t_parser_info *info, bool absolute)
 {
 	int save;
@@ -134,6 +119,7 @@ void	c_pipe(t_parser_info *info)
 	dup(pipes[1]);
 	command(info);
 	dup2(saves[1], 1);
+	allfree();
 	exit(0);
 }
 

@@ -101,7 +101,7 @@ char	**create_env(void)
 	args = get_env_data()->vars;
 	while (args->next)
 	{
-		env_tab[i] = ft_calloc(ft_strlen(args->key) + 2 + ft_strlen(args->value), sizeof(char));
+		env_tab[i] = alloc((ft_strlen(args->key) + 2 + ft_strlen(args->value)) * sizeof(char));
 		ft_strcpy(env_tab[i], args->key);
 		ft_strcat(env_tab[i], "=");
 		ft_strcat(env_tab[i], args->value);
