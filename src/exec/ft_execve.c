@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 17:59:21 by vvaas             #+#    #+#             */
-/*   Updated: 2023/07/13 16:06:26 by vvaas            ###   ########.fr       */
+/*   Updated: 2023/07/13 17:50:24 by vvaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ bool	is_executable(char *path)
 bool	is_executable_name(char *name)
 {
 	char *output;
-
+	
 	output = is_exec_path(name);
 	if (!output)
 		return (0);

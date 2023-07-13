@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/20 22:53:44 by vvaas             #+#    #+#             */
-/*   Updated: 2023/07/13 15:13:53 by vvaas            ###   ########.fr       */
+/*   Updated: 2023/07/13 18:12:53 by vvaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include <libft.h>
 #include <utils.h>
 #include <memory.h>
+
 bool	env_key_exist(char *key)
 {
 	t_env_var *env;
