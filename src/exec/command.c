@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 12:06:31 by vvaas             #+#    #+#             */
-/*   Updated: 2023/07/11 18:38:32 by vvaas            ###   ########.fr       */
+/*   Updated: 2023/07/13 15:50:41 by vvaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	command(t_parser_info *info)
 		if (info->cmd.builtin == EXIT)
 			ft_exit(info);
 		else if (info->cmd.builtin == PWD)
-			ft_pwd(info);
+			ft_pwd();
 		else if (info->cmd.builtin == CD)
 			ft_cd(info);
 		else if (info->cmd.builtin == ENV)

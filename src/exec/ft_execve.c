@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 17:59:21 by vvaas             #+#    #+#             */
-/*   Updated: 2023/06/27 23:16:28 by vvaas            ###   ########.fr       */
+/*   Updated: 2023/07/13 16:06:26 by vvaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ void	ft_execve(char *path, char **argv, char **env)
 	if (pid == 0)
 		execve(path, argv, env);
 	else
-		waitpid(pid, 0, 0);
+		waitpid(pid, &get_env_data()->last_return, 0);
 }
 
 char	**create_env(void)

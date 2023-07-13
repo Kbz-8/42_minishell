@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/01 02:29:32 by vvaas             #+#    #+#             */
-/*   Updated: 2023/07/11 19:09:43 by vvaas            ###   ########.fr       */
+/*   Updated: 2023/07/13 15:49:22 by vvaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,4 +77,5 @@ void	ft_export(t_parser_info *info)
 			add_env((char *)info->args[i]);
 		i++;
 	}
+	get_env_data()->last_return = 0;
 }
