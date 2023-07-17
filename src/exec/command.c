@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 12:06:31 by vvaas             #+#    #+#             */
-/*   Updated: 2023/07/17 22:14:48 by vvaas            ###   ########.fr       */
+/*   Updated: 2023/07/17 23:11:42 by vvaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,16 +30,19 @@ bool	check_isdir(t_parser_info *info)
 		if (ft_strchr(info->cmd.str, '/'))
 		{
 			printf("minishell: %s: No such file or directory\n", info->cmd.str);
+			get_env_data()->last_return = 127;
 			return (1);
 		}
 	if (ft_strstr(info->cmd.str, "./") && S_ISDIR(file.st_mode))
 	{
 		printf("minishell: %s: Is a directory\n", info->cmd.str);
+		get_env_data()->last_return = 126;
 		return (1);
 	}
 	if (!ft_strstr(info->cmd.str, "./") && (ft_strchr(info->cmd.str, '/')))
 	{
 		printf("minishell: %s: No such file or directory\n", info->cmd.str);
+		get_env_data()->last_return = 127;
 		return (1);
 	}
 	return (0);
@@ -75,9 +78,15 @@ void	command(t_parser_info *info)
 	else if (is_executable(info->cmd.str))
 		ft_execve(info->cmd.str, (char **)info->args, create_env());
 	else if (!access(info->cmd.str, F_OK))
+	{
 		printf("minishell: %s: Permission denied\n", info->args[0]);
+		get_env_data()->last_return = 126;
+	}
 	else
+	{
 		printf("%s: command not found\n", info->cmd.str);
+		get_env_data()->last_return = 127;
+	}
 }
 
 bool	is_redir(t_parser_info *info)

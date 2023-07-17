@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 12:13:27 by vvaas             #+#    #+#             */
-/*   Updated: 2023/07/17 22:48:37 by vvaas            ###   ########.fr       */
+/*   Updated: 2023/07/17 23:35:39 by vvaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,9 @@ int	ft_exit(t_parser_info *info)
 {
 	unsigned int exitcode;
 
+	exitcode = ft_atoi(info->args[1]);
+	if (!info->args[1])
+		exit(get_env_data()->last_return);
 	exitcode = ft_atoi(info->args[1]);
 	if (!ft_is_exit_code((char *)info->args[1]))
 		return (256);
