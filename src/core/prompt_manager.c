@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/21 16:21:17 by maldavid          #+#    #+#             */
-/*   Updated: 2023/07/02 22:59:21 by vvaas            ###   ########.fr       */
+/*   Updated: 2023/07/17 19:34:20 by vvaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ static void	here_doc(char **entry, char *eof, bool double_quoted)
 	bool	continue_doc;
 
 	i = 0;
-	new_line = readline("> ");
+	new_line = readline("heredoc> ");
 	j = ft_strlen(*entry);
 	new_entry = malloc(j + ft_strlen(new_line) + 2);
 	ft_memset(new_entry, 0, j + ft_strlen(new_line) + 2);
@@ -77,7 +77,7 @@ static void	prepare_here_doc(t_prompt *prompt, char **entry, char *ptr)
 	bool	double_quoted;
 
 	i = 0;
-	ft_memset(ptr, ' ', 2);
+	ft_memset(ptr, ' ', 1);
 	ptr += 2;
 	skip_spaces(&ptr);
 	double_quoted = false;
@@ -105,10 +105,7 @@ char	*display_prompt(t_prompt *prompt)
 
 	entry = readline(prompt->text);
 	if (!entry)
-	{
-		ft_printf("exit\n"); // FIX DU SEGFAULT AVEC CTRL D 
 		return (NULL);
-	}
 	ptr = ft_strstr(entry, "<<");
 	prompt->here_doc = false;
 	if (ptr != NULL)
