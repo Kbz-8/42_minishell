@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 11:10:27 by maldavid          #+#    #+#             */
-/*   Updated: 2023/07/17 19:34:28 by vvaas            ###   ########.fr       */
+/*   Updated: 2023/07/17 19:38:57 by vvaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int	main(void)
 	entry = NULL;
 	init_minishell();
 	init_prompt(&prompt);
-	while (420 != 69)
+	while (get_env_data()->loop)
 	{
 		free(entry);
 		entry = display_prompt(&prompt);

@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 12:13:27 by vvaas             #+#    #+#             */
-/*   Updated: 2023/05/14 11:22:02 by maldavid         ###   ########.fr       */
+/*   Updated: 2023/07/17 22:48:37 by vvaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ static bool	ft_is_number(char *arg)
 	unsigned int i;
 
 	i = 0;
+	if (arg[i] == '-' || arg[i] == '+')
+		i++;
 	while (ft_isdigit(arg[i]))
 		i++;
 	if (i != ft_strlen(arg))
@@ -38,15 +40,18 @@ static bool	ft_is_exit_code(char *arg)
 		report(ERROR, NUMBER_REQUIRED);
 		return (0);
 	}
-	if (ft_atoi(arg) > 255 || ft_atoi(arg) < 0)
-		return (0);
 	return (1);
 }
 
 int	ft_exit(t_parser_info *info)
 {
+	unsigned int exitcode;
+
+	exitcode = ft_atoi(info->args[1]);
 	if (!ft_is_exit_code((char *)info->args[1]))
 		return (256);
 	allfree();
-	return (ft_atoi(info->args[1]));
+	get_env_data()->loop = 0;
+	exit(exitcode % 256);
+	return (exitcode);
 }

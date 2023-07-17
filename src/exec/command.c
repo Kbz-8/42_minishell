@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 12:06:31 by vvaas             #+#    #+#             */
-/*   Updated: 2023/07/13 18:40:27 by vvaas            ###   ########.fr       */
+/*   Updated: 2023/07/17 22:14:48 by vvaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,8 @@ void	command(t_parser_info *info)
 		add_env(info->cmd.str);
 	else if (is_executable(info->cmd.str))
 		ft_execve(info->cmd.str, (char **)info->args, create_env());
+	else if (!access(info->cmd.str, F_OK))
+		printf("minishell: %s: Permission denied\n", info->args[0]);
 	else
 		printf("%s: command not found\n", info->cmd.str);
 }

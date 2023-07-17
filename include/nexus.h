@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 11:59:38 by maldavid          #+#    #+#             */
-/*   Updated: 2023/07/01 15:29:13 by vvaas            ###   ########.fr       */
+/*   Updated: 2023/07/17 19:39:01 by vvaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ typedef struct s_env
 	t_env_var	*vars;
 	int			last_return;
 	bool		listen;
+	bool		loop;
 }	t_env;
 
 t_env		*get_env_data(void);
