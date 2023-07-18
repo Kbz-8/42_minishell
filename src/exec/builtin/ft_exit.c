@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 12:13:27 by vvaas             #+#    #+#             */
-/*   Updated: 2023/07/17 23:35:39 by vvaas            ###   ########.fr       */
+/*   Updated: 2023/07/18 19:08:59 by vvaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ static bool	ft_is_number(char *arg)
 	unsigned int i;
 
 	i = 0;
+	if (arg[i] == '\0')
+		return (0);
 	if (arg[i] == '-' || arg[i] == '+')
 		i++;
 	while (ft_isdigit(arg[i]))
@@ -33,28 +35,27 @@ static bool	ft_is_number(char *arg)
 	return (1);
 }
 
-static bool	ft_is_exit_code(char *arg)
-{
-	if (!ft_is_number(arg))
-	{
-		report(ERROR, NUMBER_REQUIRED);
-		return (0);
-	}
-	return (1);
-}
-
-int	ft_exit(t_parser_info *info)
+void	ft_exit(t_parser_info *info)
 {
 	unsigned int exitcode;
 
-	exitcode = ft_atoi(info->args[1]);
 	if (!info->args[1])
+	{
+		allfree();
 		exit(get_env_data()->last_return);
-	exitcode = ft_atoi(info->args[1]);
-	if (!ft_is_exit_code((char *)info->args[1]))
-		return (256);
-	allfree();
-	get_env_data()->loop = 0;
-	exit(exitcode % 256);
-	return (exitcode);
+	}
+	if (!ft_is_number((char *)info->args[1]))
+	{
+		ft_printf("exit\nminishell: exit: %s:  numeric argument required\n", info->args[1]);
+		allfree();
+		exit(2);
+	}
+	if (info->args[2])
+		ft_printf("exit\nminishell: exit: too many arguments\n", info->args[1]);
+	else
+	{
+		exitcode = ft_atoi(info->args[1]);
+		allfree();
+		exit(exitcode % 256);
+	}
 }

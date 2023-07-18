@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 08:32:33 by vvaas             #+#    #+#             */
-/*   Updated: 2023/07/13 18:17:47 by vvaas            ###   ########.fr       */
+/*   Updated: 2023/07/18 22:52:51 by vvaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,14 +71,25 @@ int	ft_cd(t_parser_info *info)
 	void *buffer;
 
 	if (!info->args[1])
+	{
+		modify_env_var("OLDPWD", "OLDPWD", getcwd(NULL, 0));
+		if (!get_env_var("PWD"))
+			remove_env_var("OLDPWD");
 		chdir(get_env_var("HOME"));
-	if (info->args[2])
+		modify_env_var("PWD", "PWD", (char *)get_env_var("HOME"));
+		get_env_data()->last_return = 0;
+		return (1);
+	}
+	else if (info->args[2])
 	{
 		report(ERROR, E_TOO_MANY_ARGS);
 		get_env_data()->last_return = 1;
 		return (1);
 	}
 	check_validity((char *)info->args[1]);
+	modify_env_var("OLDPWD", "OLDPWD", getcwd(NULL, 0));
+	if (!get_env_var("PWD"))
+		remove_env_var("OLDPWD");
 	chdir(info->args[1]);
 	buffer = getcwd(NULL, 0);
 	modify_env_var("PWD", "PWD", buffer);

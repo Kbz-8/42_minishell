@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 12:06:31 by vvaas             #+#    #+#             */
-/*   Updated: 2023/07/17 23:11:42 by vvaas            ###   ########.fr       */
+/*   Updated: 2023/07/18 23:07:46 by vvaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,6 +118,8 @@ t_parser_info	*r_out(t_parser_info *info, bool absolute)
 		open(info->next->args[0], O_CREAT | O_APPEND | O_WRONLY, 0644);
 	command(tmp);
 	dup2(save, 1);
+	while (info->link == R_OUT | info->link == R_OUT_ABSOLUTE)
+		info = info->next;
 	return (info->next);
 }
 
