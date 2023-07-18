@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/20 22:53:44 by vvaas             #+#    #+#             */
-/*   Updated: 2023/07/13 18:12:53 by vvaas            ###   ########.fr       */
+/*   Updated: 2023/07/19 00:28:34 by vvaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,10 +43,11 @@ void	add_env(char *input)
 
 	i = 0;
 	values = alloc(ft_strlen(input) * sizeof(char));
-	while (input[i] != '=')
+	while (input[i] != '=' && input[i])
 		i++;
 	values[0] = ft_strndup(input, i);
-	values[1] = ft_strndup(&input[i + 1], ft_strlen(&input[i]));
+	if (input[i])
+		values[1] = ft_strndup(&input[i + 1], ft_strlen(&input[i]));
 	if (get_env_var(values[0]) == NULL)
 		add_env_var(values[0], values[1]);
 	else

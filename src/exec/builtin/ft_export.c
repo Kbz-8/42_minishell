@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/01 02:29:32 by vvaas             #+#    #+#             */
-/*   Updated: 2023/07/18 23:24:26 by vvaas            ###   ########.fr       */
+/*   Updated: 2023/07/19 01:00:08 by vvaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,17 +24,23 @@ void	print_args(char **args)
 	while (args[i])
 	{
 		ft_printf("declare -x ");
-		while (args[i][j] != '=')
+		while (args[i][j] != '=' && args[i][j])
 			ft_printf("%c", args[i][j++]);
+		if (!args[i][j + 1])
+		{
+			ft_printf("\n");
+			return ;
+		}
 		ft_printf("%c", args[i][j++]);
-		ft_printf("'");
+		ft_printf("\"");
 		while (args[i][j])
 			ft_printf("%c", args[i][j++]);
-		ft_printf("'\n");
+		ft_printf("\"\n");
 		i++;
 		j = 0;
 	}
 }
+
 
 void	print_sorted_env(void)
 {
@@ -73,8 +79,7 @@ void	ft_export(t_parser_info *info)
 		print_sorted_env();
 	while (info->args[i])
 	{
-		if (is_environment((char *)info->args[i])) // big placeholder
-			add_env((char *)info->args[i]);
+		add_env((char *)info->args[i]);
 		i++;
 	}
 	get_env_data()->last_return = 0;

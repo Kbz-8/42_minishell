@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 17:41:30 by vvaas             #+#    #+#             */
-/*   Updated: 2023/07/18 20:05:36 by vvaas            ###   ########.fr       */
+/*   Updated: 2023/07/19 00:57:02 by vvaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,8 @@ int	ft_env(t_parser_info *info)
 	args = get_env_data()->vars;
 	while (args->next)
 	{
-		ft_printf("%s=%s\n", args->key, args->value);
+		if (args->value[0] != '\0')
+			ft_printf("%s=%s\n", args->key, args->value);
 		args = args->next;
 	}
 	get_env_data()->last_return = 0;

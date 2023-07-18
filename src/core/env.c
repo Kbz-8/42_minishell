@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 01:48:34 by maldavid          #+#    #+#             */
-/*   Updated: 2023/07/18 22:50:21 by vvaas            ###   ########.fr       */
+/*   Updated: 2023/07/19 01:05:48 by vvaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,10 @@ void	add_env_var(char *key, char *value)
 
 	new = alloc(sizeof(t_env_var));
 	new->key = ft_strdup(key);
-	new->value = ft_strdup(value);
+	if (value)
+		new->value = ft_strdup(value);
+	else
+		new->value = ft_strdup("\0");
 	new->next = get_env_data()->vars;
 	get_env_data()->vars = new;
 }
@@ -89,7 +92,10 @@ void	modify_env_var(char *key, char *new_key, char *new_value)
 			dealloc(ptr->key);
 			dealloc(ptr->value);
 			ptr->key = ft_strdup(new_key);
-			ptr->value = ft_strdup(new_value);
+			if (new_value)
+				ptr->value = ft_strdup(new_value);
+			else
+				ptr->value = ft_strdup("\0");
 			return ;
 		}
 		ptr = ptr->next;

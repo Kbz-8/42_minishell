@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 18:25:19 by vvaas             #+#    #+#             */
-/*   Updated: 2023/07/18 23:58:07 by vvaas            ###   ########.fr       */
+/*   Updated: 2023/07/19 00:23:52 by vvaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	ft_echo(t_parser_info *info)
 	if (!info->args[1])
 	{
 		printf("\n");
-		return;
+		return ;
 	}
 	if (!ft_strcmp(info->args[1], "-n"))
 	{

@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 12:06:31 by vvaas             #+#    #+#             */
-/*   Updated: 2023/07/18 23:07:46 by vvaas            ###   ########.fr       */
+/*   Updated: 2023/07/19 00:18:52 by vvaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,8 +73,6 @@ void	command(t_parser_info *info)
 		return ;
 	else if (is_executable_name(info->cmd.str))
 		ft_execve(is_exec_path(info->cmd.str), (char **)info->args, create_env());
-	else if (is_environment(info->cmd.str))
-		add_env(info->cmd.str);
 	else if (is_executable(info->cmd.str))
 		ft_execve(info->cmd.str, (char **)info->args, create_env());
 	else if (!access(info->cmd.str, F_OK))
