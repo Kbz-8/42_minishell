@@ -6,7 +6,7 @@
 /*   By: maldavid <kbz_8.dev@akel-engine.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/17 17:26:28 by maldavid          #+#    #+#             */
-/*   Updated: 2023/06/28 18:43:00 by maldavid         ###   ########.fr       */
+/*   Updated: 2023/07/19 13:43:46 by maldavid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ static t_parser_info	*visit_command(t_ast_node *node, t_env_var *local_vars)
 	info = ft_memalloc(sizeof(t_parser_info));
 	info->args = (const char **)args_split(node->token->str, ' ');
 	info->local_vars = local_vars;
+	if (info->args[0] == NULL)
+		return (info);
 	i = 0;
 	while (i < (int)(sizeof(builtins) / sizeof(builtins[0])))
 	{

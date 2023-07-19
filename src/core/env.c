@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 01:48:34 by maldavid          #+#    #+#             */
-/*   Updated: 2023/07/19 01:05:48 by vvaas            ###   ########.fr       */
+/*   Updated: 2023/07/19 13:22:53 by maldavid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	add_env_var(char *key, char *value)
 
 	new = alloc(sizeof(t_env_var));
 	new->key = ft_strdup(key);
-	if (value)
+	if (value != NULL)
 		new->value = ft_strdup(value);
 	else
 		new->value = ft_strdup("\0");

@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/01 02:29:32 by vvaas             #+#    #+#             */
-/*   Updated: 2023/07/19 01:00:08 by vvaas            ###   ########.fr       */
+/*   Updated: 2023/07/19 14:02:04 by maldavid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ void	print_args(char **args)
 		j = 0;
 	}
 }
-
 
 void	print_sorted_env(void)
 {

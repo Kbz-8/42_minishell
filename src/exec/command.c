@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 12:06:31 by vvaas             #+#    #+#             */
-/*   Updated: 2023/07/19 00:18:52 by vvaas            ###   ########.fr       */
+/*   Updated: 2023/07/19 13:58:15 by maldavid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ bool	check_isdir(t_parser_info *info)
 
 void	command(t_parser_info *info)
 {
-	if (!info)
+	if (!info || info->cmd.str == NULL)
 		return ;
 	if (info->cmd.builtin < 8 && info->cmd.builtin > 0)
 	{

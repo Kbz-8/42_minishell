@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/20 22:53:44 by vvaas             #+#    #+#             */
-/*   Updated: 2023/07/19 00:28:34 by vvaas            ###   ########.fr       */
+/*   Updated: 2023/07/19 13:30:06 by maldavid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,18 +38,25 @@ bool is_environment(char *input)
 
 void	add_env(char *input)
 {
-	char **values;
-	int i;
+	char	*key;
+	char	*value;
+	char	*found;
 
-	i = 0;
-	values = alloc(ft_strlen(input) * sizeof(char));
-	while (input[i] != '=' && input[i])
-		i++;
-	values[0] = ft_strndup(input, i);
-	if (input[i])
-		values[1] = ft_strndup(&input[i + 1], ft_strlen(&input[i]));
-	if (get_env_var(values[0]) == NULL)
-		add_env_var(values[0], values[1]);
+	if (input == NULL)
+		return ;
+	found = ft_strchr(input, '=');
+	if (found != NULL)
+	{
+		key = ft_strndup(input, found - input);
+		value = ft_strdup(found + 1);
+	}
 	else
-		modify_env_var(values[0], values[0], values[1]);
+	{
+		key = input;
+		value = NULL;
+	}
+	if (get_env_var(key) == NULL)
+		add_env_var(key, value);
+	else
+		modify_env_var(key, key, value);
 }
