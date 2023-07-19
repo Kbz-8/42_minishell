@@ -4,4 +4,5 @@
 *.swx
 .gdb_history
 .vs_code/
+.vscode/
 minishell
