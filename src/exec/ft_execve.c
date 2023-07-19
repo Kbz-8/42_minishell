@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 17:59:21 by vvaas             #+#    #+#             */
-/*   Updated: 2023/07/17 22:40:01 by vvaas            ###   ########.fr       */
+/*   Updated: 2023/07/19 22:49:54 by vvaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,10 @@ bool	is_executable_name(char *name)
 {
 	char *output;
 	
+	if (ft_strstr(name, "./"))
+		return (0);
+	if (get_env_var("PATH") == NULL) // ATTENTION SEGFAULT QUAND MEME DES FOIS : UNDEFINED BEHAVIOR
+		return (0);
 	output = is_exec_path(name);
 	if (!output)
 		return (0);
@@ -69,14 +73,16 @@ char	*is_exec_path(char *name)
 	return (NULL);
 }
 
-
 void	ft_execve(char *path, char **argv, char **env)
 {
 	pid_t	pid;
 
 	pid = fork();
-	if (pid == 0)
-		execve(path, argv, env);
+	if (pid == 0 && execve(path, argv, env) == -1)
+	{
+		allfree();
+		exit(get_env_data()->last_return);
+	}
 	else
 		waitpid(pid, &get_env_data()->last_return, 0);
 }

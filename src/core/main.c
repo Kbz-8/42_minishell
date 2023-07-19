@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 11:10:27 by maldavid          #+#    #+#             */
-/*   Updated: 2023/07/17 19:38:57 by vvaas            ###   ########.fr       */
+/*   Updated: 2023/07/19 22:52:37 by vvaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,13 +55,13 @@ int	main(void)
 	entry = NULL;
 	init_minishell();
 	init_prompt(&prompt);
-	while (get_env_data()->loop)
+	while (420 != 69)
 	{
 		free(entry);
 		entry = display_prompt(&prompt);
 		if (ft_strlen(entry) != 0 && !prompt.here_doc)
 			add_history(entry);
-		if (entry == NULL || ft_strcmp(entry, "exit") == 0)
+		if (entry == NULL)
 		{
 			ft_putstr("exit\n");
 			break ;

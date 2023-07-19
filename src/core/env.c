@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 01:48:34 by maldavid          #+#    #+#             */
-/*   Updated: 2023/07/19 13:22:53 by maldavid         ###   ########.fr       */
+/*   Updated: 2023/07/19 22:49:01 by vvaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void	remove_env_var(char *key)
 	}
 	while (ptr->next != NULL)
 	{
-		if (ft_strcmp(key, ptr->next->key) == 0)
+		if (ft_strcmp(key, ptr->next->key) == 0 && get_env_var(key) != NULL)
 		{
 			ptr->next = ptr->next->next;
 			dealloc(ptr->next->key);

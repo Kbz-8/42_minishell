@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 12:06:31 by vvaas             #+#    #+#             */
-/*   Updated: 2023/07/19 13:58:15 by maldavid         ###   ########.fr       */
+/*   Updated: 2023/07/19 23:03:19 by vvaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,9 @@ bool	check_isdir(t_parser_info *info)
 {
 	struct stat file;
 
-	if (stat(info->cmd.str, &file))
-		if (ft_strchr(info->cmd.str, '/'))
-		{
-			printf("minishell: %s: No such file or directory\n", info->cmd.str);
-			get_env_data()->last_return = 127;
-			return (1);
-		}
+	stat(info->cmd.str, &file);
+	if (!S_ISDIR(file.st_mode))
+		return (0);
 	if (ft_strstr(info->cmd.str, "./") && S_ISDIR(file.st_mode))
 	{
 		printf("minishell: %s: Is a directory\n", info->cmd.str);
@@ -157,7 +153,6 @@ void	c_pipe(t_parser_info *info)
 	dup(pipes[1]);
 	command(info);
 	dup2(saves[1], 1);
-	allfree();
 	exit(0);
 }
 
