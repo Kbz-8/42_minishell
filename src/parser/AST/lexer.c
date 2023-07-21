@@ -6,7 +6,7 @@
 /*   By: maldavid <kbz_8.dev@akel-engine.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 04:34:34 by maldavid          #+#    #+#             */
-/*   Updated: 2023/06/29 15:18:17 by maldavid         ###   ########.fr       */
+/*   Updated: 2023/07/21 21:20:26 by maldavid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,8 @@ static void	add_command(t_token_list **list, char **str)
 	data.alloc_size = 255;
 	data.ptr = ft_memalloc(data.alloc_size);
 	double_quoted = false;
-	while (*(*str) != '|' && *(*str) != '<' && *(*str) != '>' && *(*str) != 0)
+	while (*(*str) != 0 && ((data.in_string || double_quoted) \
+		|| (*(*str) != '|' && *(*str) != '<' && *(*str) != '>')))
 	{
 		manage_realloc(&data.ptr, &data.alloc_size, data.i);
 		if (*(*str) == '\'' && !double_quoted)

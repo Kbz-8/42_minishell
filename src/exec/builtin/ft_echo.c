@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 18:25:19 by vvaas             #+#    #+#             */
-/*   Updated: 2023/07/19 19:38:21 by vvaas            ###   ########.fr       */
+/*   Updated: 2023/07/21 21:00:41 by maldavid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,9 @@ void	ft_echo(t_parser_info *info)
 {
 	bool newline;
 	int i;
-	int j;
+//	int j;
 
-	j = -1;
+//	j = -1;
 	i = 1;
 	newline = 1;
 	if (!info->args[1])
