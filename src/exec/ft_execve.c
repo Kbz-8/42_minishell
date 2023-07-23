@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 17:59:21 by vvaas             #+#    #+#             */
-/*   Updated: 2023/07/19 22:49:54 by vvaas            ###   ########.fr       */
+/*   Updated: 2023/07/23 18:43:51 by vvaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,13 +41,10 @@ bool	is_executable_name(char *name)
 	
 	if (ft_strstr(name, "./"))
 		return (0);
-	if (get_env_var("PATH") == NULL) // ATTENTION SEGFAULT QUAND MEME DES FOIS : UNDEFINED BEHAVIOR
+	if (get_env_var("PATH") == NULL)
 		return (0);
 	output = is_exec_path(name);
-	if (!output)
-		return (0);
-	free(output);
-	return (1);
+	return (output != NULL);
 }
 char	*is_exec_path(char *name)
 {
