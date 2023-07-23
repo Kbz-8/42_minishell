@@ -129,6 +129,41 @@ void	r_in(t_parser_info *info)
 	close(save);
 }
 
+int	count_pipe(t_parser_inf *info)
+{
+	int i;
+
+	i = 1;
+	while(info->link == PIPE)
+	{
+		i++;
+		info = info->next;
+	}
+	return (i);
+		
+}
+
+/*void	c_pipe(t_parser_info *info)
+{
+	size_t	n_pipe;
+	int **pipes;
+	int i;
+
+	i = 0;
+	n_pipe = count_pipe(info);
+	pipes = (int **)alloc(sizeof(int *) * n_pipe - 1);
+	while(i < n_pipe - 1)
+	{
+		pipes[i] = (int *)alloc(sizeof(int), 2);
+		if (pipe(pipes[i] == -1)
+		{
+			printf("pipe error\n");
+			get_env_var()->last_return = 127;
+			exit(127);
+		}
+	}
+}*/
+
 void	c_pipe(t_parser_info *info)
 {
 	int saves[2];
