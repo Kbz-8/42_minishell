@@ -6,7 +6,7 @@
 /*   By: maldavid <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 11:23:06 by maldavid          #+#    #+#             */
-/*   Updated: 2023/06/23 17:42:39 by maldavid         ###   ########.fr       */
+/*   Updated: 2023/07/23 22:21:44 by maldavid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,9 @@ void	*alloc(size_t size)
 		report(FATAL_ERROR, E_MEMFAIL);
 	block->next = *get_blocks();
 	block->ptr = malloc(size + 1);
+	if (block->ptr == NULL)
+		report(FATAL_ERROR, E_MEMFAIL);
+	ft_memset(block->ptr, 0, size + 1);
 	*get_blocks() = block;
 	return (block->ptr);
 }
