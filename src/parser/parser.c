@@ -26,7 +26,7 @@ t_parser_info	*parse(const char *entry)
 	if (ast == NULL || !preprocess_ast_visit(ast->root))
 		return (NULL);
 	infos = visit_ast(ast->root, ast->local_vars);
-	if (!postprocess_ast_visit(infos))
-		return (NULL);
+	// if (!postprocess_ast_visit(infos))
+	//	return (NULL);
 	return (infos);
 }
