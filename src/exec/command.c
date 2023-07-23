@@ -143,7 +143,20 @@ int	count_pipe(t_parser_info *info)
 		
 }
 
-/*void	c_pipe(t_parser_info *info)
+/*void exec_pipes(t_parser_info *info, int **pipes, size_t n_pipe)
+{
+	size_t c_command;
+	int p_pipe[2];
+	int next_pipe[2];
+
+	p_pipe[0] = STDIN_FILENO;
+	p_pipe[1] = STDOUT_FILENO;
+	c_command = 0;
+
+	while(c_command < n_pipe)
+}
+
+void	c_pipe(t_parser_info *info)
 {
 	size_t	n_pipe;
 	int **pipes;
@@ -155,14 +168,15 @@ int	count_pipe(t_parser_info *info)
 	while(i < n_pipe - 1)
 	{
 		pipes[i] = (int *)alloc(sizeof(int), 2);
-		if (pipe(pipes[i] == -1)
+		if (pipe(pipes[i] == -1))
 		{
 			printf("pipe error\n");
-			get_env_var()->last_return = 127;
+			get_env_data()->last_return = 127;
 			exit(127);
 		}
 	}
-}*/
+	exec_pipes(info, pipes);
+} */
 
 void	c_pipe(t_parser_info *info)
 {
