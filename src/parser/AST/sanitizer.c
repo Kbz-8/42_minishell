@@ -32,7 +32,8 @@ bool	preprocess_ast_visit(t_ast_node *ast)
 	return (preprocess_ast_visit(ast->r_child));
 }
 
-bool	postprocess_ast_visit(t_parser_info *info)
+/*bool	postprocess_ast_visit(t_parser_info *info)
 {
 
 }
+*/
