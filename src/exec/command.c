@@ -129,7 +129,7 @@ void	r_in(t_parser_info *info)
 	close(save);
 }
 
-int	count_pipe(t_parser_inf *info)
+int	count_pipe(t_parser_info *info)
 {
 	int i;
 
