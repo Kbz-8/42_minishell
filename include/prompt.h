@@ -6,7 +6,7 @@
 /*   By: maldavid <kbz_8.dev@akel-engine.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/21 16:21:30 by maldavid          #+#    #+#             */
-/*   Updated: 2023/06/01 20:30:00 by maldavid         ###   ########.fr       */
+/*   Updated: 2023/07/24 18:07:53 by maldavid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ typedef struct s_prompt
 	bool	here_doc;
 }	t_prompt;
 
-void	init_prompt(t_prompt *prompt);
+void	update_prompt(t_prompt *prompt);
 char	*display_prompt(t_prompt *prompt);
 
 #endif

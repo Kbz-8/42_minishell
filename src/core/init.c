@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 15:22:37 by maldavid          #+#    #+#             */
-/*   Updated: 2023/07/24 18:07:06 by vvaas            ###   ########.fr       */
+/*   Updated: 2023/07/24 21:44:40 by maldavid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,7 @@
 #include <memory.h>
 #include <libft.h>
 
-extern char	**environ;
-
-void	init_minishell(void)
+void	init_minishell(char **env)
 {
 	int		i;
 	char	*key;
@@ -27,11 +25,10 @@ void	init_minishell(void)
 	ft_set_internal_malloc(alloc);
 	ft_set_internal_free(dealloc);
 	i = 0;
-	while (environ[i] != NULL)
+	while (env[i] != NULL)
 	{
-		value = ft_strdup(ft_strchr(environ[i], '=') + 1);
-		key = ft_strndup(environ[i], \
-						(t_size)(ft_strchr(environ[i], '=') - environ[i]));
+		value = ft_strdup(ft_strchr(env[i], '=') + 1);
+		key = ft_strndup(env[i], ft_strchr(env[i], '=') - env[i]);
 		add_env_var(key, value);
 		ft_free(key);
 		ft_free(value);
@@ -41,4 +38,5 @@ void	init_minishell(void)
 	get_env_data()->listen = true;
 	get_env_data()->fd = -1;
 	init_sig();
+	ft_putstr("\nWelcome to Minishell by vvaas and maldavid !\n");
 }

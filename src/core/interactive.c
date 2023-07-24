@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 15:25:46 by vvaas             #+#    #+#             */
-/*   Updated: 2023/07/17 19:24:25 by vvaas            ###   ########.fr       */
+/*   Updated: 2023/07/24 18:58:49 by maldavid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ void	process(int sig)
 		rl_replace_line("", 0);
 		rl_redisplay();
 		get_env_data()->last_return = 130;
+		get_env_data()->here_doc = false;
 	}
 	if (sig == SIGQUIT)
 		printf("%c%c  %c%c", 8, 8, 8, 8);

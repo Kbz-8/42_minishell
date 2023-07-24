@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 11:59:38 by maldavid          #+#    #+#             */
-/*   Updated: 2023/07/24 18:06:57 by vvaas            ###   ########.fr       */
+/*   Updated: 2023/07/24 21:44:50 by maldavid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,10 +64,11 @@ typedef struct s_env
 	bool		listen;
 	int			fd;
 	bool		loop;
+	bool		here_doc;
 }	t_env;
 
 t_env		*get_env_data(void);
-void		init_minishell(void);
+void		init_minishell(char **env);
 void		add_env_var(char *key, char *value);
 const char	*get_env_var(char *key);
 void		remove_env_var(char *key);
