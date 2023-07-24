@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/21 16:21:17 by maldavid          #+#    #+#             */
-/*   Updated: 2023/07/24 18:59:45 by maldavid         ###   ########.fr       */
+/*   Updated: 2023/07/24 22:30:44 by maldavid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,6 @@ static void	prepare_here_doc(t_prompt *prompt, char **entry, char *ptr)
 
 	get_env_data()->here_doc = true;
 	i = 0;
-	ft_memset(ptr, ' ', 1);
 	ptr += 2;
 	skip_spaces(&ptr);
 	double_quoted = false;

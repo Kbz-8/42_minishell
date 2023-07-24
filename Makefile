@@ -6,7 +6,7 @@
 #    By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/18 10:57:27 by maldavid          #+#    #+#              #
-#    Updated: 2023/07/07 15:52:32 by maldavid         ###   ########.fr        #
+#    Updated: 2023/07/24 22:36:33 by maldavid         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,8 +38,8 @@ SRCS	=	src/core/main.c \
 			src/parser/AST/ast.c \
 			src/parser/AST/node.c \
 			src/parser/AST/node2.c \
-			src/parser/AST/lexer.c \
-			src/parser/AST/lexer2.c \
+			src/parser/AST/lexer.c  \
+			src/parser/AST/lexer2.c  \
 
 OBJ_DIR	= objs
 OBJS	= $(addprefix $(OBJ_DIR)/, $(SRCS:.c=.o))

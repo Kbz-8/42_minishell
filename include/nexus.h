@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 11:59:38 by maldavid          #+#    #+#             */
-/*   Updated: 2023/07/24 21:44:50 by maldavid         ###   ########.fr       */
+/*   Updated: 2023/07/24 22:24:17 by maldavid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,8 @@ enum	e_command_link
 	PIPE = 1,
 	R_IN = 2,
 	R_OUT = 3,
-	R_OUT_ABSOLUTE = 4
+	R_OUT_ABSOLUTE = 4,
+	HERE_DOC = 5
 };
 
 typedef struct u_cmd

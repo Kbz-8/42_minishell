@@ -6,7 +6,7 @@
 /*   By: maldavid <kbz_8.dev@akel-engine.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 04:34:34 by maldavid          #+#    #+#             */
-/*   Updated: 2023/07/21 21:20:26 by maldavid         ###   ########.fr       */
+/*   Updated: 2023/07/24 22:31:55 by maldavid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ static t_token_list	*new_token(char *str)
 		list->token->type = AST_PIPE;
 	else if (str[0] == '>' && str[1] == '>')
 		list->token->type = AST_DOUBLE_RED_R;
+	else if (str[0] == '<' && str[1] == '<')
+		list->token->type = AST_HERE_DOC;
 	else if (str[0] == '>')
 		list->token->type = AST_SIMPLE_RED_R;
 	else if (str[0] == '<')
@@ -66,6 +68,11 @@ static void	add_redirection(t_token_list **list, char **str)
 	{
 		add_token_to_list(list, new_token(">>"));
 		*str += 2;
+	}
+	else if ((*str)[0] == '<' && (*str)[1] == '<')
+	{
+		add_token_to_list(list, new_token("<<"));
+		*str += 2;;
 	}
 	else if ((*str)[0] == '<')
 	{

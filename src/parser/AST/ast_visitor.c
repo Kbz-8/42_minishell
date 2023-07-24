@@ -6,7 +6,7 @@
 /*   By: maldavid <kbz_8.dev@akel-engine.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/17 17:26:28 by maldavid          #+#    #+#             */
-/*   Updated: 2023/07/24 18:35:57 by maldavid         ###   ########.fr       */
+/*   Updated: 2023/07/24 22:32:43 by maldavid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,8 @@ static t_parser_info	*visit_redirection(t_ast_node *node, t_env_var *local_vars)
 	info = visit_command(node->l_child, local_vars);
 	if (node->token->type == AST_SIMPLE_RED_L)
 		info->link = R_IN;
+	else if (node->token->type == AST_HERE_DOC)
+		info->link = HERE_DOC;
 	else if (node->token->type == AST_SIMPLE_RED_R)
 		info->link = R_OUT;
 	else

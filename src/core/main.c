@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 11:10:27 by maldavid          #+#    #+#             */
-/*   Updated: 2023/07/24 21:44:33 by maldavid         ###   ########.fr       */
+/*   Updated: 2023/07/24 22:33:14 by maldavid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,8 @@ void	print_parser_info(t_parser_info *info)
 		ft_putstr("is not linked to next info\n\n");
 	else if (info->link == PIPE)
 		ft_putstr("is linked to next info by a pipe\n\n");
+	else if (info->link == HERE_DOC)
+		ft_putstr("is linked to next info by a here doc\n\n");
 	else if (info->link == R_IN)
 		ft_putstr("is linked to next info by a redirection in\n\n");
 	else if (info->link == R_OUT)
@@ -69,9 +71,9 @@ int	main(int ac, char **av, char **env)
 			ft_putstr("exit\n");
 			break ;
 		}
-//		if (ft_strstr("maldavid malo kbz_8", getenv("USER")) != NULL)
-//			print_parser_info(parse(entry));
-//		else
+		if (ft_strstr("maldavid malo kbz_8", getenv("USER")) != NULL)
+			print_parser_info(parse(entry));
+		else
 		exec_command(parse(entry));
 	}
 	free(entry);
