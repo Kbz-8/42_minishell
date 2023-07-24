@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 12:06:31 by vvaas             #+#    #+#             */
-/*   Updated: 2023/07/24 20:04:32 by vvaas            ###   ########.fr       */
+/*   Updated: 2023/07/24 23:53:55 by vvaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,24 +155,45 @@ t_parser_info	*r_out(t_parser_info *info)
 	return (tmp);
 }
 
-void	r_in(t_parser_info *info)
+t_parser_info *jump_next_pipe(t_parser_info *info)
+{
+	while (info->next && info->link != PIPE)
+		info = info->next;
+	if (info->next == NULL)
+		return (NULL);
+	return (info);
+}
+
+t_parser_info *jump_next(t_parser_info *info)
+{
+	t_parser_info *tmp;
+
+	tmp = info;
+	info = info->next;
+	tmp->link = info->link;
+	tmp->next = info->next;
+	return (tmp);
+}
+
+t_parser_info *r_in(t_parser_info *info)
 {
 	int save;
 	int fd;
 
-	save = dup(0);
-	close(0);
-	fd = open(info->next->args[0], O_RDONLY | O_CREAT);
 	if (access(info->next->args[0], R_OK) != 0)
 	{
 		printf("minishell: %s: Permission denied\n", info->next->args[0]);
 		get_env_data()->last_return = 1;
-		return ;
+		return (jump_next_pipe(info));
 	}
-	command(info);
+	save = dup(0);
+	close(0);
+	fd = open(info->next->args[0], O_RDONLY | O_CREAT);
+	info = jump_next(info);
+	exec_command(info);
 	dup2(save, 0);
-	close(fd);
 	close(save);
+	return (NULL);
 }
 
 void	c_pipe(t_parser_info *info)
@@ -219,13 +240,10 @@ void	exec_command(t_parser_info *info)
 			command(info);
 			info = info->next;
 		}
-		else if (info->link == R_OUT || info->link == R_OUT_ABSOLUTE)
+		else if (info && (info->link == R_OUT || info->link == R_OUT_ABSOLUTE))
 			info = r_out(info);
-		else if (info->link == R_IN)
-		{
-			r_in(info);
-			info = info->next;
-		}
+		else if (info && info->link == R_IN)
+			info = r_in(info);
 		else if (info && info->link == PIPE)
 		{
 			c_pipe(info);
