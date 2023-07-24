@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 17:59:21 by vvaas             #+#    #+#             */
-/*   Updated: 2023/07/23 18:43:51 by vvaas            ###   ########.fr       */
+/*   Updated: 2023/07/24 20:06:07 by vvaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ bool	is_executable_name(char *name)
 	char *output;
 	
 	if (ft_strstr(name, "./"))
+		return (0);
+	if (ft_strchr(name, '/'))
 		return (0);
 	if (get_env_var("PATH") == NULL)
 		return (0);
