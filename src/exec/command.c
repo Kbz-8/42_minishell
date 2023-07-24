@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 12:06:31 by vvaas             #+#    #+#             */
-/*   Updated: 2023/07/24 23:53:55 by vvaas            ###   ########.fr       */
+/*   Updated: 2023/07/25 00:12:51 by vvaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,9 @@ t_parser_info	*r_out(t_parser_info *info)
 	t_parser_info *tmp;
 	bool perror;
 	int	link;
+	int fd;
 
+	fd = -1;
 	perror = 0;
 	tmp = info;
 	while (is_redir(info))
@@ -124,11 +126,10 @@ t_parser_info	*r_out(t_parser_info *info)
 		info = info->next;
 	}
 	save = dup(1);
-	close(1);
 	if (info->link != R_OUT_ABSOLUTE && !perror)
-		open(info->next->args[0], O_CREAT | O_TRUNC | O_WRONLY, 0644);
+		fd = open(info->next->args[0], O_CREAT | O_TRUNC | O_WRONLY, 0644);
 	else if (!perror)
-		open(info->next->args[0], O_CREAT | O_APPEND | O_WRONLY, 0644);
+		fd = open(info->next->args[0], O_CREAT | O_APPEND | O_WRONLY, 0644);
 	if (access(info->next->args[0], W_OK) != 0)
 	{
 		if (!perror)
@@ -140,8 +141,9 @@ t_parser_info	*r_out(t_parser_info *info)
 		}
 		get_env_data()->last_return = 1;
 	}
-	else
+	if (fd != -1)
 	{
+		dup2(fd, 1);
 		command(tmp);
 		dup2(save, 1);
 		close(save);
@@ -164,6 +166,20 @@ t_parser_info *jump_next_pipe(t_parser_info *info)
 	return (info);
 }
 
+bool	is_a_dir(char *path)
+{
+	struct stat file;
+
+	stat(path, &file);
+	if (S_ISDIR(file.st_mode))
+	{
+		printf("minishell: %s: Is a directory\n", path);
+		get_env_data()->last_return = 127;
+		return (1);
+	}
+	return (0);
+}
+
 t_parser_info *jump_next(t_parser_info *info)
 {
 	t_parser_info *tmp;
@@ -175,17 +191,34 @@ t_parser_info *jump_next(t_parser_info *info)
 	return (tmp);
 }
 
+bool	r_in_error(t_parser_info *info)
+{
+	struct stat file;
+
+	if (stat(info->next->args[0], &file) == -1)
+	{
+		printf("minishell: %s: No such file or directory\n", info->next->args[0]);
+		get_env_data()->last_return = 127;
+		return (1);
+	}
+	if (is_a_dir((char *)info->next->args[0]))
+		return (1);
+	if (access(info->next->args[0], R_OK) != 0)
+	{
+		printf("minishell: %s: Permission denied\n", info->next->args[0]);
+		get_env_data()->last_return = 1;
+		return (1);
+	}
+	return (0);
+}
+
 t_parser_info *r_in(t_parser_info *info)
 {
 	int save;
 	int fd;
 
-	if (access(info->next->args[0], R_OK) != 0)
-	{
-		printf("minishell: %s: Permission denied\n", info->next->args[0]);
-		get_env_data()->last_return = 1;
+	if (r_in_error(info))
 		return (jump_next_pipe(info));
-	}
 	save = dup(0);
 	close(0);
 	fd = open(info->next->args[0], O_RDONLY | O_CREAT);
