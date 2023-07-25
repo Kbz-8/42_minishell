@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/21 16:21:17 by maldavid          #+#    #+#             */
-/*   Updated: 2023/07/25 21:51:00 by maldavid         ###   ########.fr       */
+/*   Updated: 2023/07/25 22:12:16 by maldavid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,23 +26,26 @@ void	update_prompt(t_prompt *prompt)
 {
 	size_t	username_size;
 	size_t	pwd_size;
+	char	*pwd;
 
 	if (prompt != NULL && prompt->text != NULL)
 		dealloc(prompt->text);
+	pwd = (char *)getcwd(NULL, 0);
 	username_size = ft_strlen(get_env_var("USER"));
-	pwd_size = ft_strlen((char *)getcwd(NULL, 0));
+	pwd_size = ft_strlen(pwd);
 	prompt->text = alloc(username_size + pwd_size + 20);
 	ft_memset(prompt->text, 0, username_size + pwd_size + 20);
 	ft_strcpy(prompt->text, "[minishell @");
 	ft_strcpy(prompt->text + 12, get_env_var("USER"));
 	ft_strcpy(prompt->text + 12 + username_size, " | ");
-	ft_strcpy(prompt->text + 12 + username_size + 3, (char *)getcwd(NULL, 0));
+	ft_strcpy(prompt->text + 12 + username_size + 3, pwd);
 	ft_strcpy(prompt->text + 12 + username_size + 3 + pwd_size, "]$ ");
 	if (get_env_data()->fd_input_save != -1)
 	{
 		dup2(get_env_data()->fd_input_save, 0);
 		get_env_data()->fd_input_save = -1;
 	}
+	free(pwd);
 }
 
 static void	here_doc(char **entry, char *eof, bool double_quoted)
