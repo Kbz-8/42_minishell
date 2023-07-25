@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/21 16:21:17 by maldavid          #+#    #+#             */
-/*   Updated: 2023/07/25 18:22:16 by maldavid         ###   ########.fr       */
+/*   Updated: 2023/07/25 18:56:13 by maldavid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	update_prompt(t_prompt *prompt)
 	size_t	username_size;
 	size_t	pwd_size;
 
-	if (prompt->text != NULL)
+	if (prompt != NULL && prompt->text != NULL)
 		dealloc(prompt->text);
 	username_size = ft_strlen(get_env_var("USER"));
 	pwd_size = ft_strlen(get_env_var("PWD"));
@@ -75,7 +75,7 @@ static void	skip(char **ptr, bool only_spaces)
 	}
 }
 
-static void	prepare_here_doc(char **entry, char *ptr)
+static char	*prepare_here_doc(char **entry, char *ptr)
 {
 	char	*eof;
 	char	*command;
@@ -98,33 +98,37 @@ static void	prepare_here_doc(char **entry, char *ptr)
 	skip(&ptr, false);
 	ptr[0 - !double_quoted] = '"' + (!double_quoted * 5);
 	here_doc(entry, eof, double_quoted);
-	dealloc(eof);
 	ptr = malloc(ft_strlen(command) + ft_strlen(*entry) + 1);
-	ft_memset(ptr, 0, ft_strlen(command) + ft_strlen(*entry) + 1);
 	ft_strcpy(ptr, *entry);
-	free(*entry);
 	ft_strcpy(ptr + ft_strlen(ptr), command);
-	*entry = ptr;
+	return (ptr);
 }
 
 char	*display_prompt(t_prompt *prompt)
 {
 	char	*ptr;
 	char	*entry;
+	char	*tmp;
 
 	entry = readline(prompt->text);
-	get_env_data()->here_doc = false;
 	if (!entry)
 		return (NULL);
 	ptr = ft_strstr(entry, "<<");
 	prompt->here_doc = false;
-	if (ptr != NULL)
+	prompt->here_docs_count = 0;
+	while (ptr != NULL)
 	{
-		get_env_data()->here_doc = true;
 		prompt->here_doc = true;
 		ptr += 2;
 		skip(&ptr, true);
-		prepare_here_doc(&entry, ptr);
+		tmp = prepare_here_doc(&entry, ptr);
+		free(entry);
+		entry = tmp;
+		prompt->here_docs_count++;
+		prompt->i = 0;
+		ptr = entry;
+		while (prompt->i++ < prompt->here_docs_count)
+			ptr = ft_strstr(ft_strstr(ptr, "<<") + 2, "<<");
 	}
 	return (entry);
 }
