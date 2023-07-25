@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/01 02:29:32 by vvaas             #+#    #+#             */
-/*   Updated: 2023/07/25 21:06:44 by vvaas            ###   ########.fr       */
+/*   Updated: 2023/07/26 00:05:03 by vvaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ bool	is_valid(const char *arg)
 	int	i;
 
 	i = 0;
-	while (arg[i] != '=')
+	while (arg[i] && arg[i] != '=')
 	{
 		if (!ft_isalnum(arg[i]))
 			return (false);
