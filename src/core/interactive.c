@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 15:25:46 by vvaas             #+#    #+#             */
-/*   Updated: 2023/07/25 23:25:44 by maldavid         ###   ########.fr       */
+/*   Updated: 2023/07/25 23:50:46 by maldavid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,4 +46,8 @@ void	init_sig(void)
 {
 	signal(SIGINT, process);
 	signal(SIGQUIT, SIG_IGN);
+	get_env_data()->last_return = 0;
+	get_env_data()->listen = 1;
+	get_env_data()->fd = -1;
+	get_env_data()->fd_input_save = -1;
 }
