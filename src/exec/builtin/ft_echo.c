@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 18:25:19 by vvaas             #+#    #+#             */
-/*   Updated: 2023/07/21 21:00:41 by maldavid         ###   ########.fr       */
+/*   Updated: 2023/07/25 21:02:10 by vvaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,26 @@
 #include <stdbool.h>
 #include <memory.h>
 
+void	print_echo(t_parser_info *info, int i, bool newline)
+{
+	while (info->args[i])
+	{
+		printf("%s", info->args[i]);
+		if (info->args[i + 1])
+			printf(" ");
+		i++;
+	}
+	if (newline)
+		printf("\n");
+	get_env_data()->last_return = 0;
+	return ;
+}
+
 void	ft_echo(t_parser_info *info)
 {
-	bool newline;
-	int i;
-//	int j;
+	bool	newline;
+	int		i;
 
-//	j = -1;
 	i = 1;
 	newline = 1;
 	if (!info->args[1])
@@ -35,15 +48,5 @@ void	ft_echo(t_parser_info *info)
 		newline = 0;
 		i++;
 	}
-	while (info->args[i])
-	{
-		printf("%s", info->args[i]);
-		if (info->args[i + 1])
-			printf(" ");
-		i++;
-	}
-	if (newline)
-		printf("\n");
-	get_env_data()->last_return = 0;
-	return ;
+	print_echo(info, i, newline);
 }

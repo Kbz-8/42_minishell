@@ -6,7 +6,7 @@
 #    By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/18 10:57:27 by maldavid          #+#    #+#              #
-#    Updated: 2023/07/25 21:54:21 by maldavid         ###   ########.fr        #
+#    Updated: 2023/07/25 22:07:43 by maldavid         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,6 +24,10 @@ SRCS	=	src/core/main.c \
 			src/utils/ft_strdup_malloc.c \
 			src/exec/command.c \
 			src/exec/ft_execve.c \
+			src/exec/r_in.c \
+			src/exec/r_out.c \
+			src/exec/r_utils.c \
+			src/exec/c_pipe.c \
 			src/exec/builtin/ft_exit.c \
 			src/exec/builtin/ft_cd.c \
 			src/exec/builtin/ft_pwd.c \
@@ -89,4 +93,5 @@ re:			fclean all
 
 norminette:
 	norminette | grep Error | wc -l
+
 .PHONY:		all clean fclean re 

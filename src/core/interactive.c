@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 15:25:46 by vvaas             #+#    #+#             */
-/*   Updated: 2023/07/25 21:46:39 by maldavid         ###   ########.fr       */
+/*   Updated: 2023/07/25 22:07:50 by maldavid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,5 +42,5 @@ void	process(int sig)
 void	init_sig(void)
 {
 	signal(SIGINT, process);
-	signal(SIGQUIT, process);
+	signal(SIGQUIT, SIG_IGN);
 }

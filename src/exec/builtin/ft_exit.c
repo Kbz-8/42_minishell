@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 12:13:27 by vvaas             #+#    #+#             */
-/*   Updated: 2023/07/18 19:08:59 by vvaas            ###   ########.fr       */
+/*   Updated: 2023/07/25 21:05:58 by vvaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 
 static bool	ft_is_number(char *arg)
 {
-	unsigned int i;
+	unsigned int	i;
 
 	i = 0;
 	if (arg[i] == '\0')
@@ -37,7 +37,7 @@ static bool	ft_is_number(char *arg)
 
 void	ft_exit(t_parser_info *info)
 {
-	unsigned int exitcode;
+	unsigned int	exitcode;
 
 	if (!info->args[1])
 	{
@@ -46,7 +46,8 @@ void	ft_exit(t_parser_info *info)
 	}
 	if (!ft_is_number((char *)info->args[1]))
 	{
-		ft_printf("exit\nminishell: exit: %s:  numeric argument required\n", info->args[1]);
+		ft_printf("exit\nminishell: exit: %s:  numeric argument required\n", \
+		info->args[1]);
 		allfree();
 		exit(2);
 	}
