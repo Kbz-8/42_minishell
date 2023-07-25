@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 15:22:37 by maldavid          #+#    #+#             */
-/*   Updated: 2023/07/25 23:50:49 by maldavid         ###   ########.fr       */
+/*   Updated: 2023/07/25 23:59:24 by vvaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 static char	*shlvl(char *lvl)
 {
 	int		i;
-	
+
 	i = ft_atoi(lvl);
 	i++;
 	return (ft_itoa(i));
