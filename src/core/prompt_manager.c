@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/21 16:21:17 by maldavid          #+#    #+#             */
-/*   Updated: 2023/07/25 22:12:16 by maldavid         ###   ########.fr       */
+/*   Updated: 2023/07/25 22:15:27 by maldavid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ void	update_prompt(t_prompt *prompt)
 	username_size = ft_strlen(get_env_var("USER"));
 	pwd_size = ft_strlen(pwd);
 	prompt->text = alloc(username_size + pwd_size + 20);
-	ft_memset(prompt->text, 0, username_size + pwd_size + 20);
 	ft_strcpy(prompt->text, "[minishell @");
 	ft_strcpy(prompt->text + 12, get_env_var("USER"));
 	ft_strcpy(prompt->text + 12 + username_size, " | ");
