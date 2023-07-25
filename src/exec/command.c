@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 12:06:31 by vvaas             #+#    #+#             */
-/*   Updated: 2023/07/25 18:06:15 by vvaas            ###   ########.fr       */
+/*   Updated: 2023/07/25 18:49:32 by vvaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -236,19 +236,32 @@ t_parser_info *r_in(t_parser_info *info)
 	return (NULL);
 }
 
+void	append_value(int *tab, int val)
+{
+	int i;
+
+	i = 0;
+	while (tab[i] != 0)
+		i++;
+	tab[i] = val;
+}
+
 void	c_pipe(t_parser_info *info)
 {
 	int saves[2];
 	pid_t pid;
 	int pipes[2];
+	static int save[1024] = {0};
+	int i;
 
+	i = 0;
 	pipe(pipes);
 	saves[0] = dup(0);
 	saves[1] = dup(1);
 	pid = fork();
-	printf("MY PID IS : %d, save[0] = %d, save[1] = %d\n", pid, saves[0], saves[1]);
 	if (pid != 0)
 	{
+		append_value(save, saves[0]);
 		close(pipes[1]);
 		close(saves[1]);
 		waitpid(pid, 0, 0);
@@ -259,11 +272,14 @@ void	c_pipe(t_parser_info *info)
 		close(saves[0]);
 		return ;
 	}
+	i = 0;
 	close(saves[0]);
 	close(pipes[0]);	
 	dup2(pipes[1], 1);
 	close(pipes[1]);
 	command(info);
+	while (save[i] != 0)
+		close(save[i++]);
 	dup2(saves[1], 1);
 	close(saves[1]);
 	allfree();
