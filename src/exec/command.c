@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 12:06:31 by vvaas             #+#    #+#             */
-/*   Updated: 2023/07/25 00:12:51 by vvaas            ###   ########.fr       */
+/*   Updated: 2023/07/25 18:06:15 by vvaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,7 +150,7 @@ t_parser_info	*r_out(t_parser_info *info)
 	}
 	info = info->next;
 	link = info->link;
-	tmp->link = link; // link de zelda loul 	
+	tmp->link = link;	
 	tmp->next = info->next;
 	if (tmp->link == NONE)
 		return (tmp->next);
@@ -184,6 +184,10 @@ t_parser_info *jump_next(t_parser_info *info)
 {
 	t_parser_info *tmp;
 
+	if (info == NULL)
+		return (NULL);
+	if (info->next == NULL)
+		return (NULL);
 	tmp = info;
 	info = info->next;
 	tmp->link = info->link;
@@ -216,14 +220,17 @@ t_parser_info *r_in(t_parser_info *info)
 {
 	int save;
 	int fd;
+	char *buffer;
 
 	if (r_in_error(info))
 		return (jump_next_pipe(info));
 	save = dup(0);
 	close(0);
+	buffer = (char *)info->next->args[0];
 	fd = open(info->next->args[0], O_RDONLY | O_CREAT);
-	info = jump_next(info);
-	exec_command(info);
+	exec_command(jump_next(info));
+	if (ft_strcmp(buffer, "/tmp/HEREDOC") == 0)
+		unlink("/tmp/HEREDOC");	
 	dup2(save, 0);
 	close(save);
 	return (NULL);
@@ -263,6 +270,19 @@ void	c_pipe(t_parser_info *info)
 	exit(0);
 }
 
+t_parser_info *r_doc(t_parser_info *info)
+{
+	int fd;
+
+	fd = open("/tmp/HEREDOC", O_CREAT | O_TRUNC | O_WRONLY, 0644);
+	write(fd, info->next->args[0], ft_strlen(info->next->args[0]));
+	close(fd);
+	dealloc((char *)info->next->args[0]);
+	info->next->args[0] = ft_strdup("/tmp/HEREDOC");
+	info->link = R_IN;
+	return (info);
+}
+
 void	exec_command(t_parser_info *info)
 {
 	get_env_data()->listen = false;
@@ -273,6 +293,8 @@ void	exec_command(t_parser_info *info)
 			command(info);
 			info = info->next;
 		}
+		else if (info->link == HERE_DOC)
+			info = r_doc(info);
 		else if (info && (info->link == R_OUT || info->link == R_OUT_ABSOLUTE))
 			info = r_out(info);
 		else if (info && info->link == R_IN)
