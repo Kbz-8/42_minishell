@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/21 16:21:17 by maldavid          #+#    #+#             */
-/*   Updated: 2023/07/25 18:56:13 by maldavid         ###   ########.fr       */
+/*   Updated: 2023/07/25 20:19:31 by maldavid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 #include <stdint.h>
 #include <prompt.h>
 #include <stddef.h>
+#include <unistd.h>
 #include <memory.h>
 #include <stdbool.h>
 #include <readline/readline.h>
@@ -28,13 +29,13 @@ void	update_prompt(t_prompt *prompt)
 	if (prompt != NULL && prompt->text != NULL)
 		dealloc(prompt->text);
 	username_size = ft_strlen(get_env_var("USER"));
-	pwd_size = ft_strlen(get_env_var("PWD"));
+	pwd_size = ft_strlen((char *)getcwd(NULL, 0));
 	prompt->text = alloc(username_size + pwd_size + 20);
 	ft_memset(prompt->text, 0, username_size + pwd_size + 20);
 	ft_strcpy(prompt->text, "[minishell @");
 	ft_strcpy(prompt->text + 12, get_env_var("USER"));
 	ft_strcpy(prompt->text + 12 + username_size, " | ");
-	ft_strcpy(prompt->text + 12 + username_size + 3, get_env_var("PWD"));
+	ft_strcpy(prompt->text + 12 + username_size + 3, (char *)getcwd(NULL, 0));
 	ft_strcpy(prompt->text + 12 + username_size + 3 + pwd_size, "]$ ");
 }
 

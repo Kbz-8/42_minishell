@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 01:48:34 by maldavid          #+#    #+#             */
-/*   Updated: 2023/07/19 22:49:01 by vvaas            ###   ########.fr       */
+/*   Updated: 2023/07/25 20:19:10 by maldavid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ const char	*get_env_var(char *key)
 void	remove_env_var(char *key)
 {
 	t_env_var	*ptr;
+	t_env_var	*tmp;
 
 	ptr = get_env_data()->vars;
 	if (ptr == NULL)
@@ -57,19 +58,17 @@ void	remove_env_var(char *key)
 	if (ft_strcmp(key, ptr->key) == 0)
 	{
 		get_env_data()->vars = ptr->next;
-		dealloc(ptr->key);
-		dealloc(ptr->value);
-		dealloc(ptr);
 		return ;
 	}
 	while (ptr->next != NULL)
 	{
 		if (ft_strcmp(key, ptr->next->key) == 0 && get_env_var(key) != NULL)
 		{
+			tmp = ptr->next;
 			ptr->next = ptr->next->next;
-			dealloc(ptr->next->key);
-			dealloc(ptr->next->value);
-			dealloc(ptr->next);
+			dealloc(tmp->key);
+			dealloc(tmp->value);
+			dealloc(tmp);
 			return ;
 		}
 		ptr = ptr->next;
