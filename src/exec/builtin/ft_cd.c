@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 08:32:33 by vvaas             #+#    #+#             */
-/*   Updated: 2023/07/25 16:35:49 by vvaas            ###   ########.fr       */
+/*   Updated: 2023/07/25 21:18:27 by vvaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,11 @@
 #include <sys/stat.h>
 #include <errors.h>
 #include <libft.h>
+#include <utils.h>
 
 bool	is_nor_dir_or_file(char *info)
 {
-	struct stat file;
+	struct stat	file;
 
 	if (!info)
 		return (0);
@@ -34,7 +35,7 @@ bool	is_nor_dir_or_file(char *info)
 
 bool	is_dir(char *info)
 {
-	struct stat file;
+	struct stat	file;
 
 	if (stat(info, &file))
 		return (0);
@@ -43,7 +44,7 @@ bool	is_dir(char *info)
 		ft_printf("minishell: cd: %s: Not a directory\n", info);
 		get_env_data()->last_return = 1;
 	}
-	return S_ISDIR(file.st_mode);
+	return (S_ISDIR(file.st_mode));
 }
 
 bool	have_access(char *info)
@@ -68,8 +69,6 @@ bool	check_validity(char *info)
 
 int	ft_cd(t_parser_info *info)
 {
-	void *buffer;
-
 	if (!info->args[1])
 	{
 		modify_env_var("OLDPWD", "OLDPWD", getcwd(NULL, 0));
@@ -86,13 +85,5 @@ int	ft_cd(t_parser_info *info)
 		get_env_data()->last_return = 1;
 		return (1);
 	}
-	check_validity((char *)info->args[1]);
-	modify_env_var("OLDPWD", "OLDPWD", getcwd(NULL, 0));
-	if (!get_env_var("PWD"))
-		remove_env_var("OLDPWD");
-	chdir(info->args[1]);
-	buffer = getcwd(NULL, 0);
-	modify_env_var("PWD", "PWD", buffer);
-	free(buffer);
-	return (0);
+	return (ft_setcwd(info));
 }

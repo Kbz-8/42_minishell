@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/01 02:29:32 by vvaas             #+#    #+#             */
-/*   Updated: 2023/07/19 22:39:12 by vvaas            ###   ########.fr       */
+/*   Updated: 2023/07/25 21:06:44 by vvaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@
 
 void	print_args(char **args)
 {
-	int i;
-	int j;
+	int	i;
+	int	j;
 
 	i = 0;
 	j = 0;
@@ -43,10 +43,10 @@ void	print_args(char **args)
 
 void	print_sorted_env(void)
 {
-	char **buffer;
-	char *tmp;
-	int i;
-	int j;
+	char	**buffer;
+	char	*tmp;
+	int		i;
+	int		j;
 
 	i = 0;
 	j = 1;
@@ -71,12 +71,12 @@ void	print_sorted_env(void)
 
 bool	is_valid(const char *arg)
 {
-	int i;
+	int	i;
 
 	i = 0;
-	while (arg[i])
+	while (arg[i] != '=')
 	{
-		if (!ft_isalnum(arg[i]) && arg[i] != '=')
+		if (!ft_isalnum(arg[i]))
 			return (false);
 		i++;
 	}
@@ -85,7 +85,7 @@ bool	is_valid(const char *arg)
 
 void	ft_export(t_parser_info *info)
 {
-	int i;
+	int	i;
 
 	i = 1;
 	if (info->args[1] == NULL)
@@ -94,9 +94,10 @@ void	ft_export(t_parser_info *info)
 	{
 		if (!is_valid(info->args[i]))
 		{
-			ft_printf("minishell: export: `%s': not a valid identifier\n", info->args[i]);
+			ft_printf("minishell: export: `%s': not a valid identifier\n", \
+			info->args[i]);
 			i++;
-			continue;
+			continue ;
 		}
 		add_env((char *)info->args[i]);
 		i++;

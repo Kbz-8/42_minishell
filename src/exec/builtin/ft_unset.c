@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 00:28:11 by vvaas             #+#    #+#             */
-/*   Updated: 2023/07/13 15:48:01 by vvaas            ###   ########.fr       */
+/*   Updated: 2023/07/25 21:06:54 by vvaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 void	ft_unset(t_parser_info *info)
 {
-	int i;
+	int	i;
 
 	i = 1;
 	while (info->args[i])

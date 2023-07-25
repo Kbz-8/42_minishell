@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 17:41:30 by vvaas             #+#    #+#             */
-/*   Updated: 2023/07/19 00:57:02 by vvaas            ###   ########.fr       */
+/*   Updated: 2023/07/25 21:05:28 by vvaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 
 int	ft_env(t_parser_info *info)
 {
-	t_env_var *args;
+	t_env_var	*args;
 
 	if (info->args[1])
 	{

@@ -6,7 +6,7 @@
 #    By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/18 10:57:27 by maldavid          #+#    #+#              #
-#    Updated: 2023/07/25 18:51:13 by vvaas            ###   ########.fr        #
+#    Updated: 2023/07/25 21:56:06 by vvaas            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,6 +23,10 @@ SRCS	=	src/core/main.c \
 			src/utils/ft_freesplit.c \
 			src/exec/command.c \
 			src/exec/ft_execve.c \
+			src/exec/r_in.c \
+			src/exec/r_out.c \
+			src/exec/r_utils.c \
+			src/exec/c_pipe.c \
 			src/exec/builtin/ft_exit.c \
 			src/exec/builtin/ft_cd.c \
 			src/exec/builtin/ft_pwd.c \
