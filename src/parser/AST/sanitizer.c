@@ -6,7 +6,7 @@
 /*   By: maldavid <kbz_8.dev@akel-engine.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/23 10:28:28 by maldavid          #+#    #+#             */
-/*   Updated: 2023/07/23 21:10:32 by maldavid         ###   ########.fr       */
+/*   Updated: 2023/07/25 17:18:20 by maldavid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,30 +32,46 @@ bool	preprocess_ast_visit(t_ast_node *ast)
 	return (preprocess_ast_visit(ast->r_child));
 }
 
+static void	postpostprocess_ast_visit(t_parser_info *info)
+{
+	while (info != NULL && info->link != PIPE && info->link != NONE)
+	{
+		if (info->link == R_IN || info->link == HERE_DOC)
+		{
+			info->link = info->next->link;
+			info->next = info->next->next;
+		}
+		else
+			info = info->next;
+	}
+}
+
 void	postprocess_ast_visit(t_parser_info *info)
 {
-	t_parser_info	*tmp;
-	t_parser_info	*last_r_in;
+	t_parser_info		*tmp;
+	t_parser_info		*last;
+	enum e_command_link	link;
 
-	last_r_in = NULL;
+	last = NULL;
 	tmp = info;
 	while (tmp->link != PIPE && tmp->link != NONE)
 	{
-		if (tmp->link == R_IN)
-			last_r_in = tmp;
+		if (tmp->link == R_IN || tmp->link == HERE_DOC)
+			last = tmp;
 		tmp = tmp->next;
 	}
 	if (tmp->link == PIPE)
 		postprocess_ast_visit(tmp->next);
-	if (last_r_in != NULL)
-	{
-		tmp = last_r_in;
-		last_r_in = tmp->next;
-		tmp->link = tmp->next->link;
-		tmp->next = tmp->next->next;
-		last_r_in->link = info->link;
-		last_r_in->next = info->next;
-		info->next = last_r_in;
-		info->link = R_IN;
-	}
+	if (last == NULL)
+		return;
+	tmp = last;
+	link = tmp->link;
+	last = tmp->next;
+	tmp->link = tmp->next->link;
+	tmp->next = tmp->next->next;
+	last->link = info->link;
+	last->next = info->next;
+	info->next = last;
+	info->link = link;
+	postpostprocess_ast_visit(last);
 }

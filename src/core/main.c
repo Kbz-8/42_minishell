@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 11:10:27 by maldavid          #+#    #+#             */
-/*   Updated: 2023/07/24 22:33:14 by maldavid         ###   ########.fr       */
+/*   Updated: 2023/07/25 18:22:57 by maldavid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ int	main(int ac, char **av, char **env)
 		free(entry);
 		update_prompt(&prompt);
 		entry = display_prompt(&prompt);
-		//ft_printf("-%s-\n", entry);
+	//	ft_printf("-%s-\n", entry);
 		if (ft_strlen(entry) != 0 && !prompt.here_doc)
 			add_history(entry);
 		if (entry == NULL)
@@ -71,9 +71,9 @@ int	main(int ac, char **av, char **env)
 			ft_putstr("exit\n");
 			break ;
 		}
-		if (ft_strstr("maldavid malo kbz_8", getenv("USER")) != NULL)
-			print_parser_info(parse(entry));
-		else
+	//	if (ft_strstr("maldavid malo kbz_8", getenv("USER")) != NULL)
+	//		print_parser_info(parse(entry));
+	//	else
 		exec_command(parse(entry));
 	}
 	free(entry);
