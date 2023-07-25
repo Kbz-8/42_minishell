@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/21 16:21:17 by maldavid          #+#    #+#             */
-/*   Updated: 2023/07/25 23:25:38 by maldavid         ###   ########.fr       */
+/*   Updated: 2023/07/25 23:27:42 by maldavid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,13 +39,13 @@ void	update_prompt(t_prompt *prompt)
 	ft_strcpy(prompt->text + 12 + username_size, " | ");
 	ft_strcpy(prompt->text + 12 + username_size + 3, pwd);
 	ft_strcpy(prompt->text + 12 + username_size + 3 + pwd_size, "]$ ");
+	free(pwd);
 	if (get_env_data()->fd_input_save != -1)
 	{
 		dup2(get_env_data()->fd_input_save, 0);
 		close(get_env_data()->fd_input_save);
 		get_env_data()->fd_input_save = -1;
 	}
-	free(pwd);
 }
 
 static void	here_doc(char **entry, char *eof, bool double_quoted)
