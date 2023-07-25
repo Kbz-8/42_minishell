@@ -6,7 +6,7 @@
 #    By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/18 10:57:27 by maldavid          #+#    #+#              #
-#    Updated: 2023/07/24 22:36:33 by maldavid         ###   ########.fr        #
+#    Updated: 2023/07/25 18:51:13 by vvaas            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -87,4 +87,6 @@ fclean:		clean
 
 re:			fclean all
 
+norminette:
+	norminette | grep Error | wc -l
 .PHONY:		all clean fclean re 
