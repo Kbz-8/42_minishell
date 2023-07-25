@@ -6,7 +6,7 @@
 /*   By: maldavid <kbz_8.dev@akel-engine.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/14 11:30:04 by maldavid          #+#    #+#             */
-/*   Updated: 2023/05/28 16:37:22 by maldavid         ###   ########.fr       */
+/*   Updated: 2023/07/25 20:37:05 by maldavid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,15 @@
 #include <stddef.h>
 #include <libft.h>
 
-static int	args_splits_strlen(const char *str, char sep)
+static bool	args_splits_is_separator(const char c, const char *charset)
+{
+	while (*charset++)
+		if (*(charset - 1) == c)
+			return (true);
+	return (false);
+}
+
+static int	args_splits_strlen(const char *str, char *sep)
 {
 	int		length;
 	bool	check_sep;
@@ -29,7 +37,7 @@ static int	args_splits_strlen(const char *str, char sep)
 			check_sep = !check_sep;
 		else
 			length++;
-		if (check_sep && *str == sep)
+		if (check_sep && args_splits_is_separator(*str, sep))
 		{
 			length--;
 			break ;
@@ -39,7 +47,7 @@ static int	args_splits_strlen(const char *str, char sep)
 	return (length);
 }
 
-static int	args_splits_get_words(const char *str, char sep)
+static int	args_splits_get_words(const char *str, char *sep)
 {
 	int		count;
 	int		is_word;
@@ -52,7 +60,7 @@ static int	args_splits_get_words(const char *str, char sep)
 	{
 		if (*str == '"' || *str == '\'')
 			check_sep = !check_sep;
-		if (check_sep && *str == sep)
+		if (check_sep && args_splits_is_separator(*str, sep))
 			is_word = 0;
 		else if (!is_word)
 		{
@@ -64,7 +72,7 @@ static int	args_splits_get_words(const char *str, char sep)
 	return (count);
 }
 
-static char	*args_splits_strdup(const char *str, char sep)
+static char	*args_splits_strdup(const char *str, char *sep)
 {
 	char	*buf;
 	char	*p_buf;
@@ -77,7 +85,7 @@ static char	*args_splits_strdup(const char *str, char sep)
 	{
 		if (*str == '"' || *str == '\'')
 			check_sep = !check_sep;
-		if (check_sep && *str == sep)
+		if (check_sep && args_splits_is_separator(*str, sep))
 			break ;
 		if (*str != '"' && *str != '\'')
 		{
@@ -90,7 +98,7 @@ static char	*args_splits_strdup(const char *str, char sep)
 	return (p_buf);
 }
 
-char	**args_split(const char *s, char sep)
+char	**args_split(const char *s, char *sep)
 {
 	char	**tab;
 	int		is_word;
@@ -105,7 +113,7 @@ char	**args_split(const char *s, char sep)
 	{
 		if (*s == '"' || *s == '\'')
 			check_sep = !check_sep;
-		if (check_sep && *s == sep)
+		if (check_sep && args_splits_is_separator(*s, sep))
 			is_word = 0;
 		else if (!is_word)
 		{

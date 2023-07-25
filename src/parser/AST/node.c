@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 02:33:34 by maldavid          #+#    #+#             */
-/*   Updated: 2023/07/23 22:16:25 by maldavid         ###   ########.fr       */
+/*   Updated: 2023/07/25 21:53:36 by maldavid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,5 @@ static void	token_list_to_ast(t_ast_node **ast, t_token_list *list)
 
 void	to_ast(t_ast *ast, t_token_list *list)
 {
-	// get_local_env_vars(ast, list);
 	token_list_to_ast(&ast->root, list);
 }

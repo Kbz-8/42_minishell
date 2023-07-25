@@ -6,7 +6,7 @@
 #    By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/18 10:57:27 by maldavid          #+#    #+#              #
-#    Updated: 2023/07/25 18:51:13 by vvaas            ###   ########.fr        #
+#    Updated: 2023/07/25 21:54:21 by maldavid         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,6 +21,7 @@ SRCS	=	src/core/main.c \
 			src/core/prompt_manager.c \
 			src/utils/ft_joinfree.c \
 			src/utils/ft_freesplit.c \
+			src/utils/ft_strdup_malloc.c \
 			src/exec/command.c \
 			src/exec/ft_execve.c \
 			src/exec/builtin/ft_exit.c \
@@ -37,9 +38,8 @@ SRCS	=	src/core/main.c \
 			src/parser/AST/sanitizer.c \
 			src/parser/AST/ast.c \
 			src/parser/AST/node.c \
-			src/parser/AST/node2.c \
-			src/parser/AST/lexer.c  \
-			src/parser/AST/lexer2.c  \
+			src/parser/AST/lexer.c \
+			src/parser/AST/lexer2.c \
 
 OBJ_DIR	= objs
 OBJS	= $(addprefix $(OBJ_DIR)/, $(SRCS:.c=.o))

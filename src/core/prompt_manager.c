@@ -6,13 +6,14 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/21 16:21:17 by maldavid          #+#    #+#             */
-/*   Updated: 2023/07/25 20:19:31 by maldavid         ###   ########.fr       */
+/*   Updated: 2023/07/25 21:51:00 by maldavid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <libft.h>
 #include <stdio.h>
 #include <nexus.h>
+#include <utils.h>
 #include <stdint.h>
 #include <prompt.h>
 #include <stddef.h>
@@ -37,33 +38,40 @@ void	update_prompt(t_prompt *prompt)
 	ft_strcpy(prompt->text + 12 + username_size, " | ");
 	ft_strcpy(prompt->text + 12 + username_size + 3, (char *)getcwd(NULL, 0));
 	ft_strcpy(prompt->text + 12 + username_size + 3 + pwd_size, "]$ ");
+	if (get_env_data()->fd_input_save != -1)
+	{
+		dup2(get_env_data()->fd_input_save, 0);
+		get_env_data()->fd_input_save = -1;
+	}
 }
 
 static void	here_doc(char **entry, char *eof, bool double_quoted)
 {
-	char	*new_line;
-	char	*new_entry;
-	size_t	i;
-	size_t	j;
+	char	*new[2];
+	size_t	i[2];
 	bool	continue_doc;
 
-	i = 0;
-	new_line = readline("heredoc> ");
-	j = ft_strlen(*entry);
-	new_entry = malloc(j + ft_strlen(new_line) + 2);
-	ft_memset(new_entry, 0, j + ft_strlen(new_line) + 2);
-	ft_strcpy(new_entry, *entry);
+	i[0] = 0;
+	new[0] = readline("heredoc> ");
+	if (new[0] == NULL)
+	{
+		free(*entry);
+		*entry = ft_strndup_malloc("", 0);
+		return ;
+	}
+	i[1] = ft_strlen(*entry);
+	new[1] = ft_strndup_malloc(*entry, i[1] + ft_strlen(new[0]) + 2);
 	free(*entry);
-	continue_doc = (ft_strcmp(new_line, eof) != 0);
-	while (continue_doc && new_line[i] != 0)
-		new_entry[j++] = new_line[i++];
-	free(new_line);
-	*entry = new_entry;
-	new_entry[j] = '\n';
+	continue_doc = (ft_strcmp(new[0], eof) != 0);
+	while (continue_doc && new[0][i[0]] != 0)
+		new[1][i[1]++] = new[0][i[0]++];
+	free(new[0]);
+	*entry = new[1];
+	new[1][i[1]] = '\n';
 	if (continue_doc)
 		here_doc(entry, eof, double_quoted);
 	else
-		new_entry[j] = '"' + (!double_quoted * 5);
+		new[1][i[1]] = '"' + (!double_quoted * 5);
 }
 
 static void	skip(char **ptr, bool only_spaces)
@@ -98,9 +106,9 @@ static char	*prepare_here_doc(char **entry, char *ptr)
 	ft_memset(ptr, ' ', ft_strlen(ptr));
 	skip(&ptr, false);
 	ptr[0 - !double_quoted] = '"' + (!double_quoted * 5);
+	get_env_data()->listen = 2;
 	here_doc(entry, eof, double_quoted);
-	ptr = malloc(ft_strlen(command) + ft_strlen(*entry) + 1);
-	ft_strcpy(ptr, *entry);
+	ptr = ft_strndup_malloc(*entry, ft_strlen(command) + ft_strlen(*entry) + 1);
 	ft_strcpy(ptr + ft_strlen(ptr), command);
 	return (ptr);
 }
@@ -117,7 +125,7 @@ char	*display_prompt(t_prompt *prompt)
 	ptr = ft_strstr(entry, "<<");
 	prompt->here_doc = false;
 	prompt->here_docs_count = 0;
-	while (ptr != NULL)
+	while (ptr != NULL && ft_strlen(entry))
 	{
 		prompt->here_doc = true;
 		ptr += 2;
@@ -128,7 +136,7 @@ char	*display_prompt(t_prompt *prompt)
 		prompt->here_docs_count++;
 		prompt->i = 0;
 		ptr = entry;
-		while (prompt->i++ < prompt->here_docs_count)
+		while (prompt->i++ < prompt->here_docs_count && ft_strlen(entry))
 			ptr = ft_strstr(ft_strstr(ptr, "<<") + 2, "<<");
 	}
 	return (entry);

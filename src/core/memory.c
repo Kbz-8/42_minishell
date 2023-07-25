@@ -6,7 +6,7 @@
 /*   By: maldavid <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 11:23:06 by maldavid          #+#    #+#             */
-/*   Updated: 2023/07/23 22:21:44 by maldavid         ###   ########.fr       */
+/*   Updated: 2023/07/25 22:05:22 by maldavid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,31 +57,30 @@ void	*realloc_but_not_the_std_lib(void *ptr, size_t size)
 
 void	dealloc(void *ptr)
 {
-	t_block	*buf;
-	t_block	*tmp;
+	t_block	*buf[2];
 
-	buf = *get_blocks();
-	if (buf == NULL)
+	buf[0] = *get_blocks();
+	if (buf[0] == NULL)
 		return ;
-	if (buf->ptr == ptr)
+	if (buf[0]->ptr == ptr)
 	{
-		tmp = buf;
-		*get_blocks() = buf->next;
-		free(tmp->ptr);
-		free(tmp);
+		buf[1] = buf[0];
+		*get_blocks() = buf[0]->next;
+		free(buf[1]->ptr);
+		free(buf[1]);
 		return ;
 	}
-	while (buf->next != NULL)
+	while (buf[0]->next != NULL)
 	{
-		if (buf->next->ptr == ptr)
+		if (buf[0]->next->ptr == ptr)
 		{
-			tmp = buf->next;
-			buf->next = tmp->next;
-			free(tmp->ptr);
-			free(tmp);
+			buf[1] = buf[0]->next;
+			buf[0]->next = buf[1]->next;
+			free(buf[1]->ptr);
+			free(buf[1]);
 			return ;
 		}
-		buf = buf->next;
+		buf[0] = buf[0]->next;
 	}
 }
 

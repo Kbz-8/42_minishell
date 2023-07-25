@@ -6,7 +6,7 @@
 /*   By: maldavid <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/21 13:25:28 by maldavid          #+#    #+#             */
-/*   Updated: 2023/07/23 21:31:29 by maldavid         ###   ########.fr       */
+/*   Updated: 2023/07/25 22:00:04 by maldavid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,17 +94,14 @@ void	include_var(t_command_data *data, char **str)
 	}
 	var_val_size = manage_last_return(data, *str);
 	if (var_val_size != 0)
-	{
 		(*str) += var_val_size;
+	if (var_val_size != 0)
 		return ;
-	}
 	data->var_value = manage_var(*str + 1, &data->var_name);
 	if (data->var_value == NULL)
-	{
-		data->ptr[data->i++] = '$';
-		(*str)++;
+		(*str) += ft_strlen(data->var_name) + 1;
+	if (data->var_value == NULL)
 		return ;
-	}
 	var_val_size = ft_strlen(data->var_value);
 	manage_realloc(&data->ptr, &data->alloc_size, data->i + var_val_size);
 	ft_strcpy(data->ptr + data->i, data->var_value);

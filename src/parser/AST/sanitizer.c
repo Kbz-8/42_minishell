@@ -6,7 +6,7 @@
 /*   By: maldavid <kbz_8.dev@akel-engine.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/23 10:28:28 by maldavid          #+#    #+#             */
-/*   Updated: 2023/07/25 17:18:20 by maldavid         ###   ########.fr       */
+/*   Updated: 2023/07/25 22:02:45 by maldavid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,30 +48,29 @@ static void	postpostprocess_ast_visit(t_parser_info *info)
 
 void	postprocess_ast_visit(t_parser_info *info)
 {
-	t_parser_info		*tmp;
-	t_parser_info		*last;
+	t_parser_info		*tmp[2];
 	enum e_command_link	link;
 
-	last = NULL;
-	tmp = info;
-	while (tmp->link != PIPE && tmp->link != NONE)
+	tmp[1] = NULL;
+	tmp[0] = info;
+	while (tmp[0]->link != PIPE && tmp[0]->link != NONE)
 	{
-		if (tmp->link == R_IN || tmp->link == HERE_DOC)
-			last = tmp;
-		tmp = tmp->next;
+		if (tmp[0]->link == R_IN || tmp[0]->link == HERE_DOC)
+			tmp[1] = tmp[0];
+		tmp[0] = tmp[0]->next;
 	}
-	if (tmp->link == PIPE)
-		postprocess_ast_visit(tmp->next);
-	if (last == NULL)
-		return;
-	tmp = last;
-	link = tmp->link;
-	last = tmp->next;
-	tmp->link = tmp->next->link;
-	tmp->next = tmp->next->next;
-	last->link = info->link;
-	last->next = info->next;
-	info->next = last;
+	if (tmp[0]->link == PIPE)
+		postprocess_ast_visit(tmp[0]->next);
+	if (tmp[1] == NULL)
+		return ;
+	tmp[0] = tmp[1];
+	link = tmp[0]->link;
+	tmp[1] = tmp[0]->next;
+	tmp[0]->link = tmp[0]->next->link;
+	tmp[0]->next = tmp[0]->next->next;
+	tmp[1]->link = info->link;
+	tmp[1]->next = info->next;
+	info->next = tmp[1];
 	info->link = link;
-	postpostprocess_ast_visit(last);
+	postpostprocess_ast_visit(tmp[1]);
 }

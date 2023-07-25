@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 11:27:36 by vvaas             #+#    #+#             */
-/*   Updated: 2023/07/24 18:06:20 by vvaas            ###   ########.fr       */
+/*   Updated: 2023/07/25 21:26:15 by maldavid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include <stdbool.h>
 # include <nexus.h>
+
 char	*ft_joinfree(char *dest, char *src);
 int		is_exec(char *input);
 void	ft_execve(char *path, char **argv, char **env);
@@ -29,4 +30,6 @@ char	**create_env(void);
 bool	is_environment(char *input);
 void	add_env(char *input);
 void	ft_export(t_parser_info *info);
+char	*ft_strndup_malloc(const char *s, size_t n);
+
 #endif

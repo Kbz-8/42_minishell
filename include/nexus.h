@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 11:59:38 by maldavid          #+#    #+#             */
-/*   Updated: 2023/07/24 22:24:17 by maldavid         ###   ########.fr       */
+/*   Updated: 2023/07/25 21:55:18 by maldavid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define NEXUS_H
 
 # include <stdbool.h>
+# include <stdint.h>
 
 enum	e_builtin
 {
@@ -54,7 +55,6 @@ typedef struct s_parser_info
 	t_cmd					cmd;
 	const char				**args;
 	enum e_command_link		link;
-	t_env_var				*local_vars;
 	struct s_parser_info	*next;
 }	t_parser_info;
 
@@ -62,10 +62,10 @@ typedef struct s_env
 {
 	t_env_var	*vars;
 	int			last_return;
-	bool		listen;
 	int			fd;
+	int			fd_input_save;
+	uint8_t		listen;
 	bool		loop;
-	bool		here_doc;
 }	t_env;
 
 t_env		*get_env_data(void);
