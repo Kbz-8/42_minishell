@@ -6,7 +6,7 @@
 /*   By: maldavid <kbz_8.dev@akel-engine.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/17 17:26:28 by maldavid          #+#    #+#             */
-/*   Updated: 2023/07/25 21:55:34 by maldavid         ###   ########.fr       */
+/*   Updated: 2023/07/25 23:15:10 by maldavid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,11 @@ static t_parser_info	*visit_command(t_ast_node *node)
 
 	info = ft_memalloc(sizeof(t_parser_info));
 	info->args = (const char **)args_split(node->token->str, " \t");
-	if (ft_strcmp(info->args[0], "pouic") == 0 && info->args[1] == NULL)
-		ft_putstr("pouic\n");
-	if ((ft_strcmp(info->args[0], "pouic") == 0 && info->args[1] == NULL) \
-			|| info->args[0] == NULL)
+	if (info->args[0] != NULL && \
+			ft_strcmp(info->args[0], "pouic") == 0 && info->args[1] == NULL)
+		ft_putstr("youpi\n");
+	if (info->args[0] == NULL || \
+			(ft_strcmp(info->args[0], "pouic") == 0 && info->args[1] == NULL))
 		return (info);
 	i = 0;
 	while (i < (int)(sizeof(builtins) / sizeof(builtins[0])))

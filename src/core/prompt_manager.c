@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/21 16:21:17 by maldavid          #+#    #+#             */
-/*   Updated: 2023/07/25 22:15:27 by maldavid         ###   ########.fr       */
+/*   Updated: 2023/07/25 23:25:38 by maldavid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ void	update_prompt(t_prompt *prompt)
 	if (get_env_data()->fd_input_save != -1)
 	{
 		dup2(get_env_data()->fd_input_save, 0);
+		close(get_env_data()->fd_input_save);
 		get_env_data()->fd_input_save = -1;
 	}
 	free(pwd);
