@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 11:27:36 by vvaas             #+#    #+#             */
-/*   Updated: 2023/07/25 22:08:22 by maldavid         ###   ########.fr       */
+/*   Updated: 2023/07/25 22:09:28 by maldavid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include <stdbool.h>
 # include <nexus.h>
+# include <stddef.h>
 
 char			*ft_joinfree(char *dest, char *src);
 int				is_exec(char *input);
