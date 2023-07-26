@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/01 02:29:32 by vvaas             #+#    #+#             */
-/*   Updated: 2023/07/26 00:05:03 by vvaas            ###   ########.fr       */
+/*   Updated: 2023/07/26 15:30:56 by vvaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,19 @@ void	print_args(char **args)
 		ft_printf("declare -x ");
 		while (args[i][j] != '=' && args[i][j])
 			ft_printf("%c", args[i][j++]);
+		if (args[i][j] == '=' && !args[i][j + 1])
+		{
+			ft_printf("=""\n");
+			i++;
+			j = 0;
+			continue ;
+		}
 		if (!args[i][j + 1])
 		{
 			ft_printf("\n");
-			return ;
+			i++;
+			j = 0;
+			continue ;
 		}
 		ft_printf("%c", args[i][j++]);
 		ft_printf("\"");
@@ -74,6 +83,8 @@ bool	is_valid(const char *arg)
 	int	i;
 
 	i = 0;
+	if (arg[i] == '=')
+		return (false);
 	while (arg[i] && arg[i] != '=')
 	{
 		if (!ft_isalnum(arg[i]))
