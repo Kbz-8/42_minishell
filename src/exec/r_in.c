@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/25 21:08:40 by vvaas             #+#    #+#             */
-/*   Updated: 2023/07/26 23:30:16 by vvaas            ###   ########.fr       */
+/*   Updated: 2023/07/27 00:07:26 by vvaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,10 @@ t_parser_info	*r_in(t_parser_info *info)
 	buffer = (char *)info->next->args[0];
 	open(info->next->args[0], O_RDONLY | O_CREAT);
 	jump_next(info);
-	exec_command(info, save);
+	if (info->link == NONE)
+		exec_command(info, 0);
+	else
+		exec_command(info, save);
 	if (ft_strcmp(buffer, "/tmp/HEREDOC") == 0)
 		unlink("/tmp/HEREDOC");
 	dup2(save, 0);
