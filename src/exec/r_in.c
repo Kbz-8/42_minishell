@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/25 21:08:40 by vvaas             #+#    #+#             */
-/*   Updated: 2023/07/26 18:42:57 by vvaas            ###   ########.fr       */
+/*   Updated: 2023/07/26 23:30:16 by vvaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,8 @@ t_parser_info	*r_in(t_parser_info *info)
 	close(0);
 	buffer = (char *)info->next->args[0];
 	open(info->next->args[0], O_RDONLY | O_CREAT);
-	if (jump_next(info)->link == PIPE)
-		exec_command(info, save);
-	else
-		exec_command(info, -1);
+	jump_next(info);
+	exec_command(info, save);
 	if (ft_strcmp(buffer, "/tmp/HEREDOC") == 0)
 		unlink("/tmp/HEREDOC");
 	dup2(save, 0);
@@ -45,8 +43,11 @@ t_parser_info	*r_doc(t_parser_info *info)
 	int	fd;
 
 	fd = open("/tmp/HEREDOC", O_CREAT | O_TRUNC | O_WRONLY, 0644);
-	write(fd, info->next->args[0], ft_strlen(info->next->args[0]));
-	close(fd);
+	if (fd != -1)
+	{
+		write(fd, info->next->args[0], ft_strlen(info->next->args[0]));
+		close(fd);
+	}
 	dealloc((char *)info->next->args[0]);
 	info->next->args[0] = ft_strdup("/tmp/HEREDOC");
 	info->link = R_IN;

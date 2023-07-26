@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 11:27:36 by vvaas             #+#    #+#             */
-/*   Updated: 2023/07/26 18:37:04 by vvaas            ###   ########.fr       */
+/*   Updated: 2023/07/26 23:03:23 by vvaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 
 char			*ft_joinfree(char *dest, char *src);
 int				is_exec(char *input);
-void			ft_execve(char *path, char **argv, char **env);
+void			ft_execve(char *path, char **argv, char **env, int *save);
 bool			is_executable_name(char *name);
 bool			is_executable(char *path);
 void			ft_exec(char *input);
@@ -43,7 +43,7 @@ void			append_value(int *tab, int val);
 bool			r_in_error(t_parser_info *info);
 t_parser_info	*jump_next_pipe(t_parser_info *info);
 t_parser_info	*jump_next(t_parser_info *info);
-void			command(t_parser_info *info);
+void			command(t_parser_info *info, int *save);
 void			c_pipe(t_parser_info *info, int fd);
 char			*ft_strndup_malloc(const char *s, size_t n);
 

@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/25 21:46:24 by vvaas             #+#    #+#             */
-/*   Updated: 2023/07/26 18:46:36 by vvaas            ###   ########.fr       */
+/*   Updated: 2023/07/26 23:50:19 by vvaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	continue_to_next_cmd(t_parser_info *info, int *saves, int *p, int pid)
 	waitpid(pid, 0, 0);
 	dup2(p[0], 0);
 	close(p[0]);
-	exec_command(info->next, -1);
+	exec_command(info->next, 0);
 	dup2(saves[0], 0);
 	close(saves[0]);
 	return ;
@@ -41,7 +41,7 @@ void	exec_pipe_cmd(int *t_save, int *saves, int *pipes, t_parser_info *info)
 	close(pipes[0]);
 	dup2(pipes[1], 1);
 	close(pipes[1]);
-	command(info);
+	command(info, t_save);
 	while (t_save[i] != 0)
 		close(t_save[i++]);
 	dup2(saves[1], 1);

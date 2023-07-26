@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 17:59:21 by vvaas             #+#    #+#             */
-/*   Updated: 2023/07/26 16:14:24 by vvaas            ###   ########.fr       */
+/*   Updated: 2023/07/27 00:00:28 by vvaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,19 +72,25 @@ char	*is_exec_path(char *name)
 	return (NULL);
 }
 
-void	ft_execve(char *path, char **argv, char **env)
+void	ft_execve(char *path, char **argv, char **env, int *save)
 {
 	pid_t	pid;
+	int		i;
 
+	i = 0;
 	pid = fork();
 	if (pid == 0 && execve(path, argv, env) == -1)
 	{
+		while (save && save[i] != 0)
+			close(save[i++]);
 		allfree();
 		exit(get_env_data()->last_return);
 	}
-	else
+	if (pid != 0)
 	{
 		waitpid(pid, &get_env_data()->last_return, 0);
+		while (save && save[i] != 0)
+			close(save[i++]);
 		if (WIFEXITED(get_env_data()->last_return))
 			get_env_data()->last_return = \
 			WEXITSTATUS(get_env_data()->last_return);

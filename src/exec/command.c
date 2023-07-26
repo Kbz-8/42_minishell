@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 12:06:31 by vvaas             #+#    #+#             */
-/*   Updated: 2023/07/26 18:35:52 by vvaas            ###   ########.fr       */
+/*   Updated: 2023/07/26 23:03:00 by vvaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,17 +53,17 @@ bool	is_dot(t_parser_info *info)
 	return (false);
 }
 
-void	check_input(t_parser_info *info)
+void	check_input(t_parser_info *info, int *save)
 {
 	if (is_dot(info))
 		return ;
 	if (is_executable_name(info->cmd.str))
 		ft_execve(is_exec_path(info->cmd.str), \
-		(char **)info->args, create_env());
+		(char **)info->args, create_env(), save);
 	else if (check_isdir(info))
 		return ;
 	else if (is_executable(info->cmd.str))
-		ft_execve(info->cmd.str, (char **)info->args, create_env());
+		ft_execve(info->cmd.str, (char **)info->args, create_env(), save);
 	else if (!access(info->cmd.str, F_OK))
 	{
 		printf("minishell: %s: Permission denied\n", info->args[0]);
@@ -76,7 +76,7 @@ void	check_input(t_parser_info *info)
 	}
 }
 
-void	command(t_parser_info *info)
+void	command(t_parser_info *info, int *save)
 {
 	if (!info || info->cmd.str == NULL)
 		return ;
@@ -98,7 +98,7 @@ void	command(t_parser_info *info)
 			ft_unset(info);
 	}
 	else
-		check_input(info);
+		check_input(info, save);
 }
 
 void	exec_command(t_parser_info *info, int fd)
@@ -108,7 +108,7 @@ void	exec_command(t_parser_info *info, int fd)
 	{
 		if (info->link == NONE)
 		{
-			command(info);
+			command(info, &fd);
 			info = info->next;
 		}
 		else if (info->link == HERE_DOC)
