@@ -6,7 +6,7 @@
 /*   By: maldavid <kbz_8.dev@akel-engine.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/23 10:28:28 by maldavid          #+#    #+#             */
-/*   Updated: 2023/07/25 22:02:45 by maldavid         ###   ########.fr       */
+/*   Updated: 2023/07/26 16:27:30 by maldavid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,8 @@ bool	preprocess_ast_visit(t_ast_node *ast)
 {
 	if (ast == NULL)
 		return (true);
-	if (ast->token->type != AST_COMMAND && ast->l_child == NULL)
+	if ((ast->token->type == AST_PIPE || ast->token->type == AST_SIMPLE_RED_L) \
+		   	&& ast->l_child == NULL)
 		return (something_went_wrong(E_SANITIZE_NEAR));
 	return (preprocess_ast_visit(ast->r_child));
 }
