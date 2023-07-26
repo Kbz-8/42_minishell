@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/01 02:29:32 by vvaas             #+#    #+#             */
-/*   Updated: 2023/07/26 16:02:57 by vvaas            ###   ########.fr       */
+/*   Updated: 2023/07/26 16:17:22 by vvaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include <libft.h>
 #include <stdio.h>
 
-bool	is_empty_or_null(char *arg)
+void	is_empty_or_null(char *arg)
 {
 	char	*buf;
 	int		i;
@@ -24,7 +24,10 @@ bool	is_empty_or_null(char *arg)
 	while (arg[i] != '=')
 		i++;
 	buf = ft_strndup(arg, i);
-	return (get_env_var(buf));
+	if (!get_env_var(buf))
+		ft_printf("\n");
+	else
+		ft_printf("=\"\"\n");
 }
 
 void	print_args(char **args)
@@ -41,10 +44,7 @@ void	print_args(char **args)
 			ft_printf("%c", args[i][j++]);
 		if (!args[i][j + 1])
 		{
-			if (!is_empty_or_null(args[i]))
-				ft_printf("\n");
-			else
-				ft_printf("=\"\"\n");
+			is_empty_or_null(args[i]);
 			i++;
 			j = 0;
 			continue ;

@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 17:59:21 by vvaas             #+#    #+#             */
-/*   Updated: 2023/07/26 11:40:21 by maldavid         ###   ########.fr       */
+/*   Updated: 2023/07/26 16:14:24 by vvaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,12 @@ void	ft_execve(char *path, char **argv, char **env)
 		exit(get_env_data()->last_return);
 	}
 	else
+	{
 		waitpid(pid, &get_env_data()->last_return, 0);
+		if (WIFEXITED(get_env_data()->last_return))
+			get_env_data()->last_return = \
+			WEXITSTATUS(get_env_data()->last_return);
+	}
 }
 
 char	**create_env(void)

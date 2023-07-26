@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 08:24:55 by vvaas             #+#    #+#             */
-/*   Updated: 2023/07/26 16:00:32 by vvaas            ###   ########.fr       */
+/*   Updated: 2023/07/26 16:17:30 by vvaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 
 int	ft_pwd(void)
 {
-	char *buf;
+	char	*buf;
 
 	buf = (char *)getcwd(NULL, 0);
 	ft_putstr(buf);
