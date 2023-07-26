@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 18:25:19 by vvaas             #+#    #+#             */
-/*   Updated: 2023/07/25 21:02:10 by vvaas            ###   ########.fr       */
+/*   Updated: 2023/07/26 14:57:31 by maldavid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,25 +28,14 @@ void	print_echo(t_parser_info *info, int i, bool newline)
 	if (newline)
 		printf("\n");
 	get_env_data()->last_return = 0;
-	return ;
 }
 
 void	ft_echo(t_parser_info *info)
 {
-	bool	newline;
-	int		i;
-
-	i = 1;
-	newline = 1;
-	if (!info->args[1])
-	{
+	if (info->args[1] == NULL)
 		printf("\n");
-		return ;
-	}
-	if (!ft_strcmp(info->args[1], "-n"))
-	{
-		newline = 0;
-		i++;
-	}
-	print_echo(info, i, newline);
+	else if (!ft_strcmp(info->args[1], "-n"))
+		print_echo(info, 2, false);
+	else
+		print_echo(info, 1, true);
 }

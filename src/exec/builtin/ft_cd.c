@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/24 08:32:33 by vvaas             #+#    #+#             */
-/*   Updated: 2023/07/25 21:18:27 by vvaas            ###   ########.fr       */
+/*   Updated: 2023/07/26 14:44:38 by maldavid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,9 +69,13 @@ bool	check_validity(char *info)
 
 int	ft_cd(t_parser_info *info)
 {
+	char	*cwd;
+
 	if (!info->args[1])
 	{
-		modify_env_var("OLDPWD", "OLDPWD", getcwd(NULL, 0));
+		cwd = getcwd(NULL, 0);
+		modify_env_var("OLDPWD", "OLDPWD", cwd);
+		free(cwd);
 		if (!get_env_var("PWD"))
 			remove_env_var("OLDPWD");
 		chdir(get_env_var("HOME"));
