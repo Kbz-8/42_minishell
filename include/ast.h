@@ -6,7 +6,7 @@
 /*   By: maldavid <kbz_8.dev@akel-engine.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 02:00:58 by maldavid          #+#    #+#             */
-/*   Updated: 2023/07/25 21:53:23 by maldavid         ###   ########.fr       */
+/*   Updated: 2023/07/26 18:12:46 by maldavid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,12 @@
 
 enum e_node_type
 {
-	AST_PIPE = 0,
-	AST_SIMPLE_RED_L = 1,
+	AST_PIPE = 1,
 	AST_SIMPLE_RED_R = 2,
 	AST_DOUBLE_RED_R = 3,
-	AST_COMMAND = 4,
+	AST_SIMPLE_RED_L = 4,
 	AST_HERE_DOC = 5,
+	AST_COMMAND = 6,
 };
 
 typedef struct s_token
@@ -68,7 +68,7 @@ t_token_list	*generate_token_list(char *entry);
 void			to_ast(t_ast *ast, t_token_list *list);
 t_parser_info	*visit_ast(t_ast_node *ast);
 void			free_token_list(t_token_list *list);
-bool			preprocess_ast_visit(t_ast_node *ast);
+bool			preprocess_ast_visit(t_ast_node *ast, bool is_root);
 void			postprocess_ast_visit(t_parser_info *info);
 char			**args_split(const char *s, char *sep);
 

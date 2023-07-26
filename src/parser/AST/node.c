@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 02:33:34 by maldavid          #+#    #+#             */
-/*   Updated: 2023/07/25 21:53:36 by maldavid         ###   ########.fr       */
+/*   Updated: 2023/07/26 17:58:12 by maldavid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,8 @@ static t_token_list	*separator_position(t_token_list *list, int *pos)
 	*pos = 0;
 	while (list != NULL)
 	{
-		if (list->next == NULL)
-			break ;
+		if (list->token == NULL)
+			return (NULL);
 		if (list->token->type != AST_COMMAND)
 			return (list);
 		(*pos)++;

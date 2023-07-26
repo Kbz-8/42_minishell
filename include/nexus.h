@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 11:59:38 by maldavid          #+#    #+#             */
-/*   Updated: 2023/07/25 21:55:18 by maldavid         ###   ########.fr       */
+/*   Updated: 2023/07/26 18:06:15 by maldavid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,9 @@ enum	e_command_link
 {
 	NONE = 0,
 	PIPE = 1,
-	R_IN = 2,
-	R_OUT = 3,
-	R_OUT_ABSOLUTE = 4,
+	R_OUT = 2,
+	R_OUT_ABSOLUTE = 3,
+	R_IN = 4,
 	HERE_DOC = 5
 };
 

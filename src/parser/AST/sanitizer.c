@@ -6,7 +6,7 @@
 /*   By: maldavid <kbz_8.dev@akel-engine.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/23 10:28:28 by maldavid          #+#    #+#             */
-/*   Updated: 2023/07/26 16:27:30 by maldavid         ###   ########.fr       */
+/*   Updated: 2023/07/26 18:15:23 by maldavid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,14 +23,17 @@ static bool	something_went_wrong(int error_code)
 	return (false);
 }
 
-bool	preprocess_ast_visit(t_ast_node *ast)
+bool	preprocess_ast_visit(t_ast_node *ast, bool is_root)
 {
 	if (ast == NULL)
 		return (true);
-	if ((ast->token->type == AST_PIPE || ast->token->type == AST_SIMPLE_RED_L) \
-		   	&& ast->l_child == NULL)
+	if (ast->token->type == AST_PIPE && ast->l_child == NULL)
 		return (something_went_wrong(E_SANITIZE_NEAR));
-	return (preprocess_ast_visit(ast->r_child));
+	if (ast->token->type < 5 && ast->l_child == NULL && !is_root)
+		return (something_went_wrong(E_SANITIZE_NEAR));
+	if (ast->token->type < 5 && ast->r_child == NULL)
+		return (something_went_wrong(E_SANITIZE_NEAR));
+	return (preprocess_ast_visit(ast->r_child, false));
 }
 
 static void	postpostprocess_ast_visit(t_parser_info *info)

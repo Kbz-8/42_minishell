@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/21 16:21:17 by maldavid          #+#    #+#             */
-/*   Updated: 2023/07/26 12:17:11 by maldavid         ###   ########.fr       */
+/*   Updated: 2023/07/26 18:26:28 by maldavid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 #include <prompt.h>
 #include <stddef.h>
 #include <unistd.h>
+#include <errors.h>
 #include <memory.h>
 #include <stdbool.h>
 #include <readline/readline.h>
@@ -80,6 +81,7 @@ static void	here_doc(char **entry, char *eof, bool double_quoted)
 
 static void	skip(char **ptr, bool only_spaces)
 {
+	get_env_data()->listen = 2;
 	while (*(*ptr))
 	{
 		if (only_spaces && !ft_isspace(*(*ptr)))
@@ -88,60 +90,60 @@ static void	skip(char **ptr, bool only_spaces)
 	}
 }
 
-static char	*prepare_here_doc(char **entry, char *ptr)
+static char	*prepare_here_doc(char **entry, char *p)
 {
-	char	*eof;
-	char	*command;
-	size_t	i;
-	bool	double_quoted;
+	char	*buf[2];
+	int		i;
+	bool	dq;
 
 	i = 0;
-	double_quoted = false;
-	while (ptr[i] && (!ft_isspace(ptr[i]) || double_quoted))
+	dq = false;
+	while (p[i] && ((!ft_isspace(p[i]) && !ft_strchr("<>|", p[i])) || dq))
 	{
-		if (ptr[i] == '"' && double_quoted)
+		if (p[i] == '"' && dq)
 			break ;
-		if (ptr[i] == '"')
-			double_quoted = true;
-		i++;
+		dq = ((p[i++] == '"') + dq);
 	}
-	eof = ft_strndup(ptr + double_quoted, i - (double_quoted));
-	command = ft_strdup(ptr + i);
-	ft_memset(ptr, ' ', ft_strlen(ptr));
-	skip(&ptr, false);
-	ptr[0 - !double_quoted] = '"' + (!double_quoted * 5);
-	get_env_data()->listen = 2;
-	here_doc(entry, eof, double_quoted);
-	ptr = ft_strndup_malloc(*entry, ft_strlen(command) + ft_strlen(*entry) + 1);
-	ft_strcpy(ptr + ft_strlen(ptr), command);
-	return (ptr);
+	buf[0] = ft_strndup(p + dq, i - (dq));
+	if (ft_strlen(buf[0]) == 0 || ft_strchr("<>|", buf[0][0]) != NULL)
+		report(ERROR, E_SANITIZE_NEAR);
+	if (ft_strlen(buf[0]) == 0 || ft_strchr("<>|", buf[0][0]) != NULL)
+		return (ft_strndup_malloc("", 1));
+	buf[1] = ft_strdup(p + i);
+	ft_memset(p, ' ', ft_strlen(p));
+	skip(&p, false);
+	p[0 - !dq] = '"' + (!dq * 5);
+	here_doc(entry, buf[0], dq);
+	p = ft_strndup_malloc(*entry, ft_strlen(buf[1]) + ft_strlen(*entry) + 1);
+	ft_strcpy(p + ft_strlen(p), buf[1]);
+	return (p);
 }
 
 char	*display_prompt(t_prompt *prompt)
 {
-	char	*ptr;
+	char	*p;
 	char	*entry;
 	char	*tmp;
 
 	entry = readline(prompt->text);
 	if (!entry)
 		return (NULL);
-	ptr = ft_strstr(entry, "<<");
+	p = ft_strstr(entry, "<<");
 	prompt->here_doc = false;
 	prompt->here_docs_count = 0;
-	while (ptr != NULL && ft_strlen(entry))
+	while (p != NULL && ft_strlen(entry))
 	{
 		prompt->here_doc = true;
-		ptr += 2;
-		skip(&ptr, true);
-		tmp = prepare_here_doc(&entry, ptr);
+		p += 2;
+		skip(&p, true);
+		tmp = prepare_here_doc(&entry, p);
 		free(entry);
 		entry = tmp;
 		prompt->here_docs_count++;
 		prompt->i = 0;
-		ptr = entry;
-		while (prompt->i++ < prompt->here_docs_count && ft_strlen(entry))
-			ptr = ft_strstr(ft_strstr(ptr, "<<") + 2, "<<");
+		p = entry;
+		while (ft_strlen(p) > 5 && prompt->i++ < prompt->here_docs_count)
+			p = ft_strstr(ft_strstr(p, "<<") + 2, "<<");
 	}
 	return (entry);
 }

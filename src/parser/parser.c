@@ -6,7 +6,7 @@
 /*   By: maldavid <kbz_8.dev@akel-engine.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 01:45:09 by maldavid          #+#    #+#             */
-/*   Updated: 2023/07/25 22:10:16 by maldavid         ###   ########.fr       */
+/*   Updated: 2023/07/26 18:14:20 by maldavid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ t_parser_info	*parse(const char *entry)
 	if (entry == NULL)
 		return (NULL);
 	ast = generate_ast(generate_token_list((char *)entry));
-	if (ast == NULL || !preprocess_ast_visit(ast->root))
+	if (ast == NULL || !preprocess_ast_visit(ast->root, true))
 		return (NULL);
 	infos = visit_ast(ast->root);
 	postprocess_ast_visit(infos);
