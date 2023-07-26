@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/20 22:53:44 by vvaas             #+#    #+#             */
-/*   Updated: 2023/07/26 15:55:11 by maldavid         ###   ########.fr       */
+/*   Updated: 2023/07/26 16:02:31 by vvaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,10 @@ char	**create_tab(char **env_tab, t_env_var *args)
 		ft_strlen(args->value)) * sizeof(char));
 		ft_strcpy(env_tab[i], args->key);
 		ft_strcat(env_tab[i], "=");
-		ft_strcat(env_tab[i], args->value);
+		if (args->value == NULL)
+			ft_strcat(env_tab[i], "\0");
+		else
+			ft_strcat(env_tab[i], args->value);
 		args = args->next;
 		i++;
 	}
