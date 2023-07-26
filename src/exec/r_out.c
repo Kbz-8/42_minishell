@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/25 21:12:12 by vvaas             #+#    #+#             */
-/*   Updated: 2023/07/26 11:41:09 by maldavid         ###   ########.fr       */
+/*   Updated: 2023/07/26 16:41:40 by vvaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,13 +60,13 @@ void	ropen(int *save, t_parser_info *info, bool *perror, t_parser_info *tmp)
 		}
 		get_env_data()->last_return = 1;
 	}
-	if (fd != -1)
-	{
-		dup2(fd, 1);
-		command(tmp);
-		dup2(*save, 1);
-		close(*save);
-	}
+	if (fd == -1)
+		return ;
+	dup2(fd, 1);
+	command(tmp);
+	dup2(*save, 1);
+	close(*save);
+	close(fd);
 }
 
 t_parser_info	*next_cmd(t_parser_info *info, t_parser_info *tmp)

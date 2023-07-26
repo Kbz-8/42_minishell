@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/25 21:46:24 by vvaas             #+#    #+#             */
-/*   Updated: 2023/07/26 11:41:33 by maldavid         ###   ########.fr       */
+/*   Updated: 2023/07/26 18:46:36 by vvaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 #include <utils.h>
 #include <memory.h>
 #include <stdlib.h>
+#include <builtin.h>
 
 void	continue_to_next_cmd(t_parser_info *info, int *saves, int *p, int pid)
 {
@@ -25,7 +26,7 @@ void	continue_to_next_cmd(t_parser_info *info, int *saves, int *p, int pid)
 	waitpid(pid, 0, 0);
 	dup2(p[0], 0);
 	close(p[0]);
-	exec_command(info->next);
+	exec_command(info->next, -1);
 	dup2(saves[0], 0);
 	close(saves[0]);
 	return ;
@@ -49,7 +50,7 @@ void	exec_pipe_cmd(int *t_save, int *saves, int *pipes, t_parser_info *info)
 	exit(0);
 }
 
-void	c_pipe(t_parser_info *info)
+void	c_pipe(t_parser_info *info, int fd)
 {
 	int			saves[2];
 	pid_t		pid;
@@ -59,6 +60,8 @@ void	c_pipe(t_parser_info *info)
 	pipe(pipes);
 	saves[0] = dup(0);
 	saves[1] = dup(1);
+	if (fd != -1)
+		append_value(t_save, fd);
 	pid = fork();
 	if (pid != 0)
 	{

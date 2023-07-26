@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/25 21:08:40 by vvaas             #+#    #+#             */
-/*   Updated: 2023/07/26 11:40:47 by maldavid         ###   ########.fr       */
+/*   Updated: 2023/07/26 18:42:57 by vvaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 #include <fcntl.h>
 #include <unistd.h>
 #include <utils.h>
+#include <builtin.h>
 #include <memory.h>
 
 t_parser_info	*r_in(t_parser_info *info)
@@ -28,7 +29,10 @@ t_parser_info	*r_in(t_parser_info *info)
 	close(0);
 	buffer = (char *)info->next->args[0];
 	open(info->next->args[0], O_RDONLY | O_CREAT);
-	exec_command(jump_next(info));
+	if (jump_next(info)->link == PIPE)
+		exec_command(info, save);
+	else
+		exec_command(info, -1);
 	if (ft_strcmp(buffer, "/tmp/HEREDOC") == 0)
 		unlink("/tmp/HEREDOC");
 	dup2(save, 0);

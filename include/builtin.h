@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 12:13:35 by vvaas             #+#    #+#             */
-/*   Updated: 2023/07/24 18:06:21 by vvaas            ###   ########.fr       */
+/*   Updated: 2023/07/26 18:36:55 by vvaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 # include <nexus.h>
 
-void	exec_command(t_parser_info *info);
+void	exec_command(t_parser_info *info, int fd);
 void	ft_exit(t_parser_info *info);
 int		ft_cd(t_parser_info *info);
 int		ft_pwd(void);

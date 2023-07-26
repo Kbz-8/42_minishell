@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 12:06:31 by vvaas             #+#    #+#             */
-/*   Updated: 2023/07/25 21:55:19 by vvaas            ###   ########.fr       */
+/*   Updated: 2023/07/26 18:35:52 by vvaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,21 @@ bool	check_isdir(t_parser_info *info)
 	return (0);
 }
 
+bool	is_dot(t_parser_info *info)
+{
+	struct stat	file;
+
+	if (stat(info->cmd.str, &file) == -1)
+		return (false);
+	if (S_ISDIR(file.st_mode) != 0)
+		return (true);
+	return (false);
+}
+
 void	check_input(t_parser_info *info)
 {
+	if (is_dot(info))
+		return ;
 	if (is_executable_name(info->cmd.str))
 		ft_execve(is_exec_path(info->cmd.str), \
 		(char **)info->args, create_env());
@@ -88,7 +101,7 @@ void	command(t_parser_info *info)
 		check_input(info);
 }
 
-void	exec_command(t_parser_info *info)
+void	exec_command(t_parser_info *info, int fd)
 {
 	get_env_data()->listen = false;
 	while (info)
@@ -106,7 +119,7 @@ void	exec_command(t_parser_info *info)
 			info = r_in(info);
 		else if (info && info->link == PIPE)
 		{
-			c_pipe(info);
+			c_pipe(info, fd);
 			info = info->next;
 			break ;
 		}

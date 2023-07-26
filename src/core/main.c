@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 11:10:27 by maldavid          #+#    #+#             */
-/*   Updated: 2023/07/26 17:55:14 by maldavid         ###   ########.fr       */
+/*   Updated: 2023/07/26 18:35:41 by vvaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int	main(int ac, char **av, char **env)
 			ft_putstr("exit\n");
 		if (entry == NULL)
 			break ;
-		exec_command(parse(entry));
+		exec_command(parse(entry), -1);
 	}
 	free(entry);
 	allfree();
