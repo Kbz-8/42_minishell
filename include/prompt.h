@@ -6,7 +6,7 @@
 /*   By: maldavid <kbz_8.dev@akel-engine.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/21 16:21:30 by maldavid          #+#    #+#             */
-/*   Updated: 2023/07/25 18:53:12 by maldavid         ###   ########.fr       */
+/*   Updated: 2023/07/26 20:04:57 by maldavid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,6 @@
 typedef struct s_prompt
 {
 	char	*text;
-	size_t	here_docs_count;
-	size_t	i;
 	bool	here_doc;
 }	t_prompt;
 

@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/21 16:21:17 by maldavid          #+#    #+#             */
-/*   Updated: 2023/07/26 18:26:28 by maldavid         ###   ########.fr       */
+/*   Updated: 2023/07/26 21:13:28 by maldavid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,9 @@
 #include <memory.h>
 #include <stdbool.h>
 #include <readline/readline.h>
+
+char	*next_here_doc(char *entry, int end_hd);
+int		find_next_here_doc_index(char *entry);
 
 void	update_prompt(t_prompt *prompt)
 {
@@ -90,31 +93,31 @@ static void	skip(char **ptr, bool only_spaces)
 	}
 }
 
-static char	*prepare_here_doc(char **entry, char *p)
+static char	*prepare_here_doc(char **entry, char *p, int *end_hd, int *i)
 {
 	char	*buf[2];
-	int		i;
 	bool	dq;
 
-	i = 0;
+	*i = 0;
 	dq = false;
-	while (p[i] && ((!ft_isspace(p[i]) && !ft_strchr("<>|", p[i])) || dq))
+	while (p[*i] && ((!ft_isspace(p[*i]) && !ft_strchr("<>|", p[*i])) || dq))
 	{
-		if (p[i] == '"' && dq)
+		if (p[*i] == '"' && dq)
 			break ;
-		dq = ((p[i++] == '"') + dq);
+		dq = ((p[(*i)++] == '"') + dq);
 	}
-	buf[0] = ft_strndup(p + dq, i - (dq));
+	buf[0] = ft_strndup(p + dq, *i - (dq));
 	if (ft_strlen(buf[0]) == 0 || ft_strchr("<>|", buf[0][0]) != NULL)
 		report(ERROR, E_SANITIZE_NEAR);
 	if (ft_strlen(buf[0]) == 0 || ft_strchr("<>|", buf[0][0]) != NULL)
 		return (ft_strndup_malloc("", 1));
-	buf[1] = ft_strdup(p + i);
+	buf[1] = ft_strdup(p + *i);
 	ft_memset(p, ' ', ft_strlen(p));
 	skip(&p, false);
 	p[0 - !dq] = '"' + (!dq * 5);
 	here_doc(entry, buf[0], dq);
 	p = ft_strndup_malloc(*entry, ft_strlen(buf[1]) + ft_strlen(*entry) + 1);
+	*end_hd = find_next_here_doc_index(buf[1]) + ft_strlen(p);
 	ft_strcpy(p + ft_strlen(p), buf[1]);
 	return (p);
 }
@@ -124,26 +127,24 @@ char	*display_prompt(t_prompt *prompt)
 	char	*p;
 	char	*entry;
 	char	*tmp;
+	int		end_hd;
+	int		i;
 
 	entry = readline(prompt->text);
 	if (!entry)
 		return (NULL);
-	p = ft_strstr(entry, "<<");
+	end_hd = find_next_here_doc_index(entry);
+	p = entry + end_hd;
 	prompt->here_doc = false;
-	prompt->here_docs_count = 0;
-	while (p != NULL && ft_strlen(entry))
+	while (p != NULL && end_hd > -1 && ft_strlen(entry))
 	{
 		prompt->here_doc = true;
 		p += 2;
 		skip(&p, true);
-		tmp = prepare_here_doc(&entry, p);
+		tmp = prepare_here_doc(&entry, p, &end_hd, &i);
 		free(entry);
 		entry = tmp;
-		prompt->here_docs_count++;
-		prompt->i = 0;
-		p = entry;
-		while (ft_strlen(p) > 5 && prompt->i++ < prompt->here_docs_count)
-			p = ft_strstr(ft_strstr(p, "<<") + 2, "<<");
+		p = next_here_doc(entry, end_hd);
 	}
 	return (entry);
 }
