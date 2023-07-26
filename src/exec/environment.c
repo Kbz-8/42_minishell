@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/20 22:53:44 by vvaas             #+#    #+#             */
-/*   Updated: 2023/07/25 21:23:00 by vvaas            ###   ########.fr       */
+/*   Updated: 2023/07/26 15:36:05 by maldavid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,13 +31,6 @@ bool	env_key_exist(char *key)
 	return (false);
 }
 
-bool	is_environment(char *input)
-{
-	if (!ft_strchr(input, '='))
-		return (0);
-	return (1);
-}
-
 void	add_env(char *input)
 {
 	char	*key;
@@ -51,6 +44,8 @@ void	add_env(char *input)
 	{
 		key = ft_strndup(input, found - input);
 		value = ft_strdup(found + 1);
+		if (ft_strlen(value) == 0)
+			value = ft_strdup("");
 	}
 	else
 	{

@@ -6,7 +6,7 @@
 /*   By: maldavid <kbz_8.dev@akel-engine.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/14 11:30:04 by maldavid          #+#    #+#             */
-/*   Updated: 2023/07/25 20:37:05 by maldavid         ###   ########.fr       */
+/*   Updated: 2023/07/26 15:28:20 by maldavid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,14 +27,14 @@ static bool	args_splits_is_separator(const char c, const char *charset)
 static int	args_splits_strlen(const char *str, char *sep)
 {
 	int		length;
-	bool	check_sep;
+	uint8_t	check_sep;
 
 	length = 1;
-	check_sep = true;
+	check_sep = 2;
 	while (*str && length)
 	{
 		if (*str == '"' || *str == '\'')
-			check_sep = !check_sep;
+			check_sep = true;
 		else
 			length++;
 		if (check_sep && args_splits_is_separator(*str, sep))
@@ -51,16 +51,16 @@ static int	args_splits_get_words(const char *str, char *sep)
 {
 	int		count;
 	int		is_word;
-	bool	check_sep;
+	uint8_t	check_sep;
 
 	count = 0;
 	is_word = 0;
-	check_sep = true;
+	check_sep = 2;
 	while (*str)
 	{
 		if (*str == '"' || *str == '\'')
 			check_sep = !check_sep;
-		if (check_sep && args_splits_is_separator(*str, sep))
+		if (check_sep == 2&& args_splits_is_separator(*str, sep))
 			is_word = 0;
 		else if (!is_word)
 		{
@@ -76,16 +76,16 @@ static char	*args_splits_strdup(const char *str, char *sep)
 {
 	char	*buf;
 	char	*p_buf;
-	bool	check_sep;
+	uint8_t	check_sep;
 
 	buf = (char *)alloc(args_splits_strlen(str, sep) + 1);
 	p_buf = buf;
-	check_sep = true;
+	check_sep = 2;
 	while (*str)
 	{
 		if (*str == '"' || *str == '\'')
 			check_sep = !check_sep;
-		if (check_sep && args_splits_is_separator(*str, sep))
+		if (check_sep == 2 && args_splits_is_separator(*str, sep))
 			break ;
 		if (*str != '"' && *str != '\'')
 		{
@@ -103,17 +103,17 @@ char	**args_split(const char *s, char *sep)
 	char	**tab;
 	int		is_word;
 	int		i;
-	bool	check_sep;
+	uint8_t	check_sep;
 
 	i = 0;
 	is_word = 0;
 	tab = (char **)alloc((args_splits_get_words(s, sep) + 1) * sizeof(char *));
-	check_sep = true;
+	check_sep = 2;
 	while (*s)
 	{
 		if (*s == '"' || *s == '\'')
 			check_sep = !check_sep;
-		if (check_sep && args_splits_is_separator(*s, sep))
+		if (check_sep == 2 && args_splits_is_separator(*s, sep))
 			is_word = 0;
 		else if (!is_word)
 		{
