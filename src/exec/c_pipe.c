@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/25 21:46:24 by vvaas             #+#    #+#             */
-/*   Updated: 2023/07/25 21:58:06 by vvaas            ###   ########.fr       */
+/*   Updated: 2023/07/26 11:41:33 by maldavid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,9 +55,7 @@ void	c_pipe(t_parser_info *info)
 	pid_t		pid;
 	int			pipes[2];
 	static int	t_save[1024] = {0};
-	int			i;
 
-	i = 0;
 	pipe(pipes);
 	saves[0] = dup(0);
 	saves[1] = dup(1);

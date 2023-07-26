@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 17:59:21 by vvaas             #+#    #+#             */
-/*   Updated: 2023/07/25 21:16:36 by vvaas            ###   ########.fr       */
+/*   Updated: 2023/07/26 11:40:21 by maldavid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,10 +90,8 @@ char	**create_env(void)
 {
 	char			**env_tab;
 	t_env_var		*args;
-	unsigned int	i;
 	unsigned int	count;
 
-	i = 0;
 	count = 0;
 	args = get_env_data()->vars;
 	while (args)

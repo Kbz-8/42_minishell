@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/25 21:12:12 by vvaas             #+#    #+#             */
-/*   Updated: 2023/07/25 21:55:51 by vvaas            ###   ########.fr       */
+/*   Updated: 2023/07/26 11:41:09 by maldavid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,9 +84,7 @@ t_parser_info	*r_out(t_parser_info *info)
 	int				save;
 	t_parser_info	*tmp;
 	bool			perror;
-	int				fd;
 
-	fd = -1;
 	perror = 0;
 	tmp = info;
 	while (is_redir(info))
