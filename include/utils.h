@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 11:27:36 by vvaas             #+#    #+#             */
-/*   Updated: 2023/07/26 23:03:23 by vvaas            ###   ########.fr       */
+/*   Updated: 2023/07/28 19:01:30 by vvaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void			add_env(char *input);
 void			ft_export(t_parser_info *info);
 char			**create_env(void);
 int				ft_setcwd(t_parser_info *info);
-t_parser_info	*r_in(t_parser_info *info);
+t_parser_info	*r_in(t_parser_info *info, bool heredoc);
 t_parser_info	*r_doc(t_parser_info *info);
 t_parser_info	*r_out(t_parser_info *info);
 void			append_value(int *tab, int val);
