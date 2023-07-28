@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/01 02:29:32 by vvaas             #+#    #+#             */
-/*   Updated: 2023/07/28 21:23:51 by vvaas            ###   ########.fr       */
+/*   Updated: 2023/07/28 21:40:03 by vvaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,22 +113,17 @@ void	ft_export(t_parser_info *info)
 	while (info->args[i])
 	{
 		if (!is_valid(info->args[i]))
-		{
 			ft_printf("minishell: export: `%s': not a valid identifier\n", \
-			info->args[i]);
-			continue ;
-		}
-		add_env((char *)info->args[i]);
+			info->args[i++]);
+		else
+			add_env((char *)info->args[i++]);
 	}
-	i = 0;
-	while (info->args[i])
+	while (info->args[i++])
 	{
-		if (!is_valid(info->args[i++]))
+		if (!is_valid(info->args[i]))
 		{
 			get_env_data()->last_return = 1;
 			return ;
 		}
 	}
-	get_env_data()->last_return = 0;
-	return ;
 }

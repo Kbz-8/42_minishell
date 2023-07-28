@@ -1,36 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_env.c                                           :+:      :+:    :+:   */
+/*   env2.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/10 17:41:30 by vvaas             #+#    #+#             */
-/*   Updated: 2023/07/28 21:27:09 by vvaas            ###   ########.fr       */
+/*   Created: 2023/07/28 21:32:45 by vvaas             #+#    #+#             */
+/*   Updated: 2023/07/28 21:40:34 by vvaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <nexus.h>
-#include <errors.h>
 #include <libft.h>
+#include <stddef.h>
 
-int	ft_env(t_parser_info *info)
+bool	key_exists(char *key)
 {
-	t_env_var	*args;
+	t_env_var	*ptr;
 
-	if (info->args[1])
+	ptr = get_env_data()->vars;
+	if (ptr == NULL)
+		return (false);
+	while (ptr->next != NULL)
 	{
-		report(ERROR, E_TOO_MANY_ARGS);
-		get_env_data()->last_return = 127;
-		return (-1);
+		if (ft_strcmp(key, ptr->key) == 0)
+			return (true);
+		ptr = ptr->next;
 	}
-	args = get_env_data()->vars;
-	while (args && args->next)
-	{
-		if (args->value && args->value[0] != '\0')
-			ft_printf("%s=%s\n", args->key, args->value);
-		args = args->next;
-	}
-	get_env_data()->last_return = 0;
-	return (0);
+	return (false);
 }

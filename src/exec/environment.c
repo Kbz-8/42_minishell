@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/20 22:53:44 by vvaas             #+#    #+#             */
-/*   Updated: 2023/07/28 20:55:50 by vvaas            ###   ########.fr       */
+/*   Updated: 2023/07/28 21:40:21 by vvaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	add_env(char *input)
 		key = input;
 		value = NULL;
 	}
-	if (get_env_var(key) == NULL)
+	if (!key_exists(key))
 		add_env_var(key, value);
 	else
 		modify_env_var(key, key, value);

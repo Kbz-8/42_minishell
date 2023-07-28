@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 01:48:34 by maldavid          #+#    #+#             */
-/*   Updated: 2023/07/26 16:06:15 by maldavid         ###   ########.fr       */
+/*   Updated: 2023/07/28 21:34:21 by vvaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ void	modify_env_var(char *key, char *new_key, char *new_value)
 	ptr = get_env_data()->vars;
 	if (ptr == NULL)
 		return ;
-	if (!get_env_var(key))
+	if (!key_exists(key))
 		return ;
 	while (ptr->next != NULL)
 	{

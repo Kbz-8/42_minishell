@@ -6,7 +6,7 @@
 #    By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/18 10:57:27 by maldavid          #+#    #+#              #
-#    Updated: 2023/07/28 20:47:23 by vvaas            ###   ########.fr        #
+#    Updated: 2023/07/28 21:35:09 by vvaas            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,6 +15,7 @@ NAME	= ./minishell
 SRCS	=	src/core/main.c \
 			src/core/init.c \
 			src/core/env.c \
+			src/core/env2.c \
 			src/core/errors.c \
 			src/core/memory.c \
 			src/core/interactive.c \

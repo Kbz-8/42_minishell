@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 11:59:38 by maldavid          #+#    #+#             */
-/*   Updated: 2023/07/28 19:58:02 by vvaas            ###   ########.fr       */
+/*   Updated: 2023/07/28 21:32:29 by vvaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ t_env		*get_env_data(void);
 void		init_minishell(char **env);
 void		add_env_var(char *key, char *value);
 const char	*get_env_var(char *key);
+bool		key_exists(char *key);
 void		remove_env_var(char *key);
 void		modify_env_var(char *key, char *new_key, char *new_value);
 #endif
