@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 12:06:31 by vvaas             #+#    #+#             */
-/*   Updated: 2023/07/28 19:26:04 by vvaas            ###   ########.fr       */
+/*   Updated: 2023/07/28 20:23:58 by vvaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,13 +44,8 @@ bool	check_isdir(t_parser_info *info)
 
 bool	is_dot(t_parser_info *info)
 {
-	struct stat	file;
-
-	if (stat(info->cmd.str, &file) == -1)
-		return (false);
-	if (S_ISDIR(file.st_mode) != 0)
-		return (true);
-	return (false);
+	return (ft_strcmp(info->cmd.str, ".") == 0 || \
+	ft_strcmp(info->cmd.str, "..") == 0);
 }
 
 void	check_input(t_parser_info *info, int *save)

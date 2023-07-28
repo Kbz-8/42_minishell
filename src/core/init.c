@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 15:22:37 by maldavid          #+#    #+#             */
-/*   Updated: 2023/07/25 23:59:24 by vvaas            ###   ########.fr       */
+/*   Updated: 2023/07/28 21:00:59 by vvaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void	init_minishell(char **env)
 		i++;
 	}
 	if (!sh_lvl)
-		add_env_var("SHLVL", "0");
+		add_env_var("SHLVL", "1");
 	init_sig();
 	ft_putstr("\nWelcome to Minishell by vvaas and maldavid !\n");
 }

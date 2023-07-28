@@ -6,7 +6,7 @@
 #    By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/18 10:57:27 by maldavid          #+#    #+#              #
-#    Updated: 2023/07/26 18:57:58 by maldavid         ###   ########.fr        #
+#    Updated: 2023/07/28 20:47:23 by vvaas            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,6 +23,7 @@ SRCS	=	src/core/main.c \
 			src/utils/ft_joinfree.c \
 			src/utils/ft_freesplit.c \
 			src/utils/ft_strdup_malloc.c \
+			src/utils/ft_changedir.c \
 			src/exec/command.c \
 			src/exec/ft_execve.c \
 			src/exec/r_in.c \

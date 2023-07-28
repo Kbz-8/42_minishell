@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/25 21:08:40 by vvaas             #+#    #+#             */
-/*   Updated: 2023/07/28 19:26:35 by vvaas            ###   ########.fr       */
+/*   Updated: 2023/07/28 19:34:00 by vvaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,12 +43,10 @@ t_parser_info	*r_in(t_parser_info *info, bool heredoc)
 
 char	*generate_tmp(void)
 {
-	int		fd;
 	int		i;
 	char	*buffer;
 
 	i = 0;
-	fd = -1;
 	buffer = ft_strjoin("/tmp/HEREDOC", ft_itoa(i));
 	while (access(buffer, F_OK) == 0)
 	{

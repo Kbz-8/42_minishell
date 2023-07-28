@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 11:27:36 by vvaas             #+#    #+#             */
-/*   Updated: 2023/07/28 19:01:30 by vvaas            ###   ########.fr       */
+/*   Updated: 2023/07/28 20:45:56 by vvaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,5 +46,5 @@ t_parser_info	*jump_next(t_parser_info *info);
 void			command(t_parser_info *info, int *save);
 void			c_pipe(t_parser_info *info, int fd);
 char			*ft_strndup_malloc(const char *s, size_t n);
-
+void			ft_changedir(void);
 #endif

@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/20 22:53:44 by vvaas             #+#    #+#             */
-/*   Updated: 2023/07/26 16:02:31 by vvaas            ###   ########.fr       */
+/*   Updated: 2023/07/28 20:55:50 by vvaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,8 @@ int	ft_setcwd(t_parser_info *info)
 {
 	char	*buffer;
 
-	check_validity((char *)info->args[1]);
+	if (check_validity((char *)info->args[1]) == 0)
+		return (0);
 	modify_env_var("OLDPWD", "OLDPWD", getcwd(NULL, 0));
 	if (!get_env_var("PWD"))
 		remove_env_var("OLDPWD");
@@ -92,5 +93,6 @@ int	ft_setcwd(t_parser_info *info)
 	buffer = getcwd(NULL, 0);
 	modify_env_var("PWD", "PWD", buffer);
 	free(buffer);
+	get_env_data()->last_return = 0;
 	return (0);
 }
