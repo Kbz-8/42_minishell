@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/25 21:46:24 by vvaas             #+#    #+#             */
-/*   Updated: 2023/07/26 23:50:19 by vvaas            ###   ########.fr       */
+/*   Updated: 2023/07/28 19:19:33 by vvaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 #include <memory.h>
 #include <stdlib.h>
 #include <builtin.h>
+#include <stdio.h>
 
 void	continue_to_next_cmd(t_parser_info *info, int *saves, int *p, int pid)
 {

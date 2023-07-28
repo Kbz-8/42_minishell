@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 12:06:31 by vvaas             #+#    #+#             */
-/*   Updated: 2023/07/26 23:03:00 by vvaas            ###   ########.fr       */
+/*   Updated: 2023/07/28 19:26:04 by vvaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,7 +116,7 @@ void	exec_command(t_parser_info *info, int fd)
 		else if (info && (info->link == R_OUT || info->link == R_OUT_ABSOLUTE))
 			info = r_out(info);
 		else if (info && info->link == R_IN)
-			info = r_in(info);
+			info = r_in(info, 0);
 		else if (info && info->link == PIPE)
 		{
 			c_pipe(info, fd);

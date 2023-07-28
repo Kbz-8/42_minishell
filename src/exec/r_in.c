@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/25 21:08:40 by vvaas             #+#    #+#             */
-/*   Updated: 2023/07/27 00:07:26 by vvaas            ###   ########.fr       */
+/*   Updated: 2023/07/28 19:26:35 by vvaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 #include <builtin.h>
 #include <memory.h>
 
-t_parser_info	*r_in(t_parser_info *info)
+t_parser_info	*r_in(t_parser_info *info, bool heredoc)
 {
 	int		save;
 	char	*buffer;
@@ -34,25 +34,46 @@ t_parser_info	*r_in(t_parser_info *info)
 		exec_command(info, 0);
 	else
 		exec_command(info, save);
-	if (ft_strcmp(buffer, "/tmp/HEREDOC") == 0)
-		unlink("/tmp/HEREDOC");
+	if (heredoc)
+		unlink(buffer);
 	dup2(save, 0);
 	close(save);
 	return (NULL);
 }
 
+char	*generate_tmp(void)
+{
+	int		fd;
+	int		i;
+	char	*buffer;
+
+	i = 0;
+	fd = -1;
+	buffer = ft_strjoin("/tmp/HEREDOC", ft_itoa(i));
+	while (access(buffer, F_OK) == 0)
+	{
+		dealloc(buffer);
+		i++;
+		buffer = ft_strjoin("/tmp/HEREDOC", ft_itoa(i));
+	}
+	return (buffer);
+}
+
 t_parser_info	*r_doc(t_parser_info *info)
 {
-	int	fd;
+	int		fd;
+	char	*buffer;
 
-	fd = open("/tmp/HEREDOC", O_CREAT | O_TRUNC | O_WRONLY, 0644);
+	buffer = generate_tmp();
+	fd = open(buffer, O_CREAT | O_TRUNC | O_WRONLY, 0644);
 	if (fd != -1)
 	{
 		write(fd, info->next->args[0], ft_strlen(info->next->args[0]));
 		close(fd);
 	}
 	dealloc((char *)info->next->args[0]);
-	info->next->args[0] = ft_strdup("/tmp/HEREDOC");
+	info->next->args[0] = ft_strdup(buffer);
 	info->link = R_IN;
-	return (info);
+	r_in(info, 1);
+	return (NULL);
 }
