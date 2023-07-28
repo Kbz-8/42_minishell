@@ -6,7 +6,7 @@
 /*   By: maldavid <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 11:23:06 by maldavid          #+#    #+#             */
-/*   Updated: 2023/07/27 02:23:42 by maldavid         ###   ########.fr       */
+/*   Updated: 2023/07/28 20:36:08 by maldavid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,10 +47,9 @@ void	*realloc_but_not_the_std_lib(void *ptr, size_t size)
 	{
 		if (buf->ptr == ptr)
 		{
-			buf->ptr = realloc(ptr, size);
+			buf->ptr = realloc(buf->ptr, size);
 			if (buf->ptr == NULL)
 				report(FATAL_ERROR, E_MEMFAIL);
-			ft_memset(buf->ptr, 0, size);
 			return (buf->ptr);
 		}
 		buf = buf->next;

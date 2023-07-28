@@ -6,7 +6,7 @@
 /*   By: maldavid <kbz_8.dev@akel-engine.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 04:34:34 by maldavid          #+#    #+#             */
-/*   Updated: 2023/07/25 21:53:53 by maldavid         ###   ########.fr       */
+/*   Updated: 2023/07/28 21:08:54 by maldavid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,22 +89,21 @@ static void	add_redirection(t_token_list **list, char **str)
 static void	add_command(t_token_list **list, char **str)
 {
 	t_command_data	data;
-	bool			double_quoted;
+	bool			dq;
 
 	ft_memset(&data, 0, sizeof(t_command_data));
-	data.alloc_size = 255;
+	data.alloc_size = 2048;
 	data.ptr = ft_memalloc(data.alloc_size);
-	double_quoted = false;
-	while (*(*str) != 0 && ((data.in_string || double_quoted) \
-		|| (*(*str) != '|' && *(*str) != '<' && *(*str) != '>')))
+	dq = false;
+	while (*(*str) && ((data.in_string || dq) || !ft_strchr("|<>", *(*str))))
 	{
 		manage_realloc(&data.ptr, &data.alloc_size, data.i);
-		if (*(*str) == '\'' && !double_quoted)
+		if (*(*str) == '\'' && !dq)
 			data.in_string = !data.in_string;
 		else if (*(*str) == '"' && !data.in_string)
-			double_quoted = !double_quoted;
+			dq = !dq;
 		else if ((*(*str) == '$' && !data.in_string) || \
-				(*(*str) == '~' && !double_quoted && !data.in_string))
+				(*(*str) == '~' && !dq && !data.in_string))
 		{
 			include_var(&data, str);
 			continue ;
@@ -112,6 +111,7 @@ static void	add_command(t_token_list **list, char **str)
 		data.ptr[data.i++] = *(*str);
 		(*str)++;
 	}
+	data.ptr[data.i] = 0;
 	add_token_to_list(list, new_token(data.ptr));
 }
 

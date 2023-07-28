@@ -6,7 +6,7 @@
 /*   By: maldavid <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/21 13:25:28 by maldavid          #+#    #+#             */
-/*   Updated: 2023/07/26 14:41:55 by maldavid         ###   ########.fr       */
+/*   Updated: 2023/07/28 20:36:32 by maldavid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	manage_realloc(char **ptr, uint32_t *alloc_size, uint32_t i)
 {
 	if (i >= *alloc_size)
 	{
-		*alloc_size += i + 255;
+		*alloc_size = i + 2048;
 		*ptr = realloc_but_not_the_std_lib(*ptr, *alloc_size + 1);
 	}
 }
