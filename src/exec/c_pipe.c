@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/25 21:46:24 by vvaas             #+#    #+#             */
-/*   Updated: 2023/07/28 21:39:31 by vvaas            ###   ########.fr       */
+/*   Updated: 2023/07/29 00:00:11 by vvaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,11 @@ void	continue_to_next_cmd(t_parser_info *info, int *saves, int *p, int pid)
 {
 	close(p[1]);
 	close(saves[1]);
-	waitpid(pid, 0, 0);
 	dup2(p[0], 0);
 	close(p[0]);
+	waitpid(pid, 0, 0);
+	if (info->link == NONE)
+		info->link = PIPE;
 	exec_command(info->next, 0);
 	dup2(saves[0], 0);
 	close(saves[0]);

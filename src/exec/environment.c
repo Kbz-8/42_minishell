@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/20 22:53:44 by vvaas             #+#    #+#             */
-/*   Updated: 2023/07/28 21:40:21 by vvaas            ###   ########.fr       */
+/*   Updated: 2023/07/29 00:10:15 by vvaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,22 @@ bool	env_key_exist(char *key)
 	return (false);
 }
 
-void	add_env(char *input)
+void	append_env(char *input)
+{
+	int		i;
+	char	*key;
+	char	*value;
+
+	i = 0;
+	key = get_key(input);
+	value = ft_strdup(input) + 2 + ft_strlen(key);
+	if (key_exists(key))
+		modify_env_var(key, key, ft_strjoin(get_env_var(key), value));
+	else
+		add_env_var(key, value);
+}
+
+void	add_env(char *input, bool append)
 {
 	char	*key;
 	char	*value;
@@ -39,14 +54,14 @@ void	add_env(char *input)
 
 	if (input == NULL)
 		return ;
+	if (append)
+	{
+		append_env(input);
+		return ;
+	}
 	found = ft_strchr(input, '=');
 	if (found != NULL)
-	{
-		key = ft_strndup(input, found - input);
-		value = ft_strdup(found + 1);
-		if (ft_strlen(value) == 0)
-			value = ft_strdup("");
-	}
+		ft_nullenv(&input, &found, &key, &value);
 	else
 	{
 		key = input;

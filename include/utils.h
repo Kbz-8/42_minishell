@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 11:27:36 by vvaas             #+#    #+#             */
-/*   Updated: 2023/07/28 20:45:56 by vvaas            ###   ########.fr       */
+/*   Updated: 2023/07/29 00:09:34 by vvaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void			ft_freesplit(char **tab);
 char			*create_input(t_parser_info *info);
 char			**create_env(void);
 bool			is_environment(char *input);
-void			add_env(char *input);
+void			add_env(char *input, bool append);
 void			ft_export(t_parser_info *info);
 char			**create_env(void);
 int				ft_setcwd(t_parser_info *info);
@@ -47,4 +47,7 @@ void			command(t_parser_info *info, int *save);
 void			c_pipe(t_parser_info *info, int fd);
 char			*ft_strndup_malloc(const char *s, size_t n);
 void			ft_changedir(void);
+char			*get_key(const char *arg);
+bool			is_append(const char *arg);
+void			ft_nullenv(char **input, char **found, char **key, char **val);
 #endif

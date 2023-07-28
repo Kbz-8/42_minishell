@@ -6,7 +6,7 @@
 #    By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/18 10:57:27 by maldavid          #+#    #+#              #
-#    Updated: 2023/07/28 21:35:09 by vvaas            ###   ########.fr        #
+#    Updated: 2023/07/29 00:05:42 by vvaas            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,6 +31,7 @@ SRCS	=	src/core/main.c \
 			src/exec/r_out.c \
 			src/exec/r_utils.c \
 			src/exec/c_pipe.c \
+			src/exec/env_utils.c \
 			src/exec/builtin/ft_exit.c \
 			src/exec/builtin/ft_cd.c \
 			src/exec/builtin/ft_pwd.c \

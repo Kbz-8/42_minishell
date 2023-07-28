@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/01 02:29:32 by vvaas             #+#    #+#             */
-/*   Updated: 2023/07/28 21:40:03 by vvaas            ###   ########.fr       */
+/*   Updated: 2023/07/29 00:05:17 by vvaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,8 @@ bool	is_valid(const char *arg)
 	int	i;
 
 	i = 0;
+	if (!arg)
+		return (true);
 	if (arg[i] == '=')
 		return (false);
 	while (arg[i] && arg[i] != '=')
@@ -112,11 +114,14 @@ void	ft_export(t_parser_info *info)
 		print_sorted_env();
 	while (info->args[i])
 	{
-		if (!is_valid(info->args[i]))
+		if (!is_valid(get_key(info->args[i])))
 			ft_printf("minishell: export: `%s': not a valid identifier\n", \
 			info->args[i++]);
 		else
-			add_env((char *)info->args[i++]);
+		{
+			add_env((char *)info->args[i], is_append(info->args[i]));
+			i++;
+		}
 	}
 	while (info->args[i++])
 	{
