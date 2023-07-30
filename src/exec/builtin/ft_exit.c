@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 12:13:27 by vvaas             #+#    #+#             */
-/*   Updated: 2023/07/30 21:36:11 by vvaas            ###   ########.fr       */
+/*   Updated: 2023/07/30 21:37:55 by vvaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ static bool	ft_is_number(char *arg)
 
 static unsigned int	exitcode(t_parser_info *info)
 {
-	unsigned int exitcode;
+	unsigned int	exitcode;
 
 	exitcode = ft_atoi(info->args[1]);
 	exitcode %= 256;
