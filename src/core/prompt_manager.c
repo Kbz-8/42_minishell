@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/21 16:21:17 by maldavid          #+#    #+#             */
-/*   Updated: 2023/07/26 21:13:28 by maldavid         ###   ########.fr       */
+/*   Updated: 2023/07/30 19:20:54 by maldavid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,7 +131,7 @@ char	*display_prompt(t_prompt *prompt)
 	int		i;
 
 	entry = readline(prompt->text);
-	if (!entry)
+	if (entry == NULL)
 		return (NULL);
 	end_hd = find_next_here_doc_index(entry);
 	p = entry + end_hd;
