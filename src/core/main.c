@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 11:10:27 by maldavid          #+#    #+#             */
-/*   Updated: 2023/07/28 22:47:07 by vvaas            ###   ########.fr       */
+/*   Updated: 2023/07/30 19:28:20 by vvaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,7 @@ int	main(int ac, char **av, char **env)
 		if (ft_strlen(entry) != 0 && !prompt->here_doc)
 			add_history(entry);
 		if (entry == NULL)
-			ft_putstr("exit\n");
-		if (entry == NULL)
-			break ;
+			ft_exit(NULL);
 		exec_command(parse(entry), 0);
 	}
 	free(entry);
