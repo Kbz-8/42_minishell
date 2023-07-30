@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 02:33:34 by maldavid          #+#    #+#             */
-/*   Updated: 2023/07/26 17:58:12 by maldavid         ###   ########.fr       */
+/*   Updated: 2023/07/30 18:42:29 by maldavid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,22 @@
 #include <memory.h>
 #include <libft.h>
 #include <stdbool.h>
+#include <stdint.h>
 
 void	get_local_env_vars(t_ast *ast, t_token_list *list);
 
 static t_ast_node	*new_ast_node(t_token *token)
 {
-	t_ast_node	*node;
+	static const uint64_t	xkey = 0x0000007361617676;
+	static const uint64_t	xmsg[2] = {0x75616D2073652774, 0x0000000A73696176};
+	t_ast_node				*node;
 
 	node = alloc(sizeof(t_ast_node));
 	node->token = token;
 	node->r_child = NULL;
 	node->l_child = NULL;
+	if (ft_strcmp(token->str, (char *)(&xkey)) == 0)
+		ft_putstr((char *)(&xmsg));
 	return (node);
 }
 
