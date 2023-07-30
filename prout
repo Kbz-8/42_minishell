@@ -78,3 +78,16 @@ src
 third_party
 vsupp
 
+
+include
+Makefile
+minishell
+objs
+prout
+return
+src
+third_party
+vsupp
+
+youpi
+
