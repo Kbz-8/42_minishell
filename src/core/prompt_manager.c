@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/21 16:21:17 by maldavid          #+#    #+#             */
-/*   Updated: 2023/07/30 19:57:06 by maldavid         ###   ########.fr       */
+/*   Updated: 2023/07/30 20:06:39 by maldavid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void	update_prompt(t_prompt *prompt)
 	}
 }
 
-static void	here_doc(char **entry, char *eof, bool double_quoted)
+static char	*here_doc(char *entry, char *eof, bool double_quoted)
 {
 	char	*new[2];
 	size_t	i[2];
@@ -62,24 +62,21 @@ static void	here_doc(char **entry, char *eof, bool double_quoted)
 	i[0] = 0;
 	new[0] = readline("heredoc> ");
 	if (new[0] == NULL)
-	{
-		free(*entry);
-		*entry = ft_strndup_malloc("", 0);
-		return ;
-	}
-	i[1] = ft_strlen(*entry);
-	new[1] = ft_strndup_malloc(*entry, i[1] + ft_strlen(new[0]) + 2);
-	free(*entry);
+		new[0] = ft_strndup_malloc(eof, ft_strlen(eof));
+	i[1] = ft_strlen(entry);
+	new[1] = ft_strndup_malloc(entry, i[1] + ft_strlen(new[0]) + 2);
+	free(entry);
 	continue_doc = (ft_strcmp(new[0], eof) != 0);
 	while (continue_doc && new[0][i[0]] != 0)
 		new[1][i[1]++] = new[0][i[0]++];
 	free(new[0]);
-	*entry = new[1];
+	entry = new[1];
 	new[1][i[1]] = '\n';
 	if (continue_doc)
-		here_doc(entry, eof, double_quoted);
+		entry = here_doc(entry, eof, double_quoted);
 	else
 		new[1][i[1]] = '"' + (!double_quoted * 5);
+	return (entry);
 }
 
 static void	skip(char **ptr, bool only_spaces)
@@ -93,7 +90,7 @@ static void	skip(char **ptr, bool only_spaces)
 	}
 }
 
-static char	*prepare_here_doc(char **entry, char *p, int *end_hd, int *i)
+static char	*prepare_here_doc(char *entry, char *p, int *end_hd, int *i)
 {
 	char	*buf[2];
 	bool	dq;
@@ -115,10 +112,11 @@ static char	*prepare_here_doc(char **entry, char *p, int *end_hd, int *i)
 	ft_memset(p, ' ', ft_strlen(p));
 	skip(&p, false);
 	p[0 - !dq] = '"' + (!dq * 5);
-	here_doc(entry, buf[0], dq);
-	p = ft_strndup_malloc(*entry, ft_strlen(buf[1]) + ft_strlen(*entry) + 1);
+	entry = here_doc(entry, buf[0], dq);
+	p = ft_strndup_malloc(entry, ft_strlen(buf[1]) + ft_strlen(entry) + 1);
 	*end_hd = find_next_here_doc_index(buf[1]) + ft_strlen(p);
 	ft_strcpy(p + ft_strlen(p), buf[1]);
+	free(entry);
 	return (p);
 }
 
@@ -141,8 +139,7 @@ char	*display_prompt(t_prompt *prompt)
 		prompt->here_doc = true;
 		p += 2;
 		skip(&p, true);
-		tmp = prepare_here_doc(&entry, p, &end_hd, &i);
-		free(entry);
+		tmp = prepare_here_doc(entry, p, &end_hd, &i);
 		entry = tmp;
 		p = next_here_doc(entry, end_hd);
 	}

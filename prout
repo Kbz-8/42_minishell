@@ -1,0 +1,8 @@
+include
+Makefile
+minishell
+objs
+src
+third_party
+vsupp
+
