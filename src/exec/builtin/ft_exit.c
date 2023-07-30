@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 12:13:27 by vvaas             #+#    #+#             */
-/*   Updated: 2023/07/30 19:27:14 by vvaas            ###   ########.fr       */
+/*   Updated: 2023/07/30 19:58:25 by maldavid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	ft_exit(t_parser_info *info)
 {
 	if (!info || !info->args[1])
 	{
-		printf("exit\n");
+		ft_printf("exit\n");
 		hard_close();
 		allfree();
 		exit(get_env_data()->last_return);
