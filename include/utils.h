@@ -50,4 +50,5 @@ void			ft_changedir(void);
 char			*get_key(const char *arg);
 bool			is_append(const char *arg);
 void			ft_nullenv(char **input, char **found, char **key, char **val);
+void            hard_close(void);
 #endif

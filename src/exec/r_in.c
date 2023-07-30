@@ -29,7 +29,7 @@ t_parser_info	*r_in(t_parser_info *info, bool heredoc)
 	close(0);
 	buffer = (char *)info->next->args[0];
 	open(info->next->args[0], O_RDONLY | O_CREAT);
-	jump_next(info);
+	info = jump_next(info);
 	if (info->link == NONE)
 		exec_command(info, 0);
 	else

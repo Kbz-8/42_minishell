@@ -18,11 +18,14 @@
 
 t_parser_info	*jump_next_pipe(t_parser_info *info)
 {
-	while (info->next && info->link != PIPE)
-		info = info->next;
-	if (info->next == NULL)
+	t_parser_info *tmp;
+
+	tmp = info;
+	while (tmp->next && tmp->link != PIPE)
+		tmp = tmp->next;
+	if (tmp->next == NULL)
 		return (NULL);
-	return (info);
+	return (tmp);
 }
 
 bool	is_a_dir(char *path)
@@ -48,9 +51,8 @@ t_parser_info	*jump_next(t_parser_info *info)
 	if (info->next == NULL)
 		return (NULL);
 	tmp = info;
-	info = info->next;
-	tmp->link = info->link;
-	tmp->next = info->next;
+	tmp->link = info->next->link;
+	tmp->next = info->next->next;
 	return (tmp);
 }
 

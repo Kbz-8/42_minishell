@@ -33,11 +33,9 @@ bool	env_key_exist(char *key)
 
 void	append_env(char *input)
 {
-	int		i;
 	char	*key;
 	char	*value;
 
-	i = 0;
 	key = get_key(input);
 	value = ft_strdup(input) + 2 + ft_strlen(key);
 	if (key_exists(key))

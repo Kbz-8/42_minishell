@@ -18,6 +18,16 @@
 #include <stdbool.h>
 #include <errors.h>
 #include <memory.h>
+#include <unistd.h>
+
+void	hard_close(void)
+{
+	int i;
+
+	i = 1023;
+	while (i - 2)
+		close(i--);
+}
 
 static bool	ft_is_number(char *arg)
 {
@@ -39,8 +49,15 @@ void	ft_exit(t_parser_info *info)
 {
 	unsigned int	exitcode;
 
+	if (!info)
+	{
+		hard_close();
+		allfree();
+		exit(get_env_data()->last_return);
+	}
 	if (!info->args[1])
 	{
+		hard_close();
 		allfree();
 		exit(get_env_data()->last_return);
 	}
@@ -48,6 +65,7 @@ void	ft_exit(t_parser_info *info)
 	{
 		ft_printf("exit\nminishell: exit: %s:  numeric argument required\n", \
 		info->args[1]);
+		hard_close();
 		allfree();
 		exit(2);
 	}
@@ -56,6 +74,7 @@ void	ft_exit(t_parser_info *info)
 	else
 	{
 		exitcode = ft_atoi(info->args[1]);
+		hard_close();
 		allfree();
 		exit(exitcode % 256);
 	}
