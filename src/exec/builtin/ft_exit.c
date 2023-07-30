@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 12:13:27 by vvaas             #+#    #+#             */
-/*   Updated: 2023/07/25 21:05:58 by vvaas            ###   ########.fr       */
+/*   Updated: 2023/07/30 19:27:14 by vvaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 
 void	hard_close(void)
 {
-	int i;
+	int	i;
 
 	i = 1023;
 	while (i - 2)
@@ -47,16 +47,9 @@ static bool	ft_is_number(char *arg)
 
 void	ft_exit(t_parser_info *info)
 {
-	unsigned int	exitcode;
-
-	if (!info)
+	if (!info || !info->args[1])
 	{
-		hard_close();
-		allfree();
-		exit(get_env_data()->last_return);
-	}
-	if (!info->args[1])
-	{
+		printf("exit\n");
 		hard_close();
 		allfree();
 		exit(get_env_data()->last_return);
@@ -73,9 +66,8 @@ void	ft_exit(t_parser_info *info)
 		ft_printf("exit\nminishell: exit: too many arguments\n", info->args[1]);
 	else
 	{
-		exitcode = ft_atoi(info->args[1]);
 		hard_close();
 		allfree();
-		exit(exitcode % 256);
+		exit((unsigned int)ft_atoi(info->args[1]) % 256);
 	}
 }

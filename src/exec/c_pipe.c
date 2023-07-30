@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/25 21:46:24 by vvaas             #+#    #+#             */
-/*   Updated: 2023/07/30 19:17:50 by maldavid         ###   ########.fr       */
+/*   Updated: 2023/07/30 19:25:24 by vvaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ void	last_pipe_cmd(t_parser_info *info)
 	if (pid == 0)
 	{
 		exec_command(info, 0);
+		allfree();
+		hard_close();
 		exit(get_env_data()->last_return);
 	}
 	else

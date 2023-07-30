@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/25 21:09:09 by vvaas             #+#    #+#             */
-/*   Updated: 2023/07/25 21:45:06 by vvaas            ###   ########.fr       */
+/*   Updated: 2023/07/30 19:26:08 by vvaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 
 t_parser_info	*jump_next_pipe(t_parser_info *info)
 {
-	t_parser_info *tmp;
+	t_parser_info	*tmp;
 
 	tmp = info;
 	while (tmp->next && tmp->link != PIPE)
