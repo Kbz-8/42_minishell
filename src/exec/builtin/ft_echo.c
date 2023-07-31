@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/08 18:25:19 by vvaas             #+#    #+#             */
-/*   Updated: 2023/07/26 14:57:31 by maldavid         ###   ########.fr       */
+/*   Updated: 2023/07/31 19:31:05 by vvaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,35 @@
 #include <stdbool.h>
 #include <memory.h>
 
-void	print_echo(t_parser_info *info, int i, bool newline)
+bool	is_flag(char *arg)
 {
+	int	i;
+
+	i = 2;
+	if (arg[0] == '-' && arg[1] == 'n')
+	{
+		while (arg[i] == 'n')
+			i++;
+		if (arg[i])
+			return (false);
+	}
+	else
+		return (false);
+	return (true);
+}
+
+void	print_echo(t_parser_info *info)
+{
+	int		i;
+	bool	newline;
+
+	newline = true;
+	i = 1;
+	while (info->args[i] && is_flag((char *)info->args[i]))
+	{
+		newline = false;
+		i++;
+	}
 	while (info->args[i])
 	{
 		printf("%s", info->args[i]);
@@ -34,8 +61,6 @@ void	ft_echo(t_parser_info *info)
 {
 	if (info->args[1] == NULL)
 		printf("\n");
-	else if (!ft_strcmp(info->args[1], "-n"))
-		print_echo(info, 2, false);
 	else
-		print_echo(info, 1, true);
+		print_echo(info);
 }

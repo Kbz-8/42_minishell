@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/25 21:46:24 by vvaas             #+#    #+#             */
-/*   Updated: 2023/07/30 19:25:24 by vvaas            ###   ########.fr       */
+/*   Updated: 2023/07/31 20:31:58 by vvaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 #include <stdio.h>
 #include <signal.h>
 
-void	last_pipe_cmd(t_parser_info *info)
+void	last_pipe_cmd(t_parser_info *info, int save)
 {
 	pid_t	pid;
 
@@ -29,6 +29,8 @@ void	last_pipe_cmd(t_parser_info *info)
 	if (pid == 0)
 	{
 		exec_command(info, 0);
+		dup2(save, 0);
+		close(save);
 		allfree();
 		hard_close();
 		exit(get_env_data()->last_return);
@@ -43,13 +45,13 @@ void	continue_to_next_cmd(t_parser_info *info, int *saves, int *p, int pid)
 	close(saves[1]);
 	dup2(p[0], 0);
 	close(p[0]);
-	waitpid(pid, 0, 0);
 	if (jump_next_pipe(info->next) == NULL)
-		last_pipe_cmd(info->next);
+		last_pipe_cmd(info->next, saves[0]);
 	else
 		exec_command(info->next, 0);
 	dup2(saves[0], 0);
 	close(saves[0]);
+	waitpid(pid, 0, 0);
 	return ;
 }
 

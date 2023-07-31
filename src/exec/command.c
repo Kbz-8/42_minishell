@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 12:06:31 by vvaas             #+#    #+#             */
-/*   Updated: 2023/07/28 20:23:58 by vvaas            ###   ########.fr       */
+/*   Updated: 2023/07/31 19:37:12 by vvaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,12 @@ bool	check_isdir(t_parser_info *info)
 		get_env_data()->last_return = 126;
 		return (1);
 	}
+	if (ft_strstr(info->cmd.str, "./") && access(info->cmd.str, X_OK) != 0)
+	{
+		printf("minishell: %s: Permission denied\n", info->cmd.str);
+		get_env_data()->last_return = 126;
+		return (1);
+	}
 	return (0);
 }
 
@@ -59,7 +65,7 @@ void	check_input(t_parser_info *info, int *save)
 		return ;
 	else if (is_executable(info->cmd.str))
 		ft_execve(info->cmd.str, (char **)info->args, create_env(), save);
-	else if (!access(info->cmd.str, F_OK))
+	else if (access(info->cmd.str, F_OK))
 	{
 		printf("minishell: %s: Permission denied\n", info->args[0]);
 		get_env_data()->last_return = 126;
