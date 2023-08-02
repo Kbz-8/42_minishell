@@ -79,8 +79,15 @@ void	ft_execve(char *path, char **argv, char **env, int *save)
 
 	i = 0;
 	pid = fork();
-	if (pid == 0 && execve(path, argv, env) == -1)
+	if (pid == 0)
 	{
+		while (save && save[i] != 0)
+			close(save[i++]);
+	}
+	i = 0;
+	if (pid == 0)
+	{
+		execve(path, argv, env);
 		while (save && save[i] != 0)
 			close(save[i++]);
 		allfree();
@@ -89,8 +96,7 @@ void	ft_execve(char *path, char **argv, char **env, int *save)
 	if (pid != 0)
 	{
 		waitpid(pid, &get_env_data()->last_return, 0);
-		while (save && save[i] != 0)
-			close(save[i++]);
+		hard_close();
 		if (WIFEXITED(get_env_data()->last_return))
 			get_env_data()->last_return = \
 			WEXITSTATUS(get_env_data()->last_return);

@@ -79,6 +79,7 @@ void	c_pipe(t_parser_info *info, int fd)
 	pipe(pipes);
 	saves[0] = dup(0);
 	saves[1] = dup(1);
+	printf("save0 :%d save1:%d pipe0:%d pipe1:%d\n", saves[0], saves[1], pipes[0], pipes[1]);
 	if (fd != -1)
 		append_value(t_save, fd);
 	pid = fork();
@@ -88,5 +89,7 @@ void	c_pipe(t_parser_info *info, int fd)
 		continue_to_next_cmd(info, saves, pipes, pid);
 		return ;
 	}
+	append_value(t_save, saves[1]);
+	append_value(t_save, saves[0]);
 	exec_pipe_cmd(t_save, saves, pipes, info);
 }

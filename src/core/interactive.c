@@ -18,6 +18,18 @@
 #include <unistd.h>
 #include <nexus.h>
 #include <libft.h>
+#include <memory.h>
+#include <utils.h>
+
+void	process_sigpipe(int sig)
+{
+	if (sig == SIGPIPE)
+	{
+		hard_close();
+		allfree();
+		exit(128 + SIGPIPE);
+	}
+}
 
 void	process(int sig)
 {
@@ -46,6 +58,7 @@ void	init_sig(void)
 {
 	signal(SIGINT, process);
 	signal(SIGQUIT, SIG_IGN);
+	signal(SIGPIPE, process_sigpipe);
 	get_env_data()->last_return = 0;
 	get_env_data()->listen = 1;
 	get_env_data()->fd = -1;
