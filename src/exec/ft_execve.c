@@ -75,24 +75,22 @@ char	*is_exec_path(char *name)
 void	ft_execve(char *path, char **argv, char **env, int *save)
 {
 	pid_t	pid;
+	int i;
 
 	pid = fork();
+	i = 0;
 	if (pid == 0)
 	{
-		(void)save;
 		hard_close();
-	}
-	if (pid == 0)
-	{
 		execve(path, argv, env);
-		hard_close();
 		allfree();
 		exit(get_env_data()->last_return);
 	}
-	if (pid != 0)
+	else
 	{
 		waitpid(pid, &get_env_data()->last_return, 0);
-		hard_close();
+		while (save[i] && save[i] != 0 && save[i] < 1024)
+			close(save[i++]);
 		if (WIFEXITED(get_env_data()->last_return))
 			get_env_data()->last_return = \
 			WEXITSTATUS(get_env_data()->last_return);

@@ -30,14 +30,11 @@ t_parser_info	*r_in(t_parser_info *info, bool heredoc)
 	buffer = (char *)info->next->args[0];
 	open(info->next->args[0], O_RDONLY | O_CREAT);
 	info = jump_next(info);
-	if (info->link == NONE)
-		exec_command(info, 0);
-	else
-		exec_command(info, save);
-	if (heredoc)
-		unlink(buffer);
 	dup2(save, 0);
 	close(save);
+	if (heredoc)
+		unlink(buffer);
+	exec_command(info, 0);
 	return (NULL);
 }
 
@@ -48,11 +45,16 @@ char	*generate_tmp(void)
 
 	i = 0;
 	buffer = ft_strjoin("/tmp/HEREDOC", ft_itoa(i));
-	while (access(buffer, F_OK) == 0)
+	while (access(buffer, F_OK) == 0 && i < RAND_MAX)
 	{
 		dealloc(buffer);
 		i++;
 		buffer = ft_strjoin("/tmp/HEREDOC", ft_itoa(i));
+	}
+	if (i == RAND_MAX)
+	{
+		dealloc(buffer);
+		return (NULL);
 	}
 	return (buffer);
 }
@@ -63,6 +65,8 @@ t_parser_info	*r_doc(t_parser_info *info)
 	char	*buffer;
 
 	buffer = generate_tmp();
+	if (buffer == NULL)
+		ft_exit(info);
 	fd = open(buffer, O_CREAT | O_TRUNC | O_WRONLY, 0644);
 	if (fd != -1)
 	{

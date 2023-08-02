@@ -63,10 +63,10 @@ void	ropen(int *save, t_parser_info *info, bool *perror, t_parser_info *tmp)
 	if (fd == -1)
 		return ;
 	dup2(fd, 1);
-	command(tmp, NULL);
+	close(fd);
 	dup2(*save, 1);
 	close(*save);
-	close(fd);
+	command(tmp, save);
 }
 
 t_parser_info	*next_cmd(t_parser_info *info, t_parser_info *tmp)

@@ -121,8 +121,7 @@ void	exec_command(t_parser_info *info, int fd)
 		else if (info && info->link == PIPE)
 		{
 			c_pipe(info, fd);
-			info = info->next;
-			break ;
+			return ;
 		}
 	}
 	get_env_data()->listen = true;
