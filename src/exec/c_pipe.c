@@ -28,7 +28,7 @@ void	last_pipe_cmd(t_parser_info *info, int save)
 	pid = fork();
 	if (pid == 0)
 	{
-		exec_command(info, 0);
+		exec_command(info, save);
 		dup2(save, 0);
 		close(save);
 		allfree();
@@ -48,7 +48,7 @@ void	continue_to_next_cmd(t_parser_info *info, int *saves, int *p, int pid)
 	if (jump_next_pipe(info->next) == NULL)
 		last_pipe_cmd(info->next, saves[0]);
 	else
-		exec_command(info->next, 0);
+		exec_command(info->next, saves[0]);
 	dup2(saves[0], 0);
 	close(saves[0]);
 	waitpid(pid, 0, 0);
@@ -90,6 +90,5 @@ void	c_pipe(t_parser_info *info, int fd)
 		return ;
 	}
 	append_value(t_save, saves[1]);
-	append_value(t_save, saves[0]);
 	exec_pipe_cmd(t_save, saves, pipes, info);
 }

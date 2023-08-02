@@ -75,21 +75,17 @@ char	*is_exec_path(char *name)
 void	ft_execve(char *path, char **argv, char **env, int *save)
 {
 	pid_t	pid;
-	int		i;
 
-	i = 0;
 	pid = fork();
 	if (pid == 0)
 	{
-		while (save && save[i] != 0)
-			close(save[i++]);
+		(void)save;
+		hard_close();
 	}
-	i = 0;
 	if (pid == 0)
 	{
 		execve(path, argv, env);
-		while (save && save[i] != 0)
-			close(save[i++]);
+		hard_close();
 		allfree();
 		exit(get_env_data()->last_return);
 	}
