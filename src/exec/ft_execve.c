@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 17:59:21 by vvaas             #+#    #+#             */
-/*   Updated: 2023/08/03 17:40:31 by vvaas            ###   ########.fr       */
+/*   Updated: 2023/08/03 17:51:12 by vvaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ void	ft_execve(char *path, char **argv, char **env, int *save)
 	i = 0;
 	if (pid == 0)
 	{
-		hard_close();
+		hard_close(false);
 		execve(path, argv, env);
 		allfree();
 		exit(get_env_data()->last_return);

@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 11:27:36 by vvaas             #+#    #+#             */
-/*   Updated: 2023/07/30 20:15:17 by maldavid         ###   ########.fr       */
+/*   Updated: 2023/08/03 17:52:01 by vvaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,6 @@ void			ft_changedir(void);
 char			*get_key(const char *arg);
 bool			is_append(const char *arg);
 void			ft_nullenv(char **input, char **found, char **key, char **val);
-void			hard_close(void);
+void			hard_close(bool	hard);
 
 #endif

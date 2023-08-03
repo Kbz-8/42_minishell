@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 12:13:27 by vvaas             #+#    #+#             */
-/*   Updated: 2023/07/30 21:37:55 by vvaas            ###   ########.fr       */
+/*   Updated: 2023/08/03 17:52:20 by vvaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,16 @@
 #include <memory.h>
 #include <unistd.h>
 
-void	hard_close(void)
+void	hard_close(bool	hard)
 {
 	int	i;
 
 	i = 1023;
 	while (i - 2)
 		close(i--);
+	while (hard && i + 1)
+		close(i--);
+
 }
 
 static bool	ft_is_number(char *arg)
@@ -60,8 +63,8 @@ void	ft_exit(t_parser_info *info)
 
 	if (!info || !info->args[1])
 	{
+		hard_close(true);
 		ft_printf("exit\n");
-		hard_close();
 		allfree();
 		exit(get_env_data()->last_return);
 	}
@@ -69,14 +72,14 @@ void	ft_exit(t_parser_info *info)
 	{
 		ft_printf("exit\nminishell: exit: %s:  numeric argument required\n", \
 		info->args[1]);
-		hard_close();
+		hard_close(true);
 		allfree();
 		exit(2);
 	}
 	if (!info->args[2])
 	{
 		existcode = exitcode(info);
-		hard_close();
+		hard_close(true);
 		allfree();
 		exit(existcode);
 	}

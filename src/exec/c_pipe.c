@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/25 21:46:24 by vvaas             #+#    #+#             */
-/*   Updated: 2023/07/31 20:31:58 by vvaas            ###   ########.fr       */
+/*   Updated: 2023/08/03 17:51:18 by vvaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	last_pipe_cmd(t_parser_info *info, int save)
 		dup2(save, 0);
 		close(save);
 		allfree();
-		hard_close();
+		hard_close(false);
 		exit(get_env_data()->last_return);
 	}
 	else
@@ -64,7 +64,7 @@ void	exec_pipe_cmd(int *t_save, int *saves, int *pipes, t_parser_info *info)
 	command(info, t_save);
 	dup2(saves[1], 1);
 	close(saves[1]);
-	hard_close();
+	hard_close(false);
 	allfree();
 	exit(0);
 }
