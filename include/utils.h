@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 11:27:36 by vvaas             #+#    #+#             */
-/*   Updated: 2023/08/03 19:07:59 by vvaas            ###   ########.fr       */
+/*   Updated: 2023/08/03 20:25:14 by vvaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,4 +52,7 @@ bool			is_append(const char *arg);
 void			ft_nullenv(char **input, char **found, char **key, char **val);
 void			hard_close(bool	hard);
 bool			ft_iswhitespace(char *str);
+bool			check_isdir(t_parser_info *info);
+bool			is_a_command(t_parser_info *info);
+
 #endif
