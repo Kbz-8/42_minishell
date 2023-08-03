@@ -6,7 +6,7 @@
 /*   By: maldavid <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/03 18:49:15 by maldavid          #+#    #+#             */
-/*   Updated: 2023/08/03 19:07:50 by maldavid         ###   ########.fr       */
+/*   Updated: 2023/08/03 19:57:27 by maldavid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,10 @@ void	redirections_sanitize(t_ast_node *ast)
 		split = args_split(ast->r_child->token->str, " \t");
 	if (split[1] == NULL)
 		return ;
-	str = &ast->r_child->token->str;
+	if (ast->r_child->token->type != AST_COMMAND)
+		str = &ast->r_child->l_child->token->str;
+	else
+		str = &ast->r_child->token->str;
 	i = skip(*str, skip(*str, skip(*str, 0, true), false), true);
 	(*str)[i - 1] = 0;
 	if (ast->l_child == NULL)
