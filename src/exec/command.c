@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 12:06:31 by vvaas             #+#    #+#             */
-/*   Updated: 2023/07/31 19:37:12 by vvaas            ###   ########.fr       */
+/*   Updated: 2023/08/03 18:07:45 by vvaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ bool	check_isdir(t_parser_info *info)
 {
 	struct stat	file;
 
+	if (ft_strlen(info->cmd.str) == 0)
+		return (0);
 	if (stat(info->cmd.str, &file) == -1)
 	{
 		printf("minishell: %s: No such file or directory\n", info->cmd.str);
@@ -65,7 +67,7 @@ void	check_input(t_parser_info *info, int *save)
 		return ;
 	else if (is_executable(info->cmd.str))
 		ft_execve(info->cmd.str, (char **)info->args, create_env(), save);
-	else if (access(info->cmd.str, F_OK))
+	else if (access(info->cmd.str, F_OK) && ft_strlen(info->cmd.str) != 0)
 	{
 		printf("minishell: %s: Permission denied\n", info->args[0]);
 		get_env_data()->last_return = 126;

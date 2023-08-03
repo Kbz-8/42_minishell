@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/06 15:25:46 by vvaas             #+#    #+#             */
-/*   Updated: 2023/07/30 19:08:19 by maldavid         ###   ########.fr       */
+/*   Updated: 2023/08/03 17:56:57 by vvaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	process_sigpipe(int sig)
 {
 	if (sig == SIGPIPE)
 	{
-		hard_close();
+		hard_close(false);
 		allfree();
 		exit(128 + SIGPIPE);
 	}
