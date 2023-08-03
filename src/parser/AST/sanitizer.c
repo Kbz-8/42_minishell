@@ -6,7 +6,7 @@
 /*   By: maldavid <kbz_8.dev@akel-engine.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/23 10:28:28 by maldavid          #+#    #+#             */
-/*   Updated: 2023/08/03 16:57:08 by maldavid         ###   ########.fr       */
+/*   Updated: 2023/08/03 21:07:24 by maldavid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ bool	preprocess_ast_visit(t_ast_node *ast, bool is_root)
 		return (true);
 	if (ast->token->type == AST_PIPE && ast->l_child == NULL)
 		return (something_went_wrong(E_SANITIZE_NEAR));
-	if (ast->token->type < 4 && ast->l_child == NULL && !is_root)
+	if (ast->token->type == 4 && ast->l_child == NULL && !is_root)
 		return (something_went_wrong(E_SANITIZE_NEAR));
 	if (ast->token->type < 5 && ast->r_child == NULL)
 		return (something_went_wrong(E_SANITIZE_NEAR));
