@@ -6,7 +6,7 @@
 /*   By: maldavid <kbz_8.dev@akel-engine.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 04:34:34 by maldavid          #+#    #+#             */
-/*   Updated: 2023/08/03 17:50:58 by maldavid         ###   ########.fr       */
+/*   Updated: 2023/08/03 22:55:48 by maldavid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,26 +89,26 @@ static void	add_redirection(t_token_list **list, char **str)
 static void	add_command(t_token_list **list, char **str)
 {
 	t_command_data	data;
-	bool			dq;
 
 	ft_memset(&data, 0, sizeof(t_command_data));
 	data.alloc_size = 2048;
 	data.ptr = ft_memalloc(data.alloc_size);
-	dq = false;
-	while (*(*str) && ((data.in_string || dq) || !ft_strchr("|<>", *(*str))))
+	while (*(*str) && ((data.sq || data.dq) || !ft_strchr("|<>", *(*str))))
 	{
 		manage_realloc(&data.ptr, &data.alloc_size, data.i);
-		if (*(*str) == '\'' && !dq)
-			data.in_string = !data.in_string;
-		else if (*(*str) == '"' && !data.in_string)
-			dq = !dq;
-		else if ((*(*str) == '$' && !data.in_string) || \
-				(*(*str) == '~' && !dq && !data.in_string))
+		if (*(*str) == '\'' && !data.dq)
+			data.sq = !data.sq;
+		else if (*(*str) == '"' && !data.sq)
+			data.dq = !data.dq;
+		else if ((*(*str) == '$' && !data.sq) || \
+				(*(*str) == '~' && !data.dq && !data.sq))
 		{
 			include_var(&data, str);
 			continue ;
 		}
-		data.ptr[data.i++] = *(*str);
+		if ((*(*str) == '\'' && data.dq) || (*(*str) == '"' && data.sq) \
+				|| !ft_strchr("'\"", *(*str)))
+			data.ptr[data.i++] = *(*str);
 		(*str)++;
 	}
 	data.ptr[data.i] = 0;

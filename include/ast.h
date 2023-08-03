@@ -6,7 +6,7 @@
 /*   By: maldavid <kbz_8.dev@akel-engine.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 02:00:58 by maldavid          #+#    #+#             */
-/*   Updated: 2023/08/03 18:56:36 by maldavid         ###   ########.fr       */
+/*   Updated: 2023/08/03 22:54:43 by maldavid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,8 @@ typedef struct s_command_data
 	char		*var_value;
 	uint32_t	alloc_size;
 	uint32_t	i;
-	bool		in_string;
+	bool		sq;
+	bool		dq;
 }	t_command_data;
 
 t_ast			*generate_ast(t_token_list *list);

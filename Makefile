@@ -6,7 +6,7 @@
 #    By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/18 10:57:27 by maldavid          #+#    #+#              #
-#    Updated: 2023/08/03 19:13:04 by vvaas            ###   ########.fr        #
+#    Updated: 2023/08/03 23:06:51 by maldavid         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,6 +44,7 @@ SRCS	=	src/core/main.c \
 			src/parser/parser.c \
 			src/parser/AST/ast_visitor.c \
 			src/parser/AST/ast_visitor2.c \
+			src/parser/AST/ast_visitor3.c \
 			src/parser/AST/sanitizer.c \
 			src/parser/AST/ast.c \
 			src/parser/AST/node.c \
