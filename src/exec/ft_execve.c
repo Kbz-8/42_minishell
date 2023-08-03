@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 17:59:21 by vvaas             #+#    #+#             */
-/*   Updated: 2023/08/03 18:04:54 by vvaas            ###   ########.fr       */
+/*   Updated: 2023/08/03 18:11:01 by vvaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ char	*is_exec_path(char *name)
 void	ft_execve(char *path, char **argv, char **env, int *save)
 {
 	pid_t	pid;
-	int i;
+	int		i;
 
 	pid = fork();
 	i = 0;

@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 12:13:27 by vvaas             #+#    #+#             */
-/*   Updated: 2023/08/03 17:52:20 by vvaas            ###   ########.fr       */
+/*   Updated: 2023/08/03 18:10:45 by vvaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ void	hard_close(bool	hard)
 		close(i--);
 	while (hard && i + 1)
 		close(i--);
-
 }
 
 static bool	ft_is_number(char *arg)
