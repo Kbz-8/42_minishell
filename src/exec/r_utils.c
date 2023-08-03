@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/25 21:09:09 by vvaas             #+#    #+#             */
-/*   Updated: 2023/08/03 20:58:27 by vvaas            ###   ########.fr       */
+/*   Updated: 2023/08/03 21:15:57 by vvaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,8 +60,8 @@ bool	r_in_error(t_parser_info *info)
 {
 	struct stat	file;
 
-	if(info->next->args == NULL)
-		return (0);
+	if (info->next->args == NULL)
+		return (1);
 	if (stat(info->next->args[0], &file) == -1)
 	{
 		printf("minishell: %s: No such file or directory\n", \

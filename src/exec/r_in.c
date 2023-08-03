@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/25 21:08:40 by vvaas             #+#    #+#             */
-/*   Updated: 2023/08/03 20:27:07 by vvaas            ###   ########.fr       */
+/*   Updated: 2023/08/03 21:12:05 by vvaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,20 @@
 #include <builtin.h>
 #include <memory.h>
 
+t_parser_info	*to_out(t_parser_info *info)
+{
+	info->next = info->next->next;
+	info->link = R_OUT;
+	return (info);
+}
+
 t_parser_info	*r_in(t_parser_info *info, bool heredoc)
 {
 	int		save;
 	char	*buffer;
 
+	if (info->next->args == NULL)
+		return (to_out(info));
 	if (r_in_error(info) || info->cmd.str == NULL || !is_a_command(info))
 		return (jump_next_pipe(info));
 	save = dup(0);
