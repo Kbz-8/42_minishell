@@ -6,7 +6,7 @@
 /*   By: maldavid <kbz_8.dev@akel-engine.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 04:34:34 by maldavid          #+#    #+#             */
-/*   Updated: 2023/07/30 18:19:18 by maldavid         ###   ########.fr       */
+/*   Updated: 2023/08/03 17:50:58 by maldavid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 void	manage_realloc(char **ptr, uint32_t *alloc_size, uint32_t i);
 void	include_var(t_command_data *data, char **str);
 
-static t_token_list	*new_token(char *str)
+t_token_list	*new_token(char *str)
 {
 	t_token_list	*list;
 	size_t			size;

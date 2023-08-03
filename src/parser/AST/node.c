@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 02:33:34 by maldavid          #+#    #+#             */
-/*   Updated: 2023/07/30 18:42:29 by maldavid         ###   ########.fr       */
+/*   Updated: 2023/08/03 18:56:27 by maldavid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,7 @@
 #include <stdbool.h>
 #include <stdint.h>
 
-void	get_local_env_vars(t_ast *ast, t_token_list *list);
-
-static t_ast_node	*new_ast_node(t_token *token)
+t_ast_node	*new_ast_node(t_token *token)
 {
 	static const uint64_t	xkey = 0x0000007361617676;
 	static const uint64_t	xmsg[2] = {0x75616D2073652774, 0x0000000A73696176};
@@ -71,7 +69,7 @@ static t_token_list	*separator_position(t_token_list *list, int *pos)
 	return (NULL);
 }
 
-static void	token_list_to_ast(t_ast_node **ast, t_token_list *list)
+void	token_list_to_ast(t_ast_node **ast, t_token_list *list)
 {
 	t_token_list	*sep;
 	t_token_list	*l_sub;
@@ -91,11 +89,8 @@ static void	token_list_to_ast(t_ast_node **ast, t_token_list *list)
 	r_sub = get_sub_list(sep->next, -1);
 	token_list_to_ast(&(*ast)->l_child, l_sub);
 	token_list_to_ast(&(*ast)->r_child, r_sub);
+	if (sep->token->type > 1 && sep->token->type < 5)
+		redirections_sanitize(*ast);
 	free_token_list(l_sub);
 	free_token_list(r_sub);
-}
-
-void	to_ast(t_ast *ast, t_token_list *list)
-{
-	token_list_to_ast(&ast->root, list);
 }

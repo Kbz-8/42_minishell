@@ -6,7 +6,7 @@
 /*   By: maldavid <kbz_8.dev@akel-engine.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/17 17:26:28 by maldavid          #+#    #+#             */
-/*   Updated: 2023/07/26 16:32:15 by maldavid         ###   ########.fr       */
+/*   Updated: 2023/08/03 16:59:22 by maldavid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,7 @@ static t_parser_info	*visit_command(t_ast_node *node)
 	if (info->args[0] != NULL && \
 			ft_strcmp(info->args[0], "pouic") == 0 && info->args[1] == NULL)
 		ft_putstr("youpi\n");
-	if (info->args[0] == NULL || \
-			(ft_strcmp(info->args[0], "pouic") == 0 && info->args[1] == NULL))
+	if (info->args[0] == NULL)
 		return (info);
 	i = 0;
 	while (i < (int)(sizeof(builtins) / sizeof(builtins[0])))

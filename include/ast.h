@@ -6,7 +6,7 @@
 /*   By: maldavid <kbz_8.dev@akel-engine.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 02:00:58 by maldavid          #+#    #+#             */
-/*   Updated: 2023/07/26 18:12:46 by maldavid         ###   ########.fr       */
+/*   Updated: 2023/08/03 18:56:36 by maldavid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,11 +65,14 @@ typedef struct s_command_data
 
 t_ast			*generate_ast(t_token_list *list);
 t_token_list	*generate_token_list(char *entry);
-void			to_ast(t_ast *ast, t_token_list *list);
+t_token_list	*new_token(char *str);
+t_ast_node		*new_ast_node(t_token *token);
+void			token_list_to_ast(t_ast_node **ast, t_token_list *list);
 t_parser_info	*visit_ast(t_ast_node *ast);
 void			free_token_list(t_token_list *list);
 bool			preprocess_ast_visit(t_ast_node *ast, bool is_root);
 void			postprocess_ast_visit(t_parser_info *info);
 char			**args_split(const char *s, char *sep);
+void			redirections_sanitize(t_ast_node *ast);
 
 #endif

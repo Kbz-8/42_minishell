@@ -6,7 +6,7 @@
 /*   By: maldavid <kbz_8.dev@akel-engine.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 02:07:39 by maldavid          #+#    #+#             */
-/*   Updated: 2023/07/30 20:12:58 by maldavid         ###   ########.fr       */
+/*   Updated: 2023/08/03 19:11:45 by maldavid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ t_ast	*generate_ast(t_token_list *list)
 	ast = alloc(sizeof(t_ast));
 	ast->root = NULL;
 	ast->local_vars = NULL;
-	to_ast(ast, list);
+	token_list_to_ast(&ast->root, list);
 	free_token_list(list);
 	return (ast);
 }
