@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/25 21:12:12 by vvaas             #+#    #+#             */
-/*   Updated: 2023/07/26 22:45:44 by vvaas            ###   ########.fr       */
+/*   Updated: 2023/08/03 17:19:34 by vvaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,9 +64,9 @@ void	ropen(int *save, t_parser_info *info, bool *perror, t_parser_info *tmp)
 		return ;
 	dup2(fd, 1);
 	close(fd);
+	command(tmp, save);
 	dup2(*save, 1);
 	close(*save);
-	command(tmp, save);
 }
 
 t_parser_info	*next_cmd(t_parser_info *info, t_parser_info *tmp)
