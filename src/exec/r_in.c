@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/25 21:08:40 by vvaas             #+#    #+#             */
-/*   Updated: 2023/07/28 19:34:00 by vvaas            ###   ########.fr       */
+/*   Updated: 2023/08/03 17:41:42 by vvaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,11 @@ t_parser_info	*r_in(t_parser_info *info, bool heredoc)
 	buffer = (char *)info->next->args[0];
 	open(info->next->args[0], O_RDONLY | O_CREAT);
 	info = jump_next(info);
-	dup2(save, 0);
-	close(save);
 	if (heredoc)
 		unlink(buffer);
 	exec_command(info, 0);
+	dup2(save, 0);
+	close(save);
 	return (NULL);
 }
 

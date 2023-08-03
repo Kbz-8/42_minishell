@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/10 17:59:21 by vvaas             #+#    #+#             */
-/*   Updated: 2023/07/27 00:00:28 by vvaas            ###   ########.fr       */
+/*   Updated: 2023/08/03 17:40:31 by vvaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ void	ft_execve(char *path, char **argv, char **env, int *save)
 	else
 	{
 		waitpid(pid, &get_env_data()->last_return, 0);
-		while (save[i] && save[i] != 0 && save[i] < 1024)
+		while (save && save[i] && save[i] != 0 && save[i] < 1024)
 			close(save[i++]);
 		if (WIFEXITED(get_env_data()->last_return))
 			get_env_data()->last_return = \
