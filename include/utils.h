@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/18 11:27:36 by vvaas             #+#    #+#             */
-/*   Updated: 2023/08/03 18:04:20 by vvaas            ###   ########.fr       */
+/*   Updated: 2023/08/03 19:07:59 by vvaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,5 +51,5 @@ char			*get_key(const char *arg);
 bool			is_append(const char *arg);
 void			ft_nullenv(char **input, char **found, char **key, char **val);
 void			hard_close(bool	hard);
-
+bool			ft_iswhitespace(char *str);
 #endif
