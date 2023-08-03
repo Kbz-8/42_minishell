@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/29 00:01:34 by vvaas             #+#    #+#             */
-/*   Updated: 2023/07/29 00:11:59 by vvaas            ###   ########.fr       */
+/*   Updated: 2023/08/03 22:40:59 by vvaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,9 @@ char	*get_key(const char *arg)
 	i = 0;
 	while (arg[i] && arg[i] != '=' && (arg[i] != '+' && arg[i + 1] != '='))
 		i++;
-	if (arg[i] == 0)
+	if (i == 0)
 		return (NULL);
-	return (ft_strndup(arg, i));
+	return (ft_strndup(arg, i + 1));
 }
 
 bool	is_append(const char *arg)
