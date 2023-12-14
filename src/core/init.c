@@ -6,7 +6,7 @@
 /*   By: vvaas <vvaas@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 15:22:37 by maldavid          #+#    #+#             */
-/*   Updated: 2023/07/28 21:00:59 by vvaas            ###   ########.fr       */
+/*   Updated: 2023/12/14 19:05:32 by vvaas            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,6 @@
 #include <interactive.h>
 #include <memory.h>
 #include <libft.h>
-
-static char	*shlvl(char *lvl)
-{
-	int		i;
-
-	i = ft_atoi(lvl);
-	i++;
-	return (ft_itoa(i));
-}
 
 void	init_minishell(char **env)
 {
@@ -41,7 +32,7 @@ void	init_minishell(char **env)
 		value = ft_strdup(ft_strchr(env[i], '=') + 1);
 		key = ft_strndup(env[i], ft_strchr(env[i], '=') - env[i]);
 		if (ft_strcmp(key, "SHLVL") == 0)
-			value = shlvl(value);
+			value = ft_itoa(ft_atoi(value) + 1);
 		if (ft_strcmp(key, "SHLVL") == 0)
 			sh_lvl = true;
 		add_env_var(key, value);
